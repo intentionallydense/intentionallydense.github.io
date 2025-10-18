@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - intentionallydense</title>
+    <title>Dashboard</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -63,6 +63,18 @@
             grid-column: 1 / -1;
         }
         
+        .readonly-notice {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: #ff6b6b;
+            font-size: 12px;
+            padding: 10px;
+            background: #1a0000;
+            border: 1px solid #ff6b6b;
+            border-radius: 3px;
+            margin-bottom: 20px;
+        }
+        
         @media (max-width: 1200px) {
             .container {
                 grid-template-columns: 1fr;
@@ -72,8 +84,12 @@
 </head>
 <body>
     <div class="container">
+        <div class="readonly-notice">
+            📸 This is a static snapshot. Updates are manual.
+        </div>
+        
         <div class="column">
-            <h1>OBLIGATIONS</h1>
+            <h1>⚡ OBLIGATIONS</h1>
             
             <div class="section">
                 <h2>MUST DO EVENTUALLY</h2>
@@ -87,7 +103,7 @@
         </div>
         
         <div class="column">
-            <h1>OPTIONAL & MEDIA</h1>
+            <h1>💡 OPTIONAL & MEDIA</h1>
             
             <div class="section">
                 <h2>COULD WORK ON</h2>
@@ -104,7 +120,6 @@
     </div>
     
     <script>
-        // Embedded data
         const data = {"must_do": "", "calendar": "25b8 start_date
   start_time - end_time
 ", "projects": "No projects", "media": "TO WATCH
@@ -115,7 +130,7 @@
 TO LISTEN
   - Charli XCX - Brat
   - Billie Eilish - Hit Me Hard and Soft
-  - The Smile - Wall of Eyes", "updated": "2025-10-18 02:02:34"};
+  - The Smile - Wall of Eyes", "updated": "2025-10-18 02:46:41"};
         
         document.getElementById('must-do').innerHTML = data.must_do || 'No assignments';
         document.getElementById('calendar').innerHTML = data.calendar || 'No events';
