@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - intentionallydense</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+            background: #0a0a0a;
+            color: #00ff41;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+        
+        .column {
+            background: #111;
+            padding: 25px;
+            border: 1px solid #00ff41;
+            border-radius: 3px;
+        }
+        
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #00ff41;
+            border-bottom: 2px solid #00ff41;
+            padding-bottom: 10px;
+        }
+        
+        h2 {
+            font-size: 18px;
+            margin: 25px 0 15px 0;
+            color: #0ff;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: inherit;
+            line-height: 1.8;
+        }
+        
+        .updated {
+            text-align: center;
+            color: #666;
+            font-size: 11px;
+            margin-top: 20px;
+            grid-column: 1 / -1;
+        }
+        
+        @media (max-width: 1200px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="column">
+            <h1>OBLIGATIONS</h1>
+            
+            <div class="section">
+                <h2>MUST DO EVENTUALLY</h2>
+                <pre id="must-do">Loading...</pre>
+            </div>
+            
+            <div class="section">
+                <h2>CALENDAR - THIS WEEK</h2>
+                <pre id="calendar">Loading...</pre>
+            </div>
+        </div>
+        
+        <div class="column">
+            <h1>OPTIONAL & MEDIA</h1>
+            
+            <div class="section">
+                <h2>COULD WORK ON</h2>
+                <pre id="projects">Loading...</pre>
+            </div>
+            
+            <div class="section">
+                <h2>MEDIA QUEUE</h2>
+                <pre id="media">Loading...</pre>
+            </div>
+        </div>
+        
+        <div class="updated" id="updated">Last updated: ...</div>
+    </div>
+    
+    <script>
+        // Embedded data
+        const data = {"must_do": "", "calendar": "25b8 start_date
+  start_time - end_time
+", "projects": "No projects", "media": "TO WATCH
+  - Dune Part Two
+  - Poor Things
+  - Shogun (S1)
+
+TO LISTEN
+  - Charli XCX - Brat
+  - Billie Eilish - Hit Me Hard and Soft
+  - The Smile - Wall of Eyes", "updated": "2025-10-18 02:02:34"};
+        
+        document.getElementById('must-do').innerHTML = data.must_do || 'No assignments';
+        document.getElementById('calendar').innerHTML = data.calendar || 'No events';
+        document.getElementById('projects').innerHTML = data.projects || 'No projects';
+        document.getElementById('media').innerHTML = data.media || 'No media';
+        document.getElementById('updated').textContent = `Last updated: ${data.updated}`;
+    </script>
+</body>
+</html>
