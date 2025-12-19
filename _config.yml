@@ -4,9 +4,6 @@ url: "https://intentionallydense.github.io" # will be https://yourusername.githu
 
 # Collections
 collections:
-  posts:
-    output: true
-    permalink: /posts/:slug/
   projects:
     output: true
     permalink: /projects/:slug/
@@ -22,6 +19,7 @@ defaults:
       type: "posts"
     values:
       layout: "post"
+      permalink: /posts/:slug/
   - scope:
       path: ""
       type: "projects"
