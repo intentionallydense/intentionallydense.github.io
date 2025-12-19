@@ -1,14 +1,15 @@
 ---
 layout: default
 ---
-<div class="notes-stream">
-  {% assign sorted_posts = site.posts | sort: 'date' | reverse %}
-  {% for post in sorted_posts %}
-  <div class="note-item">
-    <div class="note-date">{{ post.date | date: "%B %-d, %Y" }}</div>
-    <div class="note-content">
-      {{ post.content }}
-    </div>
-  </div>
-  {% endfor %}
+<div class="intro">
+  <img src="{{ '/assets/images/mokou.jpg' | relative_url }}" alt="Profile picture" class="profile-pic">
+
+  <p>hello, i'm sylvia! i'm a third-year chemistry student at cambridge who likes computational chemistry, drug discovery, music, fashion, photography, rock climbing, and optimising my routines. i like hanging out with people online and in person, you can find me here:</p>
+
+  <ul class="social-links">
+    <li><a href="https://twitter.com/_betalactamase" target="_blank">twitter: _betalactamase</a></li>
+    <li>signal: sylvestris.34</li>
+    <li><a href="https://www.last.fm/user/svylai" target="_blank">last.fm: svylai</a></li>
+    <li>discord: _sinkingfeeling</li>
+  </ul>
 </div>

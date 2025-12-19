@@ -6,7 +6,7 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-family: "SF Mono", Monaco, Consolas, "Courier New", monospace;
   font-size: 17px;
   line-height: 1.6;
   color: #111;
@@ -117,8 +117,8 @@ article h1 {
 }
 
 .meta {
-  font-size: 0.85rem;
-  color: #666;
+  font-size: 1rem;
+  color: #111;
 }
 
 /* Code */
@@ -156,6 +156,29 @@ img {
   letter-spacing: 0.05em;
   color: #666;
   margin-bottom: 1.5rem;
+}
+
+/* Intro & social links */
+.intro {
+  margin-bottom: 3rem;
+}
+
+.profile-pic {
+  width: 150px;
+  height: 200px;
+  object-fit: cover;
+  float: right;
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.social-links {
+  list-style: none;
+  margin-top: 1rem;
+}
+
+.social-links li {
+  margin-bottom: 0.5rem;
 }
 
 /* Utility */
