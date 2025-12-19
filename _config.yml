@@ -1,0 +1,29 @@
+title: saliva
+description: Notes and projects
+url: "https://intentionallydense.github.io" # will be https://yourusername.github.io
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /posts/:slug/
+  projects:
+    output: true
+    permalink: /projects/:slug/
+
+# Build settings
+markdown: Kramdown
+highlighter: rouge
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: "project"

@@ -1,0 +1,5 @@
+---
+date: 2025-12-19
+---
+bladee for rigel's birthday 20251216
+!(/assets/images/bladeecake.jpg)
