@@ -66,6 +66,10 @@ nav a {
   margin-bottom: 3rem;
 }
 
+.note-content {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
 .note-item {
   margin-bottom: 2rem;
   padding-bottom: 2rem;
@@ -89,6 +93,7 @@ nav a {
 /* Projects list */
 .project-item {
   margin-bottom: 1.5rem;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
 .project-item h2 {
@@ -161,6 +166,7 @@ img {
 /* Intro & social links */
 .intro {
   margin-bottom: 3rem;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
 .profile-pic {
