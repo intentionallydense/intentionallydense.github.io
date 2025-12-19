@@ -110,6 +110,7 @@ nav a {
 /* Single pages */
 article {
   margin-bottom: 3rem;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
 article header {
