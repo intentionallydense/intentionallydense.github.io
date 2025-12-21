@@ -16,7 +16,7 @@ $$ v \propto \sqrt{\frac{k}{m}}. $$
 Just as with classical springs, $ k $ is simply the second derivative of energy with respect to (nuclear) position, and therefore the vibrational frequency for exactly one vibrational mode will be the square root of a negative number -- an imaginary frequency. The results of the frequency calculation are shown below (note that ORCA uses the negative sign (-) for imaginary numbers).
 
 | Mode | Frequency (cm⁻¹) | Note |
-|---------|------------------------|------|
+|-----------|--------------------------|--------|
 | 4 | 0.00 | |
 | 5 | 0.00 | |
 | 6 | -543.33 | imaginary mode |
