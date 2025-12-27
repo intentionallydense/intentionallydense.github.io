@@ -1,5 +1,3 @@
-# Your Blog
-
 A minimal personal site with notes and projects.
 
 ## Setup
