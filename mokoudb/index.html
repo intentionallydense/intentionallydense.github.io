@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mokou Emote Search</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1a1a2e;
+            color: #eee;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff6b6b;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        #search-input {
+            flex: 1;
+            padding: 12px 16px;
+            font-size: 16px;
+            border: 2px solid #333;
+            border-radius: 8px;
+            background: #252540;
+            color: #eee;
+        }
+
+        #search-input:focus {
+            outline: none;
+            border-color: #ff6b6b;
+        }
+
+        #search-input::placeholder {
+            color: #666;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            background: #ff6b6b;
+            color: white;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #ff5252;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .result-count {
+            color: #888;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #result-slider {
+            width: 150px;
+            accent-color: #ff6b6b;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+
+        @media (max-width: 900px) {
+            .gallery {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #252540;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            z-index: 1;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .gallery-item .label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 4px 8px;
+            font-size: 11px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mokou Emote Search</h1>
+    <p class="subtitle">Search by tags or leave empty for random</p>
+
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="angry, smug, crying, headpat, confused...">
+        <button id="random-btn">Random</button>
+    </div>
+
+    <div class="controls">
+        <span class="result-count" id="result-count"></span>
+        <div class="slider-container">
+            <label for="result-slider">Results:</label>
+            <input type="range" id="result-slider" min="5" max="50" value="20">
+            <span id="slider-value">20</span>
+        </div>
+    </div>
+
+    <div class="gallery" id="gallery">
+        <div class="loading">Loading tags...</div>
+    </div>
+
+    <div class="modal" id="modal">
+        <span class="modal-close" id="modal-close">&times;</span>
+        <img id="modal-img" src="" alt="">
+    </div>
+
+    <script>
+        let tags = {};
+        let filenames = [];
+        const IMAGES_DIR = 'emotes/';
+
+        // Load tags
+        async function loadTags() {
+            try {
+                const response = await fetch('tags.json');
+                tags = await response.json();
+                filenames = Object.keys(tags);
+                console.log(`Loaded ${filenames.length} images`);
+                showRandom();
+            } catch (error) {
+                document.getElementById('gallery').innerHTML =
+                    '<div class="loading">Error loading tags.json</div>';
+                console.error('Failed to load tags:', error);
+            }
+        }
+
+        // Search function
+        function search(query, topK = 20) {
+            if (!query.trim()) {
+                return getRandomImages(topK);
+            }
+
+            const queryTerms = query.toLowerCase().split(/\s+/);
+            const scores = [];
+
+            for (const [filename, tagData] of Object.entries(tags)) {
+                const searchableParts = [];
+                for (const field of ['emotion', 'gesture', 'objects', 'text_content', 'vibe']) {
+                    const value = tagData[field];
+                    if (value) {
+                        if (Array.isArray(value)) {
+                            searchableParts.push(...value.map(v => String(v).toLowerCase()));
+                        } else {
+                            searchableParts.push(String(value).toLowerCase());
+                        }
+                    }
+                }
+
+                const searchableText = searchableParts.join(' ');
+                const matchCount = queryTerms.filter(term => searchableText.includes(term)).length;
+
+                if (matchCount > 0) {
+                    scores.push({ filename, matchCount, tagData });
+                }
+            }
+
+            scores.sort((a, b) => b.matchCount - a.matchCount);
+            return scores.slice(0, topK);
+        }
+
+        // Get random images
+        function getRandomImages(count = 20) {
+            const shuffled = [...filenames].sort(() => Math.random() - 0.5);
+            return shuffled.slice(0, count).map(filename => ({
+                filename,
+                tagData: tags[filename]
+            }));
+        }
+
+        // Display results
+        function displayResults(results) {
+            const gallery = document.getElementById('gallery');
+            const resultCount = document.getElementById('result-count');
+
+            resultCount.textContent = `${results.length} results`;
+
+            if (results.length === 0) {
+                gallery.innerHTML = '<div class="loading">No results found</div>';
+                return;
+            }
+
+            gallery.innerHTML = results.map(item => {
+                const emotion = item.tagData?.emotion || '';
+                const vibe = item.tagData?.vibe || '';
+                const label = emotion || vibe ? `${emotion} | ${vibe}` : '';
+
+                return `
+                    <div class="gallery-item" data-src="${IMAGES_DIR}${item.filename}">
+                        <img src="${IMAGES_DIR}${item.filename}" alt="${label}" loading="lazy">
+                        <div class="label">${label}</div>
+                    </div>
+                `;
+            }).join('');
+
+            // Add click handlers
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const src = item.dataset.src;
+                    document.getElementById('modal-img').src = src;
+                    document.getElementById('modal').classList.add('active');
+                });
+            });
+        }
+
+        // Show random
+        function showRandom() {
+            const topK = parseInt(document.getElementById('result-slider').value);
+            const results = getRandomImages(topK);
+            displayResults(results);
+        }
+
+        // Do search
+        function doSearch() {
+            const query = document.getElementById('search-input').value;
+            const topK = parseInt(document.getElementById('result-slider').value);
+            const results = search(query, topK);
+            displayResults(results);
+        }
+
+        // Event listeners
+        document.getElementById('search-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') doSearch();
+        });
+
+        document.getElementById('random-btn').addEventListener('click', showRandom);
+
+        document.getElementById('result-slider').addEventListener('input', (e) => {
+            document.getElementById('slider-value').textContent = e.target.value;
+        });
+
+        document.getElementById('result-slider').addEventListener('change', doSearch);
+
+        document.getElementById('modal').addEventListener('click', () => {
+            document.getElementById('modal').classList.remove('active');
+        });
+
+        document.getElementById('modal-close').addEventListener('click', () => {
+            document.getElementById('modal').classList.remove('active');
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.getElementById('modal').classList.remove('active');
+            }
+        });
+
+        // Initialize
+        loadTags();
+    </script>
+</body>
+</html>

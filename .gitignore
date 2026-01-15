@@ -3,3 +3,12 @@ _site/
 .jekyll-cache/
 .jekyll-metadata
 .DS_Store
+CLAUDE.md
+.claude/
+
+# mokou_search development files
+mokoudb/.venv/
+mokoudb/.claude/
+mokoudb/app.py
+mokoudb/tag.py
+mokoudb/*.md
