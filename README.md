@@ -1,4 +1,4 @@
-A minimal personal site with notes and projects.
+A minimal personal site with notes and projects, made with Claude Code.
 
 ## Setup
 

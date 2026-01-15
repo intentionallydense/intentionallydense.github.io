@@ -8,6 +8,64 @@
     "text_content": "\u4e2d\u79cb\u8282\u5feb\u4e50\nHappy Mid-Autumn's day",
     "vibe": "cute, festive"
   },
+  "2.jpg": {
+    "emotion": "annoyed",
+    "gesture": "raising pans above head",
+    "objects": "pans",
+    "text_content": "\u8fd9\u4e2a\u9505\u6211\u80cc\u4e86\nI carry the pan",
+    "vibe": "frustrated, angry"
+  },
+  "3.jpg": {
+    "emotion": "angry",
+    "gesture": "holding arms up, yelling",
+    "objects": "cleaver, ginseng root",
+    "text_content": "\u6211\u7684\u4eba\u53c2\u6211\u716e\u5bb0\nMy ginseng I cook",
+    "vibe": "irate cooking"
+  },
+  "4.jpg": {
+    "emotion": "happy",
+    "gesture": "holding",
+    "objects": "grass",
+    "text_content": "\u63e1\u4e86\u68f5\u8349\nWo le ke cao",
+    "vibe": "playful, sassy"
+  },
+  "5.jpg": {
+    "emotion": "exasperated",
+    "gesture": "covering eyes",
+    "objects": "computer monitor",
+    "text_content": "\u90a3\u753b\u9762\u592a\u7f8e\u6211\u4e0d\u6562\u770b\nHow beautiful I no see",
+    "vibe": "overwhelmed, dramatic"
+  },
+  "6.jpg": {
+    "emotion": "content",
+    "gesture": "holding object",
+    "objects": "mooncake",
+    "text_content": "\u4e2d\u79cb\u8282\u5feb\u4e50\nHappy Mid-Autumn's day",
+    "vibe": "festive, cute"
+  },
+  "7.jpg": {
+    "emotion": "desperate",
+    "gesture": "slamming hands on table",
+    "objects": "table",
+    "text_content": "\u7ed9\u6211\u4e2a\u5bf9\u8c61\u4e0d\u7136\u6211\u9000\u7fa4 \u6211\u6ca1\u5f00\u73a9\u7b11 Give me a boyfriend",
+    "vibe": "demanding, dramatic"
+  },
+  "8.jpg": {
+    "emotion": "distressed",
+    "gesture": "holding up pills",
+    "objects": [
+      "pills"
+    ],
+    "text_content": "\u836f\u4e0d\u80fd\u505c\nGive you drugs",
+    "vibe": "manic energy"
+  },
+  "9.jpg": {
+    "emotion": "crying",
+    "gesture": "hugging object",
+    "objects": "pillow",
+    "text_content": "\u6211\u8981\u62b1\u62b1\nI want baobao",
+    "vibe": "sad, pleading"
+  },
   "10.jpg": {
     "emotion": "happy",
     "gesture": "holding food",
@@ -15,19 +73,665 @@
     "text_content": "\u4e2d\u79cb\u8282\u5feb\u4e50\nHappy Mid-Autumn's day",
     "vibe": "celebratory, cute"
   },
+  "11.jpg": {
+    "emotion": "crying",
+    "gesture": "covering face with one hand, raising other hand in a 'stop' gesture",
+    "objects": null,
+    "text_content": "\u522b\u627e\u6211 \u6211\u60f3\u9759\u9759\n\u4e5f\u522b\u95ee\u6211\u9759\u9759\u662f\u8c01\nI miss jing jing",
+    "vibe": "sad, longing"
+  },
+  "12.jpg": {
+    "emotion": "annoyed",
+    "gesture": "pointing",
+    "objects": "chick",
+    "text_content": "\u628a\u9e21\u9e21\u653e\u56de\u53bb \u8d76\u7d27\u7761\u89c9\u53bb\nPut chick back go to sleep",
+    "vibe": "demanding, bossy"
+  },
+  "13.jpg": {
+    "emotion": "happy",
+    "gesture": "holding/offering",
+    "objects": [
+      "bananas"
+    ],
+    "text_content": "\u98df\u8549\u5566\u4f60\nEat banana la you",
+    "vibe": "Playful, cheeky"
+  },
+  "14.jpg": {
+    "emotion": "happy",
+    "gesture": "hands on face",
+    "objects": null,
+    "text_content": "\u611f\u89c9\u81ea\u5df1\u633a\u840c\u7684\nI feel very TMD",
+    "vibe": "cute, silly"
+  },
+  "15.jpg": {
+    "emotion": "embarrassed",
+    "gesture": "holding a book",
+    "objects": "book",
+    "text_content": "\u91d1\u74f6\u6885\n\u65e0\u6cd5\u76f4\u89c6\nI can't see",
+    "vibe": "awkward discomfort"
+  },
+  "16.jpg": {
+    "emotion": "anxious",
+    "gesture": "hiding",
+    "objects": null,
+    "text_content": "\u602a\u6211\u54af\nBlame me?",
+    "vibe": "scared, defensive"
+  },
+  "17.jpg": {
+    "emotion": "sad",
+    "gesture": "holding object",
+    "objects": "heart-shaped lollipop",
+    "text_content": "\u5fc3\u585e\u585e\u7684\nHeart plug plug",
+    "vibe": "melancholy, dejected"
+  },
+  "18.jpg": {
+    "emotion": "happy",
+    "gesture": "peace sign, taking a selfie",
+    "objects": "phone",
+    "text_content": "\u522a\u524d\u7559\u5ff5 Before delete souvenir",
+    "vibe": "cheerful, playful"
+  },
+  "19.jpg": {
+    "emotion": "accusing",
+    "gesture": "pointing",
+    "objects": "qr code",
+    "text_content": "\u51f6\u624b\u662f\n\u51f6\u624b\u662f...\nMurderer is...",
+    "vibe": "accusatory, meme"
+  },
+  "20.jpg": {
+    "emotion": "Various, including bashful/flustered",
+    "gesture": "Standing close, arm around shoulder",
+    "objects": "Hats, bows",
+    "text_content": "\u6211\u8981\u53cc\u5983 Double Fly",
+    "vibe": "Cute, Anime"
+  },
+  "21.jpg": {
+    "emotion": "annoyed",
+    "gesture": "throwing",
+    "objects": "bow",
+    "text_content": "\u6e23\u6e23\nDregs dregs",
+    "vibe": "salty, irritated"
+  },
+  "22.jpg": {
+    "emotion": "sad",
+    "gesture": "peeking over the edge of a box",
+    "objects": "cardboard box",
+    "text_content": "\u6c42\u5305\u517b\nTake me back",
+    "vibe": "needy, pitiful"
+  },
+  "23.jpg": {
+    "emotion": "confused",
+    "gesture": null,
+    "objects": null,
+    "text_content": "\u54a9\u554a\nWhat a?",
+    "vibe": "cute questioning"
+  },
+  "24.jpg": {
+    "emotion": "happy",
+    "gesture": "posing together",
+    "objects": null,
+    "text_content": "\u6211\u4eec\nWe",
+    "vibe": "Cute, friendly"
+  },
+  "25.jpg": {
+    "emotion": "flustered",
+    "gesture": "hugging",
+    "objects": null,
+    "text_content": "\u4e0d\u662f\u8bf4\u597d\u53ea\u662f\u804a\u5929\u5417\nWe are just friends",
+    "vibe": "awkward, embarrassed"
+  },
+  "26.jpg": {
+    "emotion": "smug",
+    "gesture": "reading",
+    "objects": "book, stack of books",
+    "text_content": "\u6211\u8bfb\u7684\u4e66\u591a \u4e0d\u4f1a\u9a97\u4f60\nI read much don't cheat you",
+    "vibe": "bookish denial"
+  },
+  "27.jpg": {
+    "emotion": "kissing",
+    "gesture": "raising hands",
+    "objects": null,
+    "text_content": "\u5575\u4e00\u4e2a\nMua Mua",
+    "vibe": "affectionate, cute"
+  },
+  "28.jpg": {
+    "emotion": "smug",
+    "gesture": "holding card",
+    "objects": "card",
+    "text_content": "\u597d\u4eba\u5361\nGood people card",
+    "vibe": "sarcastic, condescending"
+  },
+  "29.jpg": {
+    "emotion": "confused",
+    "gesture": "touching beak",
+    "objects": null,
+    "text_content": "\u6bcd\u9e21\u554a\nI don't know a",
+    "vibe": "awkward clueless"
+  },
+  "30.jpg": {
+    "emotion": "happy",
+    "gesture": "holding something out",
+    "objects": "paw",
+    "text_content": "\u63e1\u722a\nShake claw",
+    "vibe": "cute, friendly"
+  },
+  "31.jpg": {
+    "emotion": "serious",
+    "gesture": "hands clasped, resting chin",
+    "objects": "table, glasses",
+    "text_content": "\u5143\u82b3\u4f60\u600e\u4e48\u770b\nHow do you see YuanFang",
+    "vibe": "contemplative, thoughtful"
+  },
+  "32.jpg": {
+    "emotion": "annoyed",
+    "gesture": "holding",
+    "objects": [
+      "red bird plush"
+    ],
+    "text_content": "\u5173\u6211\u9e1f\u4e8b\nGuan my bird thing",
+    "vibe": "salty, quirky"
+  },
+  "33.jpg": {
+    "emotion": "happy",
+    "gesture": "saluting",
+    "objects": "chinese flag",
+    "text_content": "\u8bf7\u53eb\u6211\u7ea2\u9886\u5dfe\nPlease call me red scarf",
+    "vibe": "patriotic, cute"
+  },
+  "34.jpg": {
+    "emotion": "annoyed",
+    "gesture": "shooting",
+    "objects": null,
+    "text_content": "\u5341\u5b57\u6b7b\u5149\nBiu Biu Biu",
+    "vibe": "deadly cute"
+  },
+  "35.jpg": {
+    "emotion": "flushed",
+    "gesture": "holding object",
+    "objects": "flashlight",
+    "text_content": "\u518d\u723d\u4e00\u6b21\nLet me happy again",
+    "vibe": "cutesy request"
+  },
+  "36.jpg": {
+    "emotion": "frustrated",
+    "gesture": "scrubbing/wiping floor",
+    "objects": "cloth",
+    "text_content": "\u6211\u64e6\nI ca",
+    "vibe": "exasperated, annoyed"
+  },
+  "37.jpg": {
+    "emotion": "disgusted",
+    "gesture": "holding up vegetable",
+    "objects": "vegetable",
+    "text_content": "\u4e0d\u662f\u6211\u7684\u83dc\nNot my vegetable",
+    "vibe": "unhappy refusal"
+  },
+  "38.jpg": {
+    "emotion": "annoyed",
+    "gesture": "holding objects",
+    "objects": [
+      "flower",
+      "dynamite"
+    ],
+    "text_content": "\u4fe1\u4e0d\u4fe1\u6211\u7206\u83ca\nI'm bomb chrysanthemum",
+    "vibe": "angry cute"
+  },
+  "39.jpg": {
+    "emotion": "happy",
+    "gesture": "holding and pointing at eggs",
+    "objects": "eggs",
+    "text_content": "\u5b56\u86cb\nDouble eggs",
+    "vibe": "cute, cheerful"
+  },
+  "40.jpg": {
+    "emotion": "annoyed",
+    "gesture": "lying down",
+    "objects": null,
+    "text_content": "\u6b63\u9762\u4e0a\u6211\u5440\nCome on boy",
+    "vibe": "provocative, apathetic"
+  },
+  "41.jpg": {
+    "emotion": "annoyed",
+    "gesture": "holding a mouse up",
+    "objects": "mouse",
+    "text_content": "\u6211\u8bc6\u4f60\u8001\u9f20\nI know you mouse",
+    "vibe": "irritated suspicion"
+  },
+  "42.jpg": {
+    "emotion": "smug",
+    "gesture": null,
+    "objects": null,
+    "text_content": "\u7136\u800c\u59b9\u7ea2\u65e9\u5c31\u770b\u7a7f\u4e86\u4e00\u5207\nHowever SisterRed see everything",
+    "vibe": "knowing, mischievous"
+  },
+  "43.jpg": {
+    "emotion": "happy",
+    "gesture": "holding",
+    "objects": "poop",
+    "text_content": "\u8fd9\u5c31\u662f\u733f\u7caa\nThis is ape dung",
+    "vibe": "playful gross"
+  },
+  "44.jpg": {
+    "emotion": "frustrated",
+    "gesture": null,
+    "objects": null,
+    "text_content": "\u88c5B\u88ab\u96f7\u5288\nNo B No P",
+    "vibe": "exasperated reaction"
+  },
+  "45.jpg": {
+    "emotion": "happy",
+    "gesture": null,
+    "objects": "flower, duck",
+    "text_content": "\u718a\u5b69\u5b50\nBear kid",
+    "vibe": "cute, playful"
+  },
+  "46.jpg": {
+    "emotion": "smug",
+    "gesture": "pointing",
+    "objects": null,
+    "text_content": "\u7b2c\u4e8c\u96c6\n\u4e3b\u89d2\u5c31\u80fd\u6d3b\u5230\u5927\u7d50\u5c40\nProtagonist live to the end",
+    "vibe": "smug assertion"
+  },
+  "47.jpg": {
+    "emotion": "bored",
+    "gesture": "resting on table",
+    "objects": [
+      "tea",
+      "watch"
+    ],
+    "text_content": "\u7eff\u8336 \u8868 Green tea Watch",
+    "vibe": "apathetic waiting"
+  },
+  "48.jpg": {
+    "emotion": "smug",
+    "gesture": "smoking",
+    "objects": [
+      "cigarette",
+      "burning dollar bill"
+    ],
+    "text_content": "\u6709\u94b1 \u4efb\u6027\nmoney wayward",
+    "vibe": "rich nonchalance"
+  },
+  "49.jpg": {
+    "emotion": "annoyed",
+    "gesture": "holding out hands",
+    "objects": "fire",
+    "text_content": "\u4f60\u8fc7\u6765 \u6211\u7ed9\u4f60\u52a0\u4e2a\u7ea2BUFF\nFFF",
+    "vibe": "fiery offer"
+  },
+  "50.jpg": {
+    "emotion": "determined",
+    "gesture": "stuffing face",
+    "objects": "spicy strips, bag",
+    "text_content": "\u8d76\u7d27\u5403\u5305\u8fa3\u6761\u538b\u538b\u60ca Quickly eat Spicy Strips",
+    "vibe": "gluttonous, frantic"
+  },
+  "51.jpg": {
+    "emotion": "exasperated",
+    "gesture": "shrugging",
+    "objects": null,
+    "text_content": "\u7b2c\u4e09\u96c6\n\u7136\u800c\u6211\u4e0d\u662f\u4e3b\u89d2\nBut I'm not protagonist",
+    "vibe": "relatable frustration"
+  },
+  "52.jpg": {
+    "emotion": "neutral",
+    "gesture": "holding object",
+    "objects": "lollipop",
+    "text_content": "\u68d2\u68d2\u7cd6\nlollipop",
+    "vibe": "cute, sweet"
+  },
+  "53.jpg": {
+    "emotion": "serious",
+    "gesture": "pointing",
+    "objects": "glasses, bow tie",
+    "text_content": "\u771f\u76f8\u53ea\u6709\u4e00\u4e2a\nTruth only one",
+    "vibe": "stern, determined"
+  },
+  "54.jpg": {
+    "emotion": "happy",
+    "gesture": "waving",
+    "objects": null,
+    "text_content": "\u65e9\u55b5~\nGood morning~miao",
+    "vibe": "cute, cheerful"
+  },
+  "55.jpg": {
+    "emotion": "disgust",
+    "gesture": null,
+    "objects": null,
+    "text_content": "\u4ec0\u4e48\u9b3c\nWhat ghost",
+    "vibe": "disgusted disbelief"
+  },
+  "56.jpg": {
+    "emotion": "annoyed",
+    "gesture": "pointing",
+    "objects": null,
+    "text_content": "\u7b2c\u4e00\u96c6\n\u50cf\u4f60\u8fd9\u79cd\u6e23\u6e23\u6700\u591a\u53ea\u80fd\u6d3b\u6d3b\u4e24\u96c6\nYou will die",
+    "vibe": "threatening, condescending"
+  },
+  "57.jpg": {
+    "emotion": "happy",
+    "gesture": "hands clasped together",
+    "objects": null,
+    "text_content": "\u6709\u79cd\u6765\u6253\u6211\u5440\nHave seed come beat me",
+    "vibe": "cheeky, taunting"
+  },
+  "58.jpg": {
+    "emotion": "neutral",
+    "gesture": null,
+    "objects": "frame, flowers, ribbon",
+    "text_content": "\u7b2c\u56db\u96c6, .........",
+    "vibe": "solemn, muted"
+  },
+  "59.jpg": {
+    "emotion": "annoyed",
+    "gesture": "about to hit",
+    "objects": [
+      "mallet",
+      "airplane"
+    ],
+    "text_content": "\u6253\u98de\u673a\nHit airplane",
+    "vibe": "destructive anger"
+  },
+  "60.jpg": {
+    "emotion": "disgust",
+    "gesture": "hands on head",
+    "objects": null,
+    "text_content": "\u52a0\u4e86\u7279\u6548\nDuang",
+    "vibe": "exaggerated disgust"
+  },
+  "61.jpg": {
+    "emotion": "excited",
+    "gesture": "pointing with stick, holding book",
+    "objects": "book, pointer, chalkboard",
+    "text_content": "Some of A Beat, \u8ddf\u6211\u5ff5\u4e00\u904d",
+    "vibe": "enthusiastic learning"
+  },
+  "62.jpg": {
+    "emotion": "happy",
+    "gesture": "being petted, clenching fists",
+    "objects": null,
+    "text_content": "\u6478\u6478\u5934\nMoMo head",
+    "vibe": "cute, blessed"
+  },
+  "63.jpg": {
+    "emotion": "unimpressed",
+    "gesture": "shrugging",
+    "objects": null,
+    "text_content": "\u7136\u800c\u5e76\u6ca1\u6709\u4ec0\u4e48\u5375\u7528\nHowever it doesn't eggs",
+    "vibe": "deadpan, sarcastic"
+  },
+  "64.jpg": {
+    "emotion": "impatient",
+    "gesture": "waiting",
+    "objects": null,
+    "text_content": "\u633a\u6025\u7684\nCome out quickly",
+    "vibe": "urgent, demanding"
+  },
+  "65.jpg": {
+    "emotion": "annoyed",
+    "gesture": "holding",
+    "objects": [
+      "large seed",
+      "hamster"
+    ],
+    "text_content": "\u5413\u5f97\u6211\u8d76\u7d27\u62a2\u8d70\u4ed3\u9f20\u7684\u74dc\u5b50\nThis is mine",
+    "vibe": "possessive, greedy"
+  },
+  "66.jpg": {
+    "emotion": "flustered",
+    "gesture": "leaning forward, hands up",
+    "objects": null,
+    "text_content": "UMI OLO\n\u8bd5\u8863\u95f4\n\u8bd5\u8bd5\u8fd9\u4ef6\u5982\u4f55\nFollow me",
+    "vibe": "Shy, cute"
+  },
+  "67.jpg": {
+    "emotion": "manic",
+    "gesture": "holding paper cutout of face",
+    "objects": "paper cutout, bow",
+    "text_content": "\u731c\u731c\u6211\u662f\u8c01\nGuess who I am",
+    "vibe": "goofy, meme"
+  },
+  "68.jpg": {
+    "emotion": "menacing",
+    "gesture": "holding knife and telephone",
+    "objects": "knife, telephone",
+    "text_content": "\u5582\uff1f\u4f60\u662f\u8c01\uff1f\nHello?Who is this?",
+    "vibe": "creepy cute"
+  },
+  "69.jpg": {
+    "emotion": "incredulous",
+    "gesture": "shrugging",
+    "objects": null,
+    "text_content": "\u6ca1\u8138\u89c1\u4eba\nI'm don't have face",
+    "vibe": "Lost face"
+  },
+  "70.jpg": {
+    "emotion": "neutral",
+    "gesture": "pointing",
+    "objects": [
+      "fire",
+      "wood"
+    ],
+    "text_content": "\u59b9\u7ea2\n\u706b\u524d\u7559\u540d\nFire Name",
+    "vibe": "playful, whimsical"
+  },
+  "71.jpg": {
+    "emotion": "annoyed",
+    "gesture": "smoking",
+    "objects": "cigarette",
+    "text_content": "\u6709\u79cd\u7528\u7ea2\u5305\u6765\u804a\u5929\u554a Have seed take red packet talk to me",
+    "vibe": "sarcastic, edgy"
+  },
+  "72.jpg": {
+    "emotion": "annoyed",
+    "gesture": "chopping",
+    "objects": [
+      "cucumber",
+      "knife",
+      "cutting board"
+    ],
+    "text_content": "\u770b\u5e16\u4e0d\u56de\u5e16\u7684\u540e\u679c\nYou had better be careful",
+    "vibe": "threatening, passive-aggressive"
+  },
+  "73.jpg": {
+    "emotion": "neutral",
+    "gesture": "holding shovel, squatting",
+    "objects": "shovel, pile of feces",
+    "text_content": "\u6211\u53ea\u60f3\u5b89\u9759\u7684\u505a\u4e00\u4e2a\u94f2\u5c4e\u5b98\nI am ChanShiGuan",
+    "vibe": "resigned, ironic"
+  },
+  "74.jpg": {
+    "emotion": "menacing",
+    "gesture": "holding",
+    "objects": "chainsaw",
+    "text_content": "\u6211\u60f3\u73a9\u4e2a\u6e38\u620f\nI want to play a game",
+    "vibe": "creepy cute"
+  },
+  "75.jpg": {
+    "emotion": "excited",
+    "gesture": "raising hand",
+    "objects": "desk",
+    "text_content": "\u6211\u80f8\u5927\u6211\u5148\u8bf4\nMy CHEST bigger than you",
+    "vibe": "assertive, boastful"
+  },
+  "76.jpg": {
+    "emotion": "happy",
+    "gesture": "thumbs up",
+    "objects": null,
+    "text_content": "\u597d\u5b69\u7eb8\nGood boy",
+    "vibe": "positive, encouraging"
+  },
+  "77.jpg": {
+    "emotion": "neutral",
+    "gesture": "holding object",
+    "objects": "durian",
+    "text_content": "\u7cca\u4f60\u4e00\u5634\u69b4\u83b2 Look the Durian",
+    "vibe": "threatening, silly"
+  },
+  "78.jpg": {
+    "emotion": "neutral",
+    "gesture": "holding object",
+    "objects": "plate, saucer, UFO",
+    "text_content": "\u789f\u4e2d\u789f\nSaucer middle Saucer",
+    "vibe": "cute, quirky"
+  },
+  "79.jpg": {
+    "emotion": "distressed",
+    "gesture": null,
+    "objects": "paper",
+    "text_content": "\u5927\u89e6\u53c8\u6765\u5403\u4eba\u4e86\nHELP",
+    "vibe": "urgent, panicked"
+  },
+  "80.jpg": {
+    "emotion": "annoyed",
+    "gesture": "pointing",
+    "objects": null,
+    "text_content": "\u697c\u4e3b\u5728\u88c5B \u770b\u89c1\u6ca1\nDo you see LZ install B?",
+    "vibe": "provocative, confrontational"
+  },
+  "81.jpg": {
+    "emotion": "annoyed",
+    "gesture": "holding up a striped cloth",
+    "objects": "striped cloth",
+    "text_content": "\u8d76\u7d27\u7a7f\u4e0a\nPut it on",
+    "vibe": "reluctant request"
+  },
+  "82.jpg": {
+    "emotion": "sleepy",
+    "gesture": "rubbing eye",
+    "objects": "sleep cap",
+    "text_content": "\u665a\u5b89\nGood night",
+    "vibe": "Tired, Sleepy"
+  },
+  "83.jpg": {
+    "emotion": "happy",
+    "gesture": "holding something broken",
+    "objects": "broken winged badge",
+    "text_content": "\u6495B\nC B",
+    "vibe": "cheerful destruction"
+  },
+  "84.jpg": {
+    "emotion": "concerned",
+    "gesture": "hugging",
+    "objects": null,
+    "text_content": "\u83ab\u614c \u62b1\u7d27\u6211\nDon't worry baby",
+    "vibe": "reassuring, affectionate"
+  },
+  "85.jpg": {
+    "emotion": "crying",
+    "gesture": "pushing a cannon",
+    "objects": "cannon",
+    "text_content": "\u542b\u6cea\u4e5f\u8981\u6253\u5b8c\n555",
+    "vibe": "sad determination"
+  },
+  "86.jpg": {
+    "emotion": "smug",
+    "gesture": "hands clasped",
+    "objects": null,
+    "text_content": "\u5728\u4e0b\u53f6\u826f\u8fb0\nI am YLC",
+    "vibe": "mischievous, confident"
+  },
+  "87.jpg": {
+    "emotion": "annoyed",
+    "gesture": "pushing",
+    "objects": null,
+    "text_content": "\u5584\u89e3\u4eba\u8863\nTake Off",
+    "vibe": "forceful removal"
+  },
+  "88.jpg": {
+    "emotion": "flustered",
+    "gesture": "offering",
+    "objects": "soap",
+    "text_content": "\u4f60\u4f86\uff1f\u6211\u4f86\uff1f You come? I come?",
+    "vibe": "suggestive, humorous"
+  },
+  "89.jpg": {
+    "emotion": "excited",
+    "gesture": "holding objects up",
+    "objects": [
+      "gold coin",
+      "money bag",
+      "bell"
+    ],
+    "text_content": "\u62db\u8d22\u55b5\nMoney Cat",
+    "vibe": "lucky, cheerful"
+  },
+  "90.jpg": {
+    "emotion": "irritated",
+    "gesture": "raising finger",
+    "objects": null,
+    "text_content": "\u6e23\u6e23\u7ba1\u7406\u5458,\u7ed9\u8001\u5a18\n\u6765\u4e2a10\u5206\u949f\u7981\u8a00\u5957\u9910\nZaza administrator,give me 10\nminutes prohibition of speech set meal",
+    "vibe": "salty, demanding"
+  },
+  "91.jpg": {
+    "emotion": "disgusted",
+    "gesture": "spilling drink",
+    "objects": "coffee cup, spilled coffee",
+    "text_content": "\u5657, @#$%*&@#$",
+    "vibe": "grossed out"
+  },
+  "92.jpg": {
+    "emotion": "smug",
+    "gesture": "pointing at head",
+    "objects": null,
+    "text_content": "\u4f60\u770b\u6211\u7684\u7684\u5934\u50cf\u725b\u903c\u5417\nLook my NiuBility head",
+    "vibe": "cheeky, provocative"
+  },
+  "93.jpg": {
+    "emotion": "yearning",
+    "gesture": "looking at sky",
+    "objects": "bow",
+    "text_content": "\u4f60\u662f\u6211\u5929\u8fb9\u6700\u7f8e\u7684\u4e91\u5f69\nYou are my sky beautiful cloud",
+    "vibe": "melancholy, wistful"
+  },
+  "94.jpg": {
+    "emotion": "skeptical",
+    "gesture": "holding a book, pointing to temple",
+    "objects": "book",
+    "text_content": "NBA\n\u6742\u5fd7\n\u6211\u8bfb\u8fc7MBA \u4f60\u4e0d\u8981\u9a97\u6211\nI am MBA",
+    "vibe": "smug, intelligent"
+  },
+  "95.jpg": {
+    "emotion": "annoyed",
+    "gesture": "choking",
+    "objects": null,
+    "text_content": "\u4f60\u4e0d\u662f\u4e00\u4e2a\u4eba\nYou are not people",
+    "vibe": "aggressive, insulting"
+  },
+  "96.jpg": {
+    "emotion": "annoyed",
+    "gesture": "pointing, holding",
+    "objects": "poop",
+    "text_content": "\u8d70\u6162\u4e00\u6b65\u6211\u6254\u5c4e\u4f60\nWalk slow I throw S you",
+    "vibe": "threatening, childish"
+  },
+  "97.jpg": {
+    "emotion": "happy",
+    "gesture": "offering",
+    "objects": "rose",
+    "text_content": "\u4f60\u662f\u6211\u6ef4\u73ab\u7470\u4f60\u662f\u6211\u6ef4FA\nYou are my rose you are my FA",
+    "vibe": "sweet, romantic"
+  },
+  "98.jpg": {
+    "emotion": "crying",
+    "gesture": "hugging",
+    "objects": null,
+    "text_content": "\u54c7\u54c7\u54c7\n555",
+    "vibe": "sad, comforted"
+  },
+  "99.jpg": {
+    "emotion": "unhappy",
+    "gesture": "fiddling with fingers",
+    "objects": "shrimp",
+    "text_content": "\u563b~\n38\u5143\n38 RMB",
+    "vibe": "unhappy deal"
+  },
   "100.jpg": {
     "emotion": "shocked",
     "gesture": "holding baby",
     "objects": "baby",
     "text_content": "\u5413\u6b7b\u5b9d\u5b9d\u4e86\nThe baby dead",
     "vibe": "horrified humor"
-  },
-  "1000.jpg": {
-    "emotion": "content",
-    "gesture": "arms outstretched",
-    "objects": null,
-    "text_content": "\u85e4\u539f\u59b9\u7ea2\u8868\u60c5\u53051000\u8fbe\u6210\nMokou Meme 1000 Achieved",
-    "vibe": "Meme collection"
   },
   "101.jpg": {
     "emotion": "crying",
@@ -78,240 +782,6 @@
     "text_content": "\u5e72\u7269\u59b9\u5c0f\u7ea2\nGan Wu Mei",
     "vibe": "Energetic, anime"
   },
-  "354.jpg": {
-    "emotion": "happy",
-    "gesture": "eating",
-    "objects": "rice bowl, chopsticks",
-    "text_content": "\u771f\u9999\nReally delicious",
-    "vibe": "cheerful, hungry"
-  },
-  "357.jpg": {
-    "emotion": "affectionate",
-    "gesture": "hugging",
-    "objects": null,
-    "text_content": "\u575a\u5f3a\u7684\u81ea\u5df1\u4e0d\u9700\u8981\u62b1\u62b1\nI'm very strong, I don't need Bao Bao\n\u53bb\u4f60\u59b9\u7684\u575a\u5f3a\u8001\u5b50\u8981\u62b1\u62b1\nWhat the hell strong, I just need Bao Bao",
-    "vibe": "clingy, demanding"
-  },
-  "358.jpg": {
-    "emotion": "confused",
-    "gesture": "thinking",
-    "objects": null,
-    "text_content": "\u4e0d\u77e5\u9053\u8be5\u6446\u51fa\u4ec0\u4e48\u8868\u60c5\nNot sure which emoji to use",
-    "vibe": "lost, puzzled"
-  },
-  "359.jpg": {
-    "emotion": "determined",
-    "gesture": "writing",
-    "objects": "pencil, paper, table",
-    "text_content": "\u8bb0\u4ec7\nBear grudge",
-    "vibe": "plotting, studious"
-  },
-  "36.jpg": {
-    "emotion": "frustrated",
-    "gesture": "scrubbing/wiping floor",
-    "objects": "cloth",
-    "text_content": "\u6211\u64e6\nI ca",
-    "vibe": "exasperated, annoyed"
-  },
-  "360.jpg": {
-    "emotion": "happy",
-    "gesture": "making heart with hands",
-    "objects": null,
-    "text_content": "\u6bd4\u5fc3\u5fc3\nLove You",
-    "vibe": "sweet, loving"
-  },
-  "361.jpg": {
-    "emotion": "happy",
-    "gesture": "waving",
-    "objects": "pillow",
-    "text_content": "\u65e9\u5b89\u5b89\nGood morningning",
-    "vibe": "cute, cheerful"
-  },
-  "362.jpg": {
-    "emotion": "confused",
-    "gesture": "finger on chin",
-    "objects": null,
-    "text_content": "\u59b9\u7ea2\u95ee\u53f7\nMokou question",
-    "vibe": "puzzled, thoughtful"
-  },
-  "363.jpg": {
-    "emotion": "happy",
-    "gesture": "raising arms, blowing a noisemaker, holding a sparkler",
-    "objects": "pom-poms, sparkler, noisemaker, confetti",
-    "text_content": "\u513f\u7ae5\u8282\u5feb\u4e50, Happy Children's Day, Bi|Bi|",
-    "vibe": "festive, celebratory"
-  },
-  "364.jpg": {
-    "emotion": "tired",
-    "gesture": "reading",
-    "objects": "book, desk lamp, books",
-    "text_content": "\u6211\u592a\u60f3\u7761\u89c9\u4e86\u53ef\u662f\u5b66\u4e60\u592a\u6709\u610f\u601d\u4e86\nI very want to sleep\nBut study is very interesting",
-    "vibe": "sleepy study"
-  },
-  "365.jpg": {
-    "emotion": "crying",
-    "gesture": "holding a phone receiver, throwing a book",
-    "objects": [
-      "phone",
-      "book"
-    ],
-    "text_content": "\u6211\u4e0d\u60f3\u8bfb\u4e66\u4e86 \u4f60\u6765\u63a5\u6211\u56de\u5bb6\u5427\nI don't want study, you take me home",
-    "vibe": "overly dramatic"
-  },
-  "625.jpg": {
-    "emotion": "annoyed",
-    "gesture": "pushing away",
-    "objects": null,
-    "text_content": "\u4e0d\u6253\u6e38\u620f\uff0c\u604b\u7231\nDon't play games, fall in love",
-    "vibe": "playful rejection"
-  },
-  "628.jpg": {
-    "emotion": "disappointed",
-    "gesture": "pinching fingers, blowing air",
-    "objects": null,
-    "text_content": "\u5c31\u8fd9\uff1f\nJust that?",
-    "vibe": "unimpressed, skeptical"
-  },
-  "63.jpg": {
-    "emotion": "unimpressed",
-    "gesture": "shrugging",
-    "objects": null,
-    "text_content": "\u7136\u800c\u5e76\u6ca1\u6709\u4ec0\u4e48\u5375\u7528\nHowever it doesn't eggs",
-    "vibe": "deadpan, sarcastic"
-  },
-  "630.jpg": {
-    "emotion": "crying",
-    "gesture": null,
-    "objects": "bricks",
-    "text_content": "\u773c\u775b\u8fdb\u7816\u5934\u4e86\nBricks got in eyes",
-    "vibe": "Exaggerated sorrow"
-  },
-  "631.jpg": {
-    "emotion": "shocked",
-    "gesture": "hands on cheeks",
-    "objects": null,
-    "text_content": "\u5927\u60ca\u5931\u8272\nBig shock lose colour",
-    "vibe": "intense dismay"
-  },
-  "632.jpg": {
-    "emotion": "puzzled",
-    "gesture": "holding her own head",
-    "objects": null,
-    "text_content": "\u5206\u5934\u884c\u52a8\nSplit head action",
-    "vibe": "bizarre, confused"
-  },
-  "633.jpg": {
-    "emotion": "annoyed",
-    "gesture": "holding papers",
-    "objects": "homework papers",
-    "text_content": "\u5bd2\u5047\n\u4f5c\u4e1a\n\u624b\u6495\u5bd2\u5047\u4f5c\u4e1a\nHand rip winter vacation homework",
-    "vibe": "homework rage"
-  },
-  "634.jpg": {
-    "emotion": "indifferent",
-    "gesture": "shrugging",
-    "objects": "money",
-    "text_content": "\u6211\u5bf9\u94b1\u6ca1\u5174\u8da3\nI have no interest in money",
-    "vibe": "not interested"
-  },
-  "635.jpg": {
-    "emotion": "cheerful",
-    "gesture": "leaning on object",
-    "objects": "anchor emblem",
-    "text_content": "\u8d70 \u5f00\u8239\u53bb!\nLet's play World of Warships together",
-    "vibe": "playful invitation"
-  },
-  "636.jpg": {
-    "emotion": "exasperated",
-    "gesture": "pulling on clothes",
-    "objects": null,
-    "text_content": "\u62c9\u626f\nBack and Forth",
-    "vibe": "playful squabble"
-  },
-  "637.jpg": {
-    "emotion": "frustrated",
-    "gesture": "typing",
-    "objects": "computer, blood pressure monitor",
-    "text_content": "\u8840\u538b\u98d9\u5347\nBlood pressure raising",
-    "vibe": "stressed, overworked"
-  },
-  "919.jpg": {
-    "emotion": "confident",
-    "gesture": "waving",
-    "objects": null,
-    "text_content": "\u597d\u51b7\n\u51b7\u573a\u738b\n\u51b7!\n\u771f\u51b7\n\u7ed9\u6211\u51b7!\n\u51b7\u51b7\u51b7\n\u5927\u5bb6\u597d\n\u6211\u6765\u51b7\u573a\u4e86\nHi guys, I come to cold field",
-    "vibe": "cold greetings"
-  },
-  "920.jpg": {
-    "emotion": "annoyed",
-    "gesture": "making an \"X\" with her fingers",
-    "objects": "heart",
-    "text_content": "\u59d0\u7684\u5fc3\u2764\ufe0f\u7981\u6b62\u8bbf\u95ee\ud83d\udeab\nMy heart\u2764\ufe0fProhibit access\ud83d\udeab",
-    "vibe": "tsundere, gatekeeping"
-  },
-  "921.jpg": {
-    "emotion": "melancholy",
-    "gesture": "leaning on hands",
-    "objects": "trash can",
-    "text_content": "\u5176\u4ed6\u5783\u573e\nidual Waste\n\u5f53\u4e2a\u5783\u573e\u611f\u89c9\u633a\u597d\u7684\nIt feels OK to be trash",
-    "vibe": "self-deprecating, resigned"
-  },
-  "922.jpg": {
-    "emotion": "pleading",
-    "gesture": "reaching out with hand",
-    "objects": null,
-    "text_content": "\u5982\u679c\u7231 \u8bf7\u6253\u94b1\nIf love, please hit money",
-    "vibe": "begging, needy"
-  },
-  "923.jpg": {
-    "emotion": "inquisitive",
-    "gesture": "holding objects",
-    "objects": "toy cow, toy horse",
-    "text_content": "\u4f60\u662f\u4ec0\u4e48\u725b\u9a6c\nWhat kind of cow and horse are you",
-    "vibe": "curious, quirky"
-  },
-  "924.jpg": {
-    "emotion": "neutral",
-    "gesture": "standing",
-    "objects": null,
-    "text_content": "\u725b \u9a6c\nCow Horse",
-    "vibe": "cute, animalistic"
-  },
-  "925.jpg": {
-    "emotion": "cheerful",
-    "gesture": "posing",
-    "objects": "scroll, cow horns",
-    "text_content": "\u725b\u9a6c\u7cbe\u795e, Cow Horse Spirit",
-    "vibe": "energetic, festive"
-  },
-  "926.jpg": {
-    "emotion": "annoyed",
-    "gesture": "punching",
-    "objects": null,
-    "text_content": "0 / 20 / 0\n\u5403\u6211\u4e00\u8bb0\u55b5\u55b5\u62f3\nEat my Meow Meow fist",
-    "vibe": "aggressive cute"
-  },
-  "927.jpg": {
-    "emotion": "shocked",
-    "gesture": "hugging",
-    "objects": null,
-    "text_content": "\u6211\u7528\u771f\u5fc3\u5bf9\u4f60\n\u4f60\u5374\u53ea\u7528\u8868\u60c5\u5305\u6577\u884d\u6211\nI treated you with my heart\nBut you replied with your memes",
-    "vibe": "emotional betrayal"
-  },
-  "928.jpg": {
-    "emotion": "annoyed",
-    "gesture": "waving arm",
-    "objects": null,
-    "text_content": "\u6025\u4e86\nTriggered",
-    "vibe": "easily triggered"
-  },
-  "929.jpg": {
-    "emotion": "frustrated",
-    "gesture": "punching the air",
-    "objects": null,
-    "text_content": "\u6bcf\u5929\u5bf9\u7740\u7a7a\u6c14\u6253\u4e00\u62f3\n\u6211\u8ba8\u538c\u8fd9\u4e2a\u4e16\u754c\nHit air everyday\nI hate this world",
-    "vibe": "angry, relatable"
-  },
   "108.jpg": {
     "emotion": "happy",
     "gesture": "holding object",
@@ -325,13 +795,6 @@
     "objects": null,
     "text_content": "\u4f60\u5f00\u5fc3\u5c31\u597d\nAre you happy?",
     "vibe": "submissive sadness"
-  },
-  "11.jpg": {
-    "emotion": "crying",
-    "gesture": "covering face with one hand, raising other hand in a 'stop' gesture",
-    "objects": null,
-    "text_content": "\u522b\u627e\u6211 \u6211\u60f3\u9759\u9759\n\u4e5f\u522b\u95ee\u6211\u9759\u9759\u662f\u8c01\nI miss jing jing",
-    "vibe": "sad, longing"
   },
   "110.jpg": {
     "emotion": "panic",
@@ -406,13 +869,6 @@
     "text_content": "\u6211\u5f00FUV\u7684\nI drive FUV",
     "vibe": "proud flex"
   },
-  "12.jpg": {
-    "emotion": "annoyed",
-    "gesture": "pointing",
-    "objects": "chick",
-    "text_content": "\u628a\u9e21\u9e21\u653e\u56de\u53bb \u8d76\u7d27\u7761\u89c9\u53bb\nPut chick back go to sleep",
-    "vibe": "demanding, bossy"
-  },
   "120.jpg": {
     "emotion": "angry",
     "gesture": "pointing up",
@@ -433,6 +889,20 @@
     "objects": null,
     "text_content": "\u6211\u8981\u767b\u4e0a\u6211\u7684\u5e1d\u4f4d\nI want to sit on the throne",
     "vibe": "demanding, assertive"
+  },
+  "123.jpg": {
+    "emotion": "annoyed",
+    "gesture": "hands on hips",
+    "objects": null,
+    "text_content": "\u54fc\n\u6211\u5f88\u4efb\u6027\u7684\nI am very wayward",
+    "vibe": "bratty, defiant"
+  },
+  "124.jpg": {
+    "emotion": "annoyed",
+    "gesture": "slamming object on table",
+    "objects": "toy hammer, wooden table, stick figure",
+    "text_content": "\u77e5\u9053\u6211\u8eab\u4efd\u7684\u4eba\n\u6211\u90fd\u4f1a\u628a\u4ed6\u706d\u6389\nWho know me I kill he",
+    "vibe": "threatening, comical"
   },
   "125.jpg": {
     "emotion": "surprised",
@@ -469,6 +939,20 @@
     "text_content": "\u6211\u4e5f\u6709\u6211\u7684\u6cd5\u5f8b\nThis is my law",
     "vibe": "Possessive, confident"
   },
+  "130.jpg": {
+    "emotion": "distressed",
+    "gesture": null,
+    "objects": null,
+    "text_content": "\u6211\u7684\u5185\u5fc3\u662f\u51e0\u4e4e\u5d29\u6e83\u7684\nMy heart almost crumbling",
+    "vibe": "utter despair"
+  },
+  "131.jpg": {
+    "emotion": "angry",
+    "gesture": "one person pinching another's cheek",
+    "objects": null,
+    "text_content": "\u4e92\u76f8\u4f24\u5bb3\nHurt each other",
+    "vibe": "playful conflict"
+  },
   "132.jpg": {
     "emotion": "provocative",
     "gesture": "pulling shirt open",
@@ -504,12 +988,26 @@
     "text_content": "\u554a, \u597d\u7eff, \u8981\u575a\u5f3a, To be strong",
     "vibe": "sad encouragement"
   },
-  "14.jpg": {
+  "137.jpg": {
+    "emotion": "scared",
+    "gesture": "hugging knees",
+    "objects": "pokeball",
+    "text_content": "\u5b9d\u53ef\u68a6\u4e0a\nPokemon Go",
+    "vibe": "frightened, anxious"
+  },
+  "138.jpg": {
     "emotion": "happy",
-    "gesture": "hands on face",
-    "objects": null,
-    "text_content": "\u611f\u89c9\u81ea\u5df1\u633a\u840c\u7684\nI feel very TMD",
-    "vibe": "cute, silly"
+    "gesture": "holding",
+    "objects": "sun",
+    "text_content": "\u548c\u592a\u9633\u80a9\u5e76\u80a9\nAnd the sun side by side",
+    "vibe": "cute, cheerful"
+  },
+  "139.jpg": {
+    "emotion": "unimpressed",
+    "gesture": "holding object",
+    "objects": "plate",
+    "text_content": "\u8fd9\u4e2a\u76d8\u6211\u63a5\u4e86 This Plate I catch",
+    "vibe": "Sarcastic acceptance"
   },
   "140.jpg": {
     "emotion": "crying",
@@ -549,6 +1047,20 @@
     "text_content": "\u59b9\u7ea2\u4e00\u7b11\u5f88\u503e\u57ce\nMokou smile very nice",
     "vibe": "cute, cheerful"
   },
+  "145.jpg": {
+    "emotion": "surprised",
+    "gesture": "holding",
+    "objects": "plant",
+    "text_content": "\u5956\u52b1\u4f60\u4e00\u6735\u5c0f\u7ea2\u82b1 Reward you a little red flower",
+    "vibe": "playful reward"
+  },
+  "146.jpg": {
+    "emotion": "crying",
+    "gesture": "pointing",
+    "objects": null,
+    "text_content": "Why\n\u4e3a\u4ec0\u4e48\u53d7\u4f24\u7684\u603b\u662f\u6211\nWhy injured always me",
+    "vibe": "sad, defeated"
+  },
   "147.jpg": {
     "emotion": "joyful",
     "gesture": "cheering with pom-poms",
@@ -570,13 +1082,6 @@
     "text_content": "\u54c7 \u54c7 \u4e0d\u8981\u4e5f\u5f97\u8981 Catch the little red flower",
     "vibe": "playful struggle"
   },
-  "15.jpg": {
-    "emotion": "embarrassed",
-    "gesture": "holding a book",
-    "objects": "book",
-    "text_content": "\u91d1\u74f6\u6885\n\u65e0\u6cd5\u76f4\u89c6\nI can't see",
-    "vibe": "awkward discomfort"
-  },
   "150.jpg": {
     "emotion": "beat up",
     "gesture": "being grabbed by collar",
@@ -590,6 +1095,20 @@
     "objects": "hearts",
     "text_content": "\u6728\u554a\u6728\u554a\u6728\u554a\nMua Mua Mua",
     "vibe": "lovey-dovey, cutesy"
+  },
+  "152.jpg": {
+    "emotion": "neutral",
+    "gesture": "null",
+    "objects": "Bandai logo",
+    "text_content": "BAN DAI\n\u5bf9\u65b9\u770b\u4f60\u5341\u5206\u6709\u94b1\n\u5e76\u5411\u4f60\u6254\u4e86\u4e00\u4e2a\u4e07\u4ee3\nCatch BANDAI",
+    "vibe": "playful, ironic"
+  },
+  "153.jpg": {
+    "emotion": "playful",
+    "gesture": "hand outstretched",
+    "objects": "flower",
+    "text_content": "\u4e22\u6389\u90fd\u4e0d\u7ed9\u4f60\nThrow away not for you",
+    "vibe": "teasing, defiant"
   },
   "154.jpg": {
     "emotion": "annoyed",
@@ -635,6 +1154,13 @@
     "text_content": "Bye./\n\u4e16\u754c\u8fd9\u4e48\u5927\u6211\u60f3\u53bb\u770b\u770b\nThe world is so big I want to see",
     "vibe": "whimsical farewell"
   },
+  "160.jpg": {
+    "emotion": "neutral",
+    "gesture": "inserting card",
+    "objects": "card, student ID reader",
+    "text_content": "\u6ef4\n\u6ef4!\u5b66\u751f\u5361\nDi!Student card",
+    "vibe": "cute, studious"
+  },
   "161.jpg": {
     "emotion": "sad",
     "gesture": "reaching arms out",
@@ -670,19 +1196,36 @@
     "text_content": "-1\u667a\u529b\n-1\u667a\u529b\n\u55e4\u55e4\u55e4\n\u964d\u667a\u55b7\u96fe\nCHI CHI CHI",
     "vibe": "playful, mischievous"
   },
+  "166.jpg": {
+    "emotion": "playful",
+    "gesture": "pointing, holding",
+    "objects": "paint, paint tube",
+    "text_content": "\u7ed9\u70b9\u989c\u8272\u4f60\u770b Give colour you see",
+    "vibe": "mischievous, colorful"
+  },
+  "167.jpg": {
+    "emotion": "confident",
+    "gesture": "dismissing with hand",
+    "objects": null,
+    "text_content": "\u6211\u8fd9\u4e48\u68d2 \u8981\u7537\u670b\u53cb\u5e72\u561b\uff1f\nI don't need a Boyfriend.",
+    "vibe": "independent, sassy"
+  },
+  "168.jpg": {
+    "emotion": "embarrassed",
+    "gesture": null,
+    "objects": [
+      "laptop",
+      "tissue box"
+    ],
+    "text_content": "\u8272\u8272\u7684\u4e1c\u897f\nI don't say what I see",
+    "vibe": "Shy, suggestive"
+  },
   "169.jpg": {
     "emotion": "embarrassed",
     "gesture": "hands clasped nervously",
     "objects": null,
     "text_content": "\u8fd9\u5c31\u5c34\u5c2c\u4e86\nThis is embarrassing",
     "vibe": "awkward, flustered"
-  },
-  "17.jpg": {
-    "emotion": "sad",
-    "gesture": "holding object",
-    "objects": "heart-shaped lollipop",
-    "text_content": "\u5fc3\u585e\u585e\u7684\nHeart plug plug",
-    "vibe": "melancholy, dejected"
   },
   "170.jpg": {
     "emotion": "happy",
@@ -712,6 +1255,27 @@
     "text_content": "\u8001\u516c\n\u8fd9\u4f4d\u59b9\u5b50,\u6211\u4e0d\u8bc6\u5b57\n\u4f60\u5e2e\u6211\u5ff5\u5ff5,\u597d\u5417?\nCall me Husband",
     "vibe": "playful, demanding"
   },
+  "174.jpg": {
+    "emotion": "determined",
+    "gesture": "raising arm",
+    "objects": "Pokeball",
+    "text_content": "\u6210\u529f\u6355\u6349\u697c\u4e0a\n\u2014\u9632\u6b62\u6355\u6349\u9694\u79bb\u5e26\u2014\nSuccess catch upstairs",
+    "vibe": "playful challenge"
+  },
+  "175.jpg": {
+    "emotion": "angry",
+    "gesture": "pointing",
+    "objects": null,
+    "text_content": "\u83ca\u82b1\u7f8a\nChrysanthemum Sheep",
+    "vibe": "aggressive confusion"
+  },
+  "176.jpg": {
+    "emotion": "Blushing, expectant (left) / impassive (right)",
+    "gesture": "Hands clasped together (left)",
+    "objects": null,
+    "text_content": "\u201c\u5a18\u5b50!\u201d \u201c\u554a\u86e4?\u201d\n\"Honey!\" \"Uh huh?\"",
+    "vibe": "Anime Chibi Exchange"
+  },
   "177.jpg": {
     "emotion": "excited",
     "gesture": "raising arm, holding object",
@@ -733,19 +1297,33 @@
     "text_content": "\u5e05\u54e5\n\u770b\u7740\u6211\u7684\u8138\n\u4f60\u662f\u4e0d\u662f\u5728\u5fc3\u91cc\u53eb\u4e86\u4e00\u58f0\n\u5e05\u54e5\nYeah, my name on my face",
     "vibe": "meme, sassy"
   },
-  "18.jpg": {
-    "emotion": "happy",
-    "gesture": "peace sign, taking a selfie",
-    "objects": "phone",
-    "text_content": "\u522a\u524d\u7559\u5ff5 Before delete souvenir",
-    "vibe": "cheerful, playful"
-  },
   "180.jpg": {
     "emotion": "curious",
     "gesture": "scratching head",
     "objects": null,
     "text_content": "\u4f60\u4eec......\u6709\u6ca1\u6709......\nDo you......have......",
     "vibe": "inquisitive, cute"
+  },
+  "181.jpg": {
+    "emotion": "content",
+    "gesture": "holding",
+    "objects": "stuffed cat",
+    "text_content": "\u55b5...\nMiao...",
+    "vibe": "soft cute"
+  },
+  "182.jpg": {
+    "emotion": "annoyed",
+    "gesture": "clapping slowly",
+    "objects": null,
+    "text_content": "\u9ad8!\u5b9e\u5728\u662f\u9ad8!\nHigh!You very high!",
+    "vibe": "condescending applause"
+  },
+  "183.jpg": {
+    "emotion": "happy",
+    "gesture": "holding",
+    "objects": "coins",
+    "text_content": "\u6211\u4e5f\u662f\u6709\u5bf9\u8c61\u7684\u4eba\nI have object",
+    "vibe": "cute, bragging"
   },
   "184.jpg": {
     "emotion": "contemplative",
@@ -782,6 +1360,20 @@
     "text_content": "\u5403\u624b\u624b\nEat hand hand",
     "vibe": "playful, awkward"
   },
+  "189.jpg": {
+    "emotion": "excited",
+    "gesture": "raising fist",
+    "objects": null,
+    "text_content": "\u6211\u4eec\u7684\u53e3\u53f7\u662f...\nOur slogan is...",
+    "vibe": "energetic, rallying"
+  },
+  "190.jpg": {
+    "emotion": "neutral",
+    "gesture": "knocking",
+    "objects": "inflatable doll",
+    "text_content": "\u84ec\u83b1\u5c71\u8f89\u591c\n\u5feb\u5f00\u95e8!\u9001\u5feb\u9012\u7684!\u4f60\u4e70\u7684\u5973\u670b\u53cb\u5230\u4e86...\nKnock Knock Knock, open the door!\nYour girlfriend is here...",
+    "vibe": "comical, suggestive"
+  },
   "191.jpg": {
     "emotion": "annoyed/sad",
     "gesture": "laying in bed",
@@ -817,26 +1409,33 @@
     "text_content": "\u654c\u654c\u754f\n\u82b115\u5757\u94b1,\u7ed9\u81ea\u5df1\u6765\u4e00\u573a\n\u8bf4\u8d70\u5c31\u8d70\u7684\u65c5\u884c\nGoodbye, all the world",
     "vibe": "dark humor"
   },
+  "196.jpg": {
+    "emotion": "flushed",
+    "gesture": "holding",
+    "objects": "paper",
+    "text_content": "QQ\u53f7:\n\u5173\u5173\u96ce\u9e20,\u5728\u6cb3\u4e4b\u6d32.\n\u7a88\u7a95\u6dd1\u5973, what are you QQ?\nGive me your QQ number",
+    "vibe": "coy, pleading"
+  },
+  "197.jpg": {
+    "emotion": "determined",
+    "gesture": "carrying sack",
+    "objects": "sack",
+    "text_content": "\u6316\u7164\u56de\u6765\nI come back",
+    "vibe": "hardworking, dirty"
+  },
+  "198.jpg": {
+    "emotion": "neutral",
+    "gesture": "sitting",
+    "objects": "mug",
+    "text_content": "\u672c\u4eba\u5728\u5916\u5730\u88ab\u9a97,\u6025\u9700\u94b1\u56de\u5bb6,\u6709\u6ca1\n\u6709\u597d\u5fc3\u4eba\u8f6c8000\u5143\u7ed9\u6211,12\u5757\u94b1\u5403\n\u996d,7988\u5757\u94b1\u4e70\u53f0\u82f9\u679c7\u8054\u7cfb\u5bb6\u4eba!\nToo long,I don't translate...",
+    "vibe": "pity party"
+  },
   "199.jpg": {
     "emotion": "content",
     "gesture": "holding object",
     "objects": "potato",
     "text_content": "\u8fd9\u817f\u6211\u80fd\u73a9\u4e00\u5e74\nThis leg I can play one year",
     "vibe": "affectionate, meme"
-  },
-  "2.jpg": {
-    "emotion": "annoyed",
-    "gesture": "raising pans above head",
-    "objects": "pans",
-    "text_content": "\u8fd9\u4e2a\u9505\u6211\u80cc\u4e86\nI carry the pan",
-    "vibe": "frustrated, angry"
-  },
-  "20.jpg": {
-    "emotion": "Various, including bashful/flustered",
-    "gesture": "Standing close, arm around shoulder",
-    "objects": "Hats, bows",
-    "text_content": "\u6211\u8981\u53cc\u5983 Double Fly",
-    "vibe": "Cute, Anime"
   },
   "200.jpg": {
     "emotion": "annoyed",
@@ -863,6 +1462,20 @@
     ],
     "text_content": "\u838e\u6bd4\n\u6211\u53d1\u73b0\u4f60\u548c\u838e\u58eb\u6bd4\u4e9a\u6709\u4e00\u534a\u50cf\nYou are SB",
     "vibe": "salty insult"
+  },
+  "203.jpg": {
+    "emotion": "coy",
+    "gesture": "holding face",
+    "objects": null,
+    "text_content": "\u5feb\u8bf4\u672c\u5b9d\u5b9d\u53ef\u4e0d\u53ef\u7231\nSay me cute",
+    "vibe": "cute pleading"
+  },
+  "204.jpg": {
+    "emotion": "disbelief",
+    "gesture": "covering eyes",
+    "objects": "computer monitor",
+    "text_content": "\u6211\u5230\u5e95\u770b\u5230\u4e86\u4e9b\u4ec0\u4e48\uff1fWhat the...",
+    "vibe": "utter shock"
   },
   "205.jpg": {
     "emotion": "smug",
@@ -901,6 +1514,20 @@
     "text_content": "\u5e26\u4e0a\u4f60\u7684\u76ae\u76ae\u867e,\u6709\u591a\u8fdc\u6eda\u591a\u8fdc\nGet out, PPX!!!",
     "vibe": "get out"
   },
+  "210.jpg": {
+    "emotion": "happy",
+    "gesture": "holding object",
+    "objects": "plate, shrimp, peppers",
+    "text_content": "\u4f60\u4eec\u7684\u76ae\u76ae\u867e\u5df2\u7ecf\u88ab\u6211\u7092\u4e86 I chao PPX!!!",
+    "vibe": "playful boast"
+  },
+  "211.jpg": {
+    "emotion": "annoyed",
+    "gesture": "throwing",
+    "objects": "basketballs",
+    "text_content": "\u624b\u6495\u76ae\u76ae\u867e\nHand tear PPX!!!",
+    "vibe": "aggressive energy"
+  },
   "212.jpg": {
     "emotion": "confused",
     "gesture": "laying in bed",
@@ -936,12 +1563,26 @@
     "text_content": "\u76ae\u76ae\u867e\u4eca\u5929\u4e0d\u60f3\u8d70\u4e86\nAre you OK? PPX!!!",
     "vibe": "melancholy, worried"
   },
-  "22.jpg": {
-    "emotion": "sad",
-    "gesture": "peeking over the edge of a box",
-    "objects": "cardboard box",
-    "text_content": "\u6c42\u5305\u517b\nTake me back",
-    "vibe": "needy, pitiful"
+  "217.jpg": {
+    "emotion": "annoyed",
+    "gesture": "looking over ledge, holding blade",
+    "objects": "blade",
+    "text_content": "\u523a\u5ba2\u4fe1\u6761 Assassin's Creed",
+    "vibe": "serious, watchful"
+  },
+  "218.jpg": {
+    "emotion": "distressed",
+    "gesture": "flying",
+    "objects": "eagle",
+    "text_content": "\u6211\u4e0d\u662f\u523a\u5ba2 Hey!! I'm not an Assassin!!!",
+    "vibe": "frantic denial"
+  },
+  "219.jpg": {
+    "emotion": "uncertain",
+    "gesture": "shrugging",
+    "objects": "flower",
+    "text_content": "\u4ed6\u7231\u6211,\u4ed6\u4e0d\u7231\u6211...\n\u4ed6\u7231\u6211,\u4ed6\u4e0d\u7231\u6211...\nHe love me, he don't love me...\nHe love me, he don't love me...",
+    "vibe": "lovesick, doubtful"
   },
   "220.jpg": {
     "emotion": "serious",
@@ -971,6 +1612,34 @@
     "text_content": "......",
     "vibe": "cute, bewildered"
   },
+  "224.jpg": {
+    "emotion": "embarrassed",
+    "gesture": "hands on face/in front",
+    "objects": null,
+    "text_content": "\u8fd9\u5c31\u975e\u5e38\u5c34\u5c2c\u4e86\nThis is very embarrassing",
+    "vibe": "awkward, flustered"
+  },
+  "225.jpg": {
+    "emotion": "excited",
+    "gesture": "holding megaphone",
+    "objects": "megaphone, explosion",
+    "text_content": "\u70b8\u5f97\u597d!\nBang Bang Bang",
+    "vibe": "chaotic, loud"
+  },
+  "226.jpg": {
+    "emotion": "nervous",
+    "gesture": "tied up",
+    "objects": "rope",
+    "text_content": "\u59b9\u5b50 \u6211\u52a8\u4e0d\u4e86 \u4f60\u7684\u673a\u4f1a\u6765\u4e86\nSM Me",
+    "vibe": "submissive pleading"
+  },
+  "227.jpg": {
+    "emotion": "serious",
+    "gesture": "shouting into megaphone",
+    "objects": "megaphone, cap with Transformer logo",
+    "text_content": "Action!, \u8fc8\u514b\u5c14\u00b7\u8d1d, Michael Bay",
+    "vibe": "directing, intense"
+  },
   "228.jpg": {
     "emotion": "Excited, annoyed",
     "gesture": "Holding object, grabbing",
@@ -985,13 +1654,6 @@
     "text_content": "\u6295\u5e01\u7bb1\n\u548c\u6211\u8bf4\u8bf4\u8bdd\u8bf7\u6295\u5e01\nNo money no talk",
     "vibe": "cynical, demanding"
   },
-  "23.jpg": {
-    "emotion": "confused",
-    "gesture": null,
-    "objects": null,
-    "text_content": "\u54a9\u554a\nWhat a?",
-    "vibe": "cute questioning"
-  },
   "230.jpg": {
     "emotion": "incredulous",
     "gesture": "shrugging",
@@ -1005,6 +1667,27 @@
     "objects": null,
     "text_content": "\u5bf9\u4e0d\u8d77 \u6211\u53ea\u7231\u5b66\u4e60\nSorry, I only love study",
     "vibe": "meme, rejection"
+  },
+  "232.jpg": {
+    "emotion": "annoyed/exasperated",
+    "gesture": "holding sign",
+    "objects": "sign",
+    "text_content": "\u59d3\u540d:\n\u5b66\u4e60\n\u6211\u7684\u540d\u5b57\u53eb\u5b66\u4e60\nMy name is study",
+    "vibe": "silly, meme"
+  },
+  "233.jpg": {
+    "emotion": "skeptical",
+    "gesture": null,
+    "objects": null,
+    "text_content": "\u8bf6?\nHuh?",
+    "vibe": "Confused, questioning"
+  },
+  "234.jpg": {
+    "emotion": "Annoyed/Tired",
+    "gesture": "Leaning, defeated",
+    "objects": "Jack-in-the-box",
+    "text_content": "\u611a\u4f60\u59b9\nWhat the F***",
+    "vibe": "Exhausted frustration"
   },
   "235.jpg": {
     "emotion": "flustered",
@@ -1041,12 +1724,19 @@
     "text_content": "\u8fdb\u5165\u59d4\u5c48\u6a21\u5f0f\nGrievance pattern",
     "vibe": "sad anime"
   },
-  "24.jpg": {
-    "emotion": "happy",
-    "gesture": "posing together",
-    "objects": null,
-    "text_content": "\u6211\u4eec\nWe",
-    "vibe": "Cute, friendly"
+  "240.jpg": {
+    "emotion": "crying, supportive",
+    "gesture": "comforting, hand on shoulder",
+    "objects": "hat, bow",
+    "text_content": "\u50bb\u4e2b\u5934 \u6211\u4eec\u53ef\u4ee5\u91cd\u65b0\u5f00\u59cb\u554a\nHoney, let's start again",
+    "vibe": "emotional support"
+  },
+  "241.jpg": {
+    "emotion": "disgruntled",
+    "gesture": "handcuffed to bars",
+    "objects": "handcuffs, microphone",
+    "text_content": "\u6253\u5de5\u662f\u4e0d\u53ef\u80fd\u6253\u5de5\n\u8fd9\u8f88\u5b50\u4e0d\u53ef\u80fd\u6253\u5de5\u7684\u5566\nI'm not going to work in my life",
+    "vibe": "lazy rebellion"
   },
   "242.jpg": {
     "emotion": "nervous",
@@ -1106,13 +1796,6 @@
     "objects": null,
     "text_content": "\u634f\u4f60\u5c0f\u80a5\u8138\nPinch your chubby cheeks",
     "vibe": "playful teasing"
-  },
-  "25.jpg": {
-    "emotion": "flustered",
-    "gesture": "hugging",
-    "objects": null,
-    "text_content": "\u4e0d\u662f\u8bf4\u597d\u53ea\u662f\u804a\u5929\u5417\nWe are just friends",
-    "vibe": "awkward, embarrassed"
   },
   "250.jpg": {
     "emotion": "smug",
@@ -1184,13 +1867,6 @@
     "text_content": "\u4e0d\u660e\u771f\u76f8\u7684\u5403\u74dc\u7fa4\u4f17\nWhat happened?",
     "vibe": "inquisitive, observant"
   },
-  "26.jpg": {
-    "emotion": "smug",
-    "gesture": "reading",
-    "objects": "book, stack of books",
-    "text_content": "\u6211\u8bfb\u7684\u4e66\u591a \u4e0d\u4f1a\u9a97\u4f60\nI read much don't cheat you",
-    "vibe": "bookish denial"
-  },
   "260.jpg": {
     "emotion": "happy",
     "gesture": "sitting",
@@ -1260,13 +1936,6 @@
     "objects": "watermelon",
     "text_content": "\u5657\u5657\u5657\nPiu Piu Piu",
     "vibe": "cute, playful"
-  },
-  "27.jpg": {
-    "emotion": "kissing",
-    "gesture": "raising hands",
-    "objects": null,
-    "text_content": "\u5575\u4e00\u4e2a\nMua Mua",
-    "vibe": "affectionate, cute"
   },
   "270.jpg": {
     "emotion": "sad",
@@ -1338,13 +2007,6 @@
     "text_content": "\u6211\u7684\u547d\u662f\u7a7a\u8c03\u7ed9\u7684\nAir conditioning gives me life",
     "vibe": "chill, relaxed"
   },
-  "28.jpg": {
-    "emotion": "smug",
-    "gesture": "holding card",
-    "objects": "card",
-    "text_content": "\u597d\u4eba\u5361\nGood people card",
-    "vibe": "sarcastic, condescending"
-  },
   "280.jpg": {
     "emotion": "shocked",
     "gesture": null,
@@ -1415,13 +2077,6 @@
     "text_content": "\u63a5\u8fc7dalao\u7684\u8336\nTake dalao's tea",
     "vibe": "polite, offering tea"
   },
-  "29.jpg": {
-    "emotion": "confused",
-    "gesture": "touching beak",
-    "objects": null,
-    "text_content": "\u6bcd\u9e21\u554a\nI don't know a",
-    "vibe": "awkward clueless"
-  },
   "290.jpg": {
     "emotion": "focused",
     "gesture": "reading book",
@@ -1491,20 +2146,6 @@
     "objects": "scale",
     "text_content": "\u4f53\u91cd\u662f\u80d6\nWeight is fat",
     "vibe": "shocked realization"
-  },
-  "3.jpg": {
-    "emotion": "angry",
-    "gesture": "holding arms up, yelling",
-    "objects": "cleaver, ginseng root",
-    "text_content": "\u6211\u7684\u4eba\u53c2\u6211\u716e\u5bb0\nMy ginseng I cook",
-    "vibe": "irate cooking"
-  },
-  "30.jpg": {
-    "emotion": "happy",
-    "gesture": "holding something out",
-    "objects": "paw",
-    "text_content": "\u63e1\u722a\nShake claw",
-    "vibe": "cute, friendly"
   },
   "300.jpg": {
     "emotion": "smug",
@@ -1581,13 +2222,6 @@
     "text_content": "M \u9ea6\u5f53\u52b3\n\u9ea6\u5f53\u52b3\u751f\u65e5\u4f1a\nMcDonald's birthday party",
     "vibe": "cute, cheerful"
   },
-  "31.jpg": {
-    "emotion": "serious",
-    "gesture": "hands clasped, resting chin",
-    "objects": "table, glasses",
-    "text_content": "\u5143\u82b3\u4f60\u600e\u4e48\u770b\nHow do you see YuanFang",
-    "vibe": "contemplative, thoughtful"
-  },
   "310.jpg": {
     "emotion": "annoyed",
     "gesture": "eating, holding french fries",
@@ -1661,15 +2295,6 @@
     "text_content": "666\nYou are very six six six",
     "vibe": "chill devil"
   },
-  "32.jpg": {
-    "emotion": "annoyed",
-    "gesture": "holding",
-    "objects": [
-      "red bird plush"
-    ],
-    "text_content": "\u5173\u6211\u9e1f\u4e8b\nGuan my bird thing",
-    "vibe": "salty, quirky"
-  },
   "320.jpg": {
     "emotion": "pensive",
     "gesture": "chin on hand",
@@ -1739,13 +2364,6 @@
     "objects": "duck",
     "text_content": "\u611f\u5230\u9e2d\u529b\nI feel duck power",
     "vibe": "bored, cute"
-  },
-  "33.jpg": {
-    "emotion": "happy",
-    "gesture": "saluting",
-    "objects": "chinese flag",
-    "text_content": "\u8bf7\u53eb\u6211\u7ea2\u9886\u5dfe\nPlease call me red scarf",
-    "vibe": "patriotic, cute"
   },
   "330.jpg": {
     "emotion": "happy",
@@ -1823,13 +2441,6 @@
     "text_content": "\u81a8\u80c0\nInflate",
     "vibe": "smug confidence"
   },
-  "34.jpg": {
-    "emotion": "annoyed",
-    "gesture": "shooting",
-    "objects": null,
-    "text_content": "\u5341\u5b57\u6b7b\u5149\nBiu Biu Biu",
-    "vibe": "deadly cute"
-  },
   "340.jpg": {
     "emotion": "worried",
     "gesture": null,
@@ -1902,13 +2513,6 @@
     "text_content": "\u5316\u5986\u540e\u7684\u6211\nMakeup face",
     "vibe": "cute, confident"
   },
-  "35.jpg": {
-    "emotion": "flushed",
-    "gesture": "holding object",
-    "objects": "flashlight",
-    "text_content": "\u518d\u723d\u4e00\u6b21\nLet me happy again",
-    "vibe": "cutesy request"
-  },
   "350.jpg": {
     "emotion": "happy",
     "gesture": null,
@@ -1937,6 +2541,13 @@
     "text_content": "\u4e0d\u4f1a\u5403\u4f60\u4eec\u4e00\u70b9\u4e1c\u897f\nWont eat any of your foods",
     "vibe": "fiery denial"
   },
+  "354.jpg": {
+    "emotion": "happy",
+    "gesture": "eating",
+    "objects": "rice bowl, chopsticks",
+    "text_content": "\u771f\u9999\nReally delicious",
+    "vibe": "cheerful, hungry"
+  },
   "355.jpg": {
     "emotion": "Smug",
     "gesture": null,
@@ -1950,6 +2561,72 @@
     "objects": null,
     "text_content": "\u575a\u5f3a\u7684\u81ea\u5df1 \u4e0d\u9700\u8981\u62b1\u62b1 I'm very strong, I don't need Bao Bao",
     "vibe": "tsundere energy"
+  },
+  "357.jpg": {
+    "emotion": "affectionate",
+    "gesture": "hugging",
+    "objects": null,
+    "text_content": "\u575a\u5f3a\u7684\u81ea\u5df1\u4e0d\u9700\u8981\u62b1\u62b1\nI'm very strong, I don't need Bao Bao\n\u53bb\u4f60\u59b9\u7684\u575a\u5f3a\u8001\u5b50\u8981\u62b1\u62b1\nWhat the hell strong, I just need Bao Bao",
+    "vibe": "clingy, demanding"
+  },
+  "358.jpg": {
+    "emotion": "confused",
+    "gesture": "thinking",
+    "objects": null,
+    "text_content": "\u4e0d\u77e5\u9053\u8be5\u6446\u51fa\u4ec0\u4e48\u8868\u60c5\nNot sure which emoji to use",
+    "vibe": "lost, puzzled"
+  },
+  "359.jpg": {
+    "emotion": "determined",
+    "gesture": "writing",
+    "objects": "pencil, paper, table",
+    "text_content": "\u8bb0\u4ec7\nBear grudge",
+    "vibe": "plotting, studious"
+  },
+  "360.jpg": {
+    "emotion": "happy",
+    "gesture": "making heart with hands",
+    "objects": null,
+    "text_content": "\u6bd4\u5fc3\u5fc3\nLove You",
+    "vibe": "sweet, loving"
+  },
+  "361.jpg": {
+    "emotion": "happy",
+    "gesture": "waving",
+    "objects": "pillow",
+    "text_content": "\u65e9\u5b89\u5b89\nGood morningning",
+    "vibe": "cute, cheerful"
+  },
+  "362.jpg": {
+    "emotion": "confused",
+    "gesture": "finger on chin",
+    "objects": null,
+    "text_content": "\u59b9\u7ea2\u95ee\u53f7\nMokou question",
+    "vibe": "puzzled, thoughtful"
+  },
+  "363.jpg": {
+    "emotion": "happy",
+    "gesture": "raising arms, blowing a noisemaker, holding a sparkler",
+    "objects": "pom-poms, sparkler, noisemaker, confetti",
+    "text_content": "\u513f\u7ae5\u8282\u5feb\u4e50, Happy Children's Day, Bi|Bi|",
+    "vibe": "festive, celebratory"
+  },
+  "364.jpg": {
+    "emotion": "tired",
+    "gesture": "reading",
+    "objects": "book, desk lamp, books",
+    "text_content": "\u6211\u592a\u60f3\u7761\u89c9\u4e86\u53ef\u662f\u5b66\u4e60\u592a\u6709\u610f\u601d\u4e86\nI very want to sleep\nBut study is very interesting",
+    "vibe": "sleepy study"
+  },
+  "365.jpg": {
+    "emotion": "crying",
+    "gesture": "holding a phone receiver, throwing a book",
+    "objects": [
+      "phone",
+      "book"
+    ],
+    "text_content": "\u6211\u4e0d\u60f3\u8bfb\u4e66\u4e86 \u4f60\u6765\u63a5\u6211\u56de\u5bb6\u5427\nI don't want study, you take me home",
+    "vibe": "overly dramatic"
   },
   "366.jpg": {
     "emotion": "annoyed",
@@ -1978,13 +2655,6 @@
     "objects": "null",
     "text_content": "\u6211\u85e4\u539f\u59b9\u7ea2\u65e0FA\u53ef\u8bf4\nSpeechless",
     "vibe": "unimpressed shrug"
-  },
-  "37.jpg": {
-    "emotion": "disgusted",
-    "gesture": "holding up vegetable",
-    "objects": "vegetable",
-    "text_content": "\u4e0d\u662f\u6211\u7684\u83dc\nNot my vegetable",
-    "vibe": "unhappy refusal"
   },
   "370.jpg": {
     "emotion": "joyful",
@@ -2065,16 +2735,6 @@
     "text_content": "\u7cbe\u795e\u79d1, \u55ef \u4f60\u7ee7\u7eed\u8bf4 \u6211\u5728\u542c, You keep talking, I'm listening",
     "vibe": "observant, listening"
   },
-  "38.jpg": {
-    "emotion": "annoyed",
-    "gesture": "holding objects",
-    "objects": [
-      "flower",
-      "dynamite"
-    ],
-    "text_content": "\u4fe1\u4e0d\u4fe1\u6211\u7206\u83ca\nI'm bomb chrysanthemum",
-    "vibe": "angry cute"
-  },
   "380.jpg": {
     "emotion": "uncomprehending",
     "gesture": "cupping ear",
@@ -2153,13 +2813,6 @@
     "text_content": "\u751f\u6c14\u6c14\nAngryry",
     "vibe": "cute rage"
   },
-  "39.jpg": {
-    "emotion": "happy",
-    "gesture": "holding and pointing at eggs",
-    "objects": "eggs",
-    "text_content": "\u5b56\u86cb\nDouble eggs",
-    "vibe": "cute, cheerful"
-  },
   "390.jpg": {
     "emotion": "content",
     "gesture": "eating",
@@ -2229,20 +2882,6 @@
     "objects": "wreath, christmas decorations, bow",
     "text_content": "\u5723\u8bde\u8282\u5feb\u4e50\nMerry Christmas",
     "vibe": "festive, cheerful"
-  },
-  "4.jpg": {
-    "emotion": "happy",
-    "gesture": "holding",
-    "objects": "grass",
-    "text_content": "\u63e1\u4e86\u68f5\u8349\nWo le ke cao",
-    "vibe": "playful, sassy"
-  },
-  "40.jpg": {
-    "emotion": "annoyed",
-    "gesture": "lying down",
-    "objects": null,
-    "text_content": "\u6b63\u9762\u4e0a\u6211\u5440\nCome on boy",
-    "vibe": "provocative, apathetic"
   },
   "400.jpg": {
     "emotion": "confident",
@@ -2319,13 +2958,6 @@
     "text_content": "\u5f8b\u5e08\u51fd\u8b66\u544a\nWarning letter\n\u4f5c\u8005 \u5411\u5168\u4f53\u5e7b\u60f3\u4e61\u8c22\u7f6a\u5427\nAuthor, apologize to the whole Gensokyo",
     "vibe": "concerning, serious"
   },
-  "41.jpg": {
-    "emotion": "annoyed",
-    "gesture": "holding a mouse up",
-    "objects": "mouse",
-    "text_content": "\u6211\u8bc6\u4f60\u8001\u9f20\nI know you mouse",
-    "vibe": "irritated suspicion"
-  },
   "410.jpg": {
     "emotion": "happy",
     "gesture": "offering",
@@ -2396,13 +3028,6 @@
     "text_content": "\u8fa3\u773c\u775b Spicy eyes",
     "vibe": "spicy, silly"
   },
-  "42.jpg": {
-    "emotion": "smug",
-    "gesture": null,
-    "objects": null,
-    "text_content": "\u7136\u800c\u59b9\u7ea2\u65e9\u5c31\u770b\u7a7f\u4e86\u4e00\u5207\nHowever SisterRed see everything",
-    "vibe": "knowing, mischievous"
-  },
   "420.jpg": {
     "emotion": "neutral",
     "gesture": "holding object, pointing",
@@ -2472,13 +3097,6 @@
     "objects": "chicken",
     "text_content": "\u5594\u5594\u5594",
     "vibe": "playful, whimsical"
-  },
-  "43.jpg": {
-    "emotion": "happy",
-    "gesture": "holding",
-    "objects": "poop",
-    "text_content": "\u8fd9\u5c31\u662f\u733f\u7caa\nThis is ape dung",
-    "vibe": "playful gross"
   },
   "430.jpg": {
     "emotion": "happy",
@@ -2552,13 +3170,6 @@
     "objects": null,
     "text_content": "***, \u742a\u9732\u8bfa!\n*** ****, Cirno!",
     "vibe": "irate confusion"
-  },
-  "44.jpg": {
-    "emotion": "frustrated",
-    "gesture": null,
-    "objects": null,
-    "text_content": "\u88c5B\u88ab\u96f7\u5288\nNo B No P",
-    "vibe": "exasperated reaction"
   },
   "440.jpg": {
     "emotion": "sleepy",
@@ -2634,13 +3245,6 @@
     "text_content": "\u73a9\u6e38\u620f\u4e00\u5b9a\u8981\u7b11\u7740\u73a9\nPlay game must laugh play",
     "vibe": "playful, energetic"
   },
-  "45.jpg": {
-    "emotion": "happy",
-    "gesture": null,
-    "objects": "flower, duck",
-    "text_content": "\u718a\u5b69\u5b50\nBear kid",
-    "vibe": "cute, playful"
-  },
   "450.jpg": {
     "emotion": "confused",
     "gesture": "swinging hammer",
@@ -2713,13 +3317,6 @@
     "objects": "food, blood",
     "text_content": "\u6b7b\u4e8e\u80a5\u547d\nFat die",
     "vibe": "morbid humor"
-  },
-  "46.jpg": {
-    "emotion": "smug",
-    "gesture": "pointing",
-    "objects": null,
-    "text_content": "\u7b2c\u4e8c\u96c6\n\u4e3b\u89d2\u5c31\u80fd\u6d3b\u5230\u5927\u7d50\u5c40\nProtagonist live to the end",
-    "vibe": "smug assertion"
   },
   "460.jpg": {
     "emotion": "mischievous",
@@ -2806,16 +3403,6 @@
     "text_content": "\u6628\u5929\u4e0d\u662f\u521a\u8d77\u8fc7\u5e8a\u5417\n\u600e\u4e48\u4eca\u5929\u53c8\u8981\u8d77\u5e8a\nYesterday I already got up\nWhy today I get up again",
     "vibe": "relatable struggle"
   },
-  "47.jpg": {
-    "emotion": "bored",
-    "gesture": "resting on table",
-    "objects": [
-      "tea",
-      "watch"
-    ],
-    "text_content": "\u7eff\u8336 \u8868 Green tea Watch",
-    "vibe": "apathetic waiting"
-  },
   "470.jpg": {
     "emotion": "smug",
     "gesture": "holding object, offering",
@@ -2886,16 +3473,6 @@
     "text_content": "\u4e0d\u8bb8\u6b3a\u8d1f\u5c0f\u80a5\u661f\nDon't bully little fat star",
     "vibe": "fierce protection"
   },
-  "48.jpg": {
-    "emotion": "smug",
-    "gesture": "smoking",
-    "objects": [
-      "cigarette",
-      "burning dollar bill"
-    ],
-    "text_content": "\u6709\u94b1 \u4efb\u6027\nmoney wayward",
-    "vibe": "rich nonchalance"
-  },
   "480.jpg": {
     "emotion": "annoyed",
     "gesture": "holding object",
@@ -2916,333 +3493,6 @@
     "objects": "umbrella",
     "text_content": "\u8fd9\u5ea7\u57ce\n\u591a\u4e86\u4e2a\u4f24\u5fc3\u7684\u4eba\nThis city\nOne more sad person",
     "vibe": "melancholy, gloomy"
-  },
-  "123.jpg": {
-    "emotion": "annoyed",
-    "gesture": "hands on hips",
-    "objects": null,
-    "text_content": "\u54fc\n\u6211\u5f88\u4efb\u6027\u7684\nI am very wayward",
-    "vibe": "bratty, defiant"
-  },
-  "124.jpg": {
-    "emotion": "annoyed",
-    "gesture": "slamming object on table",
-    "objects": "toy hammer, wooden table, stick figure",
-    "text_content": "\u77e5\u9053\u6211\u8eab\u4efd\u7684\u4eba\n\u6211\u90fd\u4f1a\u628a\u4ed6\u706d\u6389\nWho know me I kill he",
-    "vibe": "threatening, comical"
-  },
-  "13.jpg": {
-    "emotion": "happy",
-    "gesture": "holding/offering",
-    "objects": [
-      "bananas"
-    ],
-    "text_content": "\u98df\u8549\u5566\u4f60\nEat banana la you",
-    "vibe": "Playful, cheeky"
-  },
-  "130.jpg": {
-    "emotion": "distressed",
-    "gesture": null,
-    "objects": null,
-    "text_content": "\u6211\u7684\u5185\u5fc3\u662f\u51e0\u4e4e\u5d29\u6e83\u7684\nMy heart almost crumbling",
-    "vibe": "utter despair"
-  },
-  "131.jpg": {
-    "emotion": "angry",
-    "gesture": "one person pinching another's cheek",
-    "objects": null,
-    "text_content": "\u4e92\u76f8\u4f24\u5bb3\nHurt each other",
-    "vibe": "playful conflict"
-  },
-  "137.jpg": {
-    "emotion": "scared",
-    "gesture": "hugging knees",
-    "objects": "pokeball",
-    "text_content": "\u5b9d\u53ef\u68a6\u4e0a\nPokemon Go",
-    "vibe": "frightened, anxious"
-  },
-  "138.jpg": {
-    "emotion": "happy",
-    "gesture": "holding",
-    "objects": "sun",
-    "text_content": "\u548c\u592a\u9633\u80a9\u5e76\u80a9\nAnd the sun side by side",
-    "vibe": "cute, cheerful"
-  },
-  "139.jpg": {
-    "emotion": "unimpressed",
-    "gesture": "holding object",
-    "objects": "plate",
-    "text_content": "\u8fd9\u4e2a\u76d8\u6211\u63a5\u4e86 This Plate I catch",
-    "vibe": "Sarcastic acceptance"
-  },
-  "145.jpg": {
-    "emotion": "surprised",
-    "gesture": "holding",
-    "objects": "plant",
-    "text_content": "\u5956\u52b1\u4f60\u4e00\u6735\u5c0f\u7ea2\u82b1 Reward you a little red flower",
-    "vibe": "playful reward"
-  },
-  "146.jpg": {
-    "emotion": "crying",
-    "gesture": "pointing",
-    "objects": null,
-    "text_content": "Why\n\u4e3a\u4ec0\u4e48\u53d7\u4f24\u7684\u603b\u662f\u6211\nWhy injured always me",
-    "vibe": "sad, defeated"
-  },
-  "152.jpg": {
-    "emotion": "neutral",
-    "gesture": "null",
-    "objects": "Bandai logo",
-    "text_content": "BAN DAI\n\u5bf9\u65b9\u770b\u4f60\u5341\u5206\u6709\u94b1\n\u5e76\u5411\u4f60\u6254\u4e86\u4e00\u4e2a\u4e07\u4ee3\nCatch BANDAI",
-    "vibe": "playful, ironic"
-  },
-  "153.jpg": {
-    "emotion": "playful",
-    "gesture": "hand outstretched",
-    "objects": "flower",
-    "text_content": "\u4e22\u6389\u90fd\u4e0d\u7ed9\u4f60\nThrow away not for you",
-    "vibe": "teasing, defiant"
-  },
-  "16.jpg": {
-    "emotion": "anxious",
-    "gesture": "hiding",
-    "objects": null,
-    "text_content": "\u602a\u6211\u54af\nBlame me?",
-    "vibe": "scared, defensive"
-  },
-  "160.jpg": {
-    "emotion": "neutral",
-    "gesture": "inserting card",
-    "objects": "card, student ID reader",
-    "text_content": "\u6ef4\n\u6ef4!\u5b66\u751f\u5361\nDi!Student card",
-    "vibe": "cute, studious"
-  },
-  "166.jpg": {
-    "emotion": "playful",
-    "gesture": "pointing, holding",
-    "objects": "paint, paint tube",
-    "text_content": "\u7ed9\u70b9\u989c\u8272\u4f60\u770b Give colour you see",
-    "vibe": "mischievous, colorful"
-  },
-  "167.jpg": {
-    "emotion": "confident",
-    "gesture": "dismissing with hand",
-    "objects": null,
-    "text_content": "\u6211\u8fd9\u4e48\u68d2 \u8981\u7537\u670b\u53cb\u5e72\u561b\uff1f\nI don't need a Boyfriend.",
-    "vibe": "independent, sassy"
-  },
-  "168.jpg": {
-    "emotion": "embarrassed",
-    "gesture": null,
-    "objects": [
-      "laptop",
-      "tissue box"
-    ],
-    "text_content": "\u8272\u8272\u7684\u4e1c\u897f\nI don't say what I see",
-    "vibe": "Shy, suggestive"
-  },
-  "174.jpg": {
-    "emotion": "determined",
-    "gesture": "raising arm",
-    "objects": "Pokeball",
-    "text_content": "\u6210\u529f\u6355\u6349\u697c\u4e0a\n\u2014\u9632\u6b62\u6355\u6349\u9694\u79bb\u5e26\u2014\nSuccess catch upstairs",
-    "vibe": "playful challenge"
-  },
-  "175.jpg": {
-    "emotion": "angry",
-    "gesture": "pointing",
-    "objects": null,
-    "text_content": "\u83ca\u82b1\u7f8a\nChrysanthemum Sheep",
-    "vibe": "aggressive confusion"
-  },
-  "176.jpg": {
-    "emotion": "Blushing, expectant (left) / impassive (right)",
-    "gesture": "Hands clasped together (left)",
-    "objects": null,
-    "text_content": "\u201c\u5a18\u5b50!\u201d \u201c\u554a\u86e4?\u201d\n\"Honey!\" \"Uh huh?\"",
-    "vibe": "Anime Chibi Exchange"
-  },
-  "181.jpg": {
-    "emotion": "content",
-    "gesture": "holding",
-    "objects": "stuffed cat",
-    "text_content": "\u55b5...\nMiao...",
-    "vibe": "soft cute"
-  },
-  "182.jpg": {
-    "emotion": "annoyed",
-    "gesture": "clapping slowly",
-    "objects": null,
-    "text_content": "\u9ad8!\u5b9e\u5728\u662f\u9ad8!\nHigh!You very high!",
-    "vibe": "condescending applause"
-  },
-  "183.jpg": {
-    "emotion": "happy",
-    "gesture": "holding",
-    "objects": "coins",
-    "text_content": "\u6211\u4e5f\u662f\u6709\u5bf9\u8c61\u7684\u4eba\nI have object",
-    "vibe": "cute, bragging"
-  },
-  "189.jpg": {
-    "emotion": "excited",
-    "gesture": "raising fist",
-    "objects": null,
-    "text_content": "\u6211\u4eec\u7684\u53e3\u53f7\u662f...\nOur slogan is...",
-    "vibe": "energetic, rallying"
-  },
-  "19.jpg": {
-    "emotion": "accusing",
-    "gesture": "pointing",
-    "objects": "qr code",
-    "text_content": "\u51f6\u624b\u662f\n\u51f6\u624b\u662f...\nMurderer is...",
-    "vibe": "accusatory, meme"
-  },
-  "190.jpg": {
-    "emotion": "neutral",
-    "gesture": "knocking",
-    "objects": "inflatable doll",
-    "text_content": "\u84ec\u83b1\u5c71\u8f89\u591c\n\u5feb\u5f00\u95e8!\u9001\u5feb\u9012\u7684!\u4f60\u4e70\u7684\u5973\u670b\u53cb\u5230\u4e86...\nKnock Knock Knock, open the door!\nYour girlfriend is here...",
-    "vibe": "comical, suggestive"
-  },
-  "196.jpg": {
-    "emotion": "flushed",
-    "gesture": "holding",
-    "objects": "paper",
-    "text_content": "QQ\u53f7:\n\u5173\u5173\u96ce\u9e20,\u5728\u6cb3\u4e4b\u6d32.\n\u7a88\u7a95\u6dd1\u5973, what are you QQ?\nGive me your QQ number",
-    "vibe": "coy, pleading"
-  },
-  "197.jpg": {
-    "emotion": "determined",
-    "gesture": "carrying sack",
-    "objects": "sack",
-    "text_content": "\u6316\u7164\u56de\u6765\nI come back",
-    "vibe": "hardworking, dirty"
-  },
-  "198.jpg": {
-    "emotion": "neutral",
-    "gesture": "sitting",
-    "objects": "mug",
-    "text_content": "\u672c\u4eba\u5728\u5916\u5730\u88ab\u9a97,\u6025\u9700\u94b1\u56de\u5bb6,\u6709\u6ca1\n\u6709\u597d\u5fc3\u4eba\u8f6c8000\u5143\u7ed9\u6211,12\u5757\u94b1\u5403\n\u996d,7988\u5757\u94b1\u4e70\u53f0\u82f9\u679c7\u8054\u7cfb\u5bb6\u4eba!\nToo long,I don't translate...",
-    "vibe": "pity party"
-  },
-  "203.jpg": {
-    "emotion": "coy",
-    "gesture": "holding face",
-    "objects": null,
-    "text_content": "\u5feb\u8bf4\u672c\u5b9d\u5b9d\u53ef\u4e0d\u53ef\u7231\nSay me cute",
-    "vibe": "cute pleading"
-  },
-  "204.jpg": {
-    "emotion": "disbelief",
-    "gesture": "covering eyes",
-    "objects": "computer monitor",
-    "text_content": "\u6211\u5230\u5e95\u770b\u5230\u4e86\u4e9b\u4ec0\u4e48\uff1fWhat the...",
-    "vibe": "utter shock"
-  },
-  "21.jpg": {
-    "emotion": "annoyed",
-    "gesture": "throwing",
-    "objects": "bow",
-    "text_content": "\u6e23\u6e23\nDregs dregs",
-    "vibe": "salty, irritated"
-  },
-  "210.jpg": {
-    "emotion": "happy",
-    "gesture": "holding object",
-    "objects": "plate, shrimp, peppers",
-    "text_content": "\u4f60\u4eec\u7684\u76ae\u76ae\u867e\u5df2\u7ecf\u88ab\u6211\u7092\u4e86 I chao PPX!!!",
-    "vibe": "playful boast"
-  },
-  "211.jpg": {
-    "emotion": "annoyed",
-    "gesture": "throwing",
-    "objects": "basketballs",
-    "text_content": "\u624b\u6495\u76ae\u76ae\u867e\nHand tear PPX!!!",
-    "vibe": "aggressive energy"
-  },
-  "217.jpg": {
-    "emotion": "annoyed",
-    "gesture": "looking over ledge, holding blade",
-    "objects": "blade",
-    "text_content": "\u523a\u5ba2\u4fe1\u6761 Assassin's Creed",
-    "vibe": "serious, watchful"
-  },
-  "218.jpg": {
-    "emotion": "distressed",
-    "gesture": "flying",
-    "objects": "eagle",
-    "text_content": "\u6211\u4e0d\u662f\u523a\u5ba2 Hey!! I'm not an Assassin!!!",
-    "vibe": "frantic denial"
-  },
-  "219.jpg": {
-    "emotion": "uncertain",
-    "gesture": "shrugging",
-    "objects": "flower",
-    "text_content": "\u4ed6\u7231\u6211,\u4ed6\u4e0d\u7231\u6211...\n\u4ed6\u7231\u6211,\u4ed6\u4e0d\u7231\u6211...\nHe love me, he don't love me...\nHe love me, he don't love me...",
-    "vibe": "lovesick, doubtful"
-  },
-  "224.jpg": {
-    "emotion": "embarrassed",
-    "gesture": "hands on face/in front",
-    "objects": null,
-    "text_content": "\u8fd9\u5c31\u975e\u5e38\u5c34\u5c2c\u4e86\nThis is very embarrassing",
-    "vibe": "awkward, flustered"
-  },
-  "225.jpg": {
-    "emotion": "excited",
-    "gesture": "holding megaphone",
-    "objects": "megaphone, explosion",
-    "text_content": "\u70b8\u5f97\u597d!\nBang Bang Bang",
-    "vibe": "chaotic, loud"
-  },
-  "226.jpg": {
-    "emotion": "nervous",
-    "gesture": "tied up",
-    "objects": "rope",
-    "text_content": "\u59b9\u5b50 \u6211\u52a8\u4e0d\u4e86 \u4f60\u7684\u673a\u4f1a\u6765\u4e86\nSM Me",
-    "vibe": "submissive pleading"
-  },
-  "227.jpg": {
-    "emotion": "serious",
-    "gesture": "shouting into megaphone",
-    "objects": "megaphone, cap with Transformer logo",
-    "text_content": "Action!, \u8fc8\u514b\u5c14\u00b7\u8d1d, Michael Bay",
-    "vibe": "directing, intense"
-  },
-  "232.jpg": {
-    "emotion": "annoyed/exasperated",
-    "gesture": "holding sign",
-    "objects": "sign",
-    "text_content": "\u59d3\u540d:\n\u5b66\u4e60\n\u6211\u7684\u540d\u5b57\u53eb\u5b66\u4e60\nMy name is study",
-    "vibe": "silly, meme"
-  },
-  "233.jpg": {
-    "emotion": "skeptical",
-    "gesture": null,
-    "objects": null,
-    "text_content": "\u8bf6?\nHuh?",
-    "vibe": "Confused, questioning"
-  },
-  "234.jpg": {
-    "emotion": "Annoyed/Tired",
-    "gesture": "Leaning, defeated",
-    "objects": "Jack-in-the-box",
-    "text_content": "\u611a\u4f60\u59b9\nWhat the F***",
-    "vibe": "Exhausted frustration"
-  },
-  "240.jpg": {
-    "emotion": "crying, supportive",
-    "gesture": "comforting, hand on shoulder",
-    "objects": "hat, bow",
-    "text_content": "\u50bb\u4e2b\u5934 \u6211\u4eec\u53ef\u4ee5\u91cd\u65b0\u5f00\u59cb\u554a\nHoney, let's start again",
-    "vibe": "emotional support"
-  },
-  "241.jpg": {
-    "emotion": "disgruntled",
-    "gesture": "handcuffed to bars",
-    "objects": "handcuffs, microphone",
-    "text_content": "\u6253\u5de5\u662f\u4e0d\u53ef\u80fd\u6253\u5de5\n\u8fd9\u8f88\u5b50\u4e0d\u53ef\u80fd\u6253\u5de5\u7684\u5566\nI'm not going to work in my life",
-    "vibe": "lazy rebellion"
   },
   "483.jpg": {
     "emotion": "neutral",
@@ -3292,13 +3542,6 @@
     "objects": "microphone",
     "text_content": "\u5f53\u4e8b\u4eba\n\u5f53\u65f6\u7684\u6211\u5f88\u5bb3\u6015,\u975e\u5e38\u975e\u5e38\u5bb3\u6015\n\u5f53\u65f6\u6211\u5bb3\u6015\u6781\u4e86\nAt that time I was very scared",
     "vibe": "terrified, anxious"
-  },
-  "49.jpg": {
-    "emotion": "annoyed",
-    "gesture": "holding out hands",
-    "objects": "fire",
-    "text_content": "\u4f60\u8fc7\u6765 \u6211\u7ed9\u4f60\u52a0\u4e2a\u7ea2BUFF\nFFF",
-    "vibe": "fiery offer"
   },
   "490.jpg": {
     "emotion": "suspicious",
@@ -3369,20 +3612,6 @@
     "objects": "blood",
     "text_content": "\u554a\u6211\u6b7b\u4e86\nawsl",
     "vibe": "Dramatic, humorous"
-  },
-  "5.jpg": {
-    "emotion": "exasperated",
-    "gesture": "covering eyes",
-    "objects": "computer monitor",
-    "text_content": "\u90a3\u753b\u9762\u592a\u7f8e\u6211\u4e0d\u6562\u770b\nHow beautiful I no see",
-    "vibe": "overwhelmed, dramatic"
-  },
-  "50.jpg": {
-    "emotion": "determined",
-    "gesture": "stuffing face",
-    "objects": "spicy strips, bag",
-    "text_content": "\u8d76\u7d27\u5403\u5305\u8fa3\u6761\u538b\u538b\u60ca Quickly eat Spicy Strips",
-    "vibe": "gluttonous, frantic"
   },
   "500.jpg": {
     "emotion": "unimpressed",
@@ -3457,13 +3686,6 @@
     "text_content": "\u62b1\u8c79\nHug Seal",
     "vibe": "cute, wholesome"
   },
-  "51.jpg": {
-    "emotion": "exasperated",
-    "gesture": "shrugging",
-    "objects": null,
-    "text_content": "\u7b2c\u4e09\u96c6\n\u7136\u800c\u6211\u4e0d\u662f\u4e3b\u89d2\nBut I'm not protagonist",
-    "vibe": "relatable frustration"
-  },
   "510.jpg": {
     "emotion": "annoyed/crying",
     "gesture": "grabbing arm",
@@ -3533,13 +3755,6 @@
     "objects": "cigarette",
     "text_content": "\u5979\u70b9\u8d77\u4e86\u70df\u8bf4\u8d77\u4ece\u524d... Long time ago...",
     "vibe": "wistful, world-weary"
-  },
-  "52.jpg": {
-    "emotion": "neutral",
-    "gesture": "holding object",
-    "objects": "lollipop",
-    "text_content": "\u68d2\u68d2\u7cd6\nlollipop",
-    "vibe": "cute, sweet"
   },
   "520.jpg": {
     "emotion": "flustered",
@@ -3611,13 +3826,6 @@
     "text_content": "\u8d70\uff01\u5b66\u4e60\u53bb\uff01\nGoodbye Dota!",
     "vibe": "done gaming"
   },
-  "53.jpg": {
-    "emotion": "serious",
-    "gesture": "pointing",
-    "objects": "glasses, bow tie",
-    "text_content": "\u771f\u76f8\u53ea\u6709\u4e00\u4e2a\nTruth only one",
-    "vibe": "stern, determined"
-  },
   "530.jpg": {
     "emotion": "distressed",
     "gesture": "hugging knees",
@@ -3688,13 +3896,6 @@
     "text_content": "0/20/0\n\u6b6a?\u4f60\u4e3a\u4ec0\u4e48\u4e0d\u548c\u6211\u6253\u6e38\u620f\u4e86?\nWhy don't you play game with me anymore?",
     "vibe": "desperate, injured"
   },
-  "54.jpg": {
-    "emotion": "happy",
-    "gesture": "waving",
-    "objects": null,
-    "text_content": "\u65e9\u55b5~\nGood morning~miao",
-    "vibe": "cute, cheerful"
-  },
   "540.jpg": {
     "emotion": "happy",
     "gesture": "raising hands",
@@ -3764,13 +3965,6 @@
     "objects": "blanket",
     "text_content": "\u6696\u6696\u7684\nWarm Warm",
     "vibe": "cozy, sweet"
-  },
-  "55.jpg": {
-    "emotion": "disgust",
-    "gesture": null,
-    "objects": null,
-    "text_content": "\u4ec0\u4e48\u9b3c\nWhat ghost",
-    "vibe": "disgusted disbelief"
   },
   "550.jpg": {
     "emotion": "unimpressed",
@@ -3844,13 +4038,6 @@
     "text_content": "\u5feb\u5230\u7897\u91cc\u6765\nQuickly come in the bowl",
     "vibe": "cute, inviting"
   },
-  "56.jpg": {
-    "emotion": "annoyed",
-    "gesture": "pointing",
-    "objects": null,
-    "text_content": "\u7b2c\u4e00\u96c6\n\u50cf\u4f60\u8fd9\u79cd\u6e23\u6e23\u6700\u591a\u53ea\u80fd\u6d3b\u6d3b\u4e24\u96c6\nYou will die",
-    "vibe": "threatening, condescending"
-  },
   "560.jpg": {
     "emotion": "smug",
     "gesture": "holding object",
@@ -3920,13 +4107,6 @@
     "objects": null,
     "text_content": "\u6211\u88c2\u5f00\u4e86\nI crack",
     "vibe": "broken, relatable"
-  },
-  "57.jpg": {
-    "emotion": "happy",
-    "gesture": "hands clasped together",
-    "objects": null,
-    "text_content": "\u6709\u79cd\u6765\u6253\u6211\u5440\nHave seed come beat me",
-    "vibe": "cheeky, taunting"
   },
   "570.jpg": {
     "emotion": "annoyed/confused",
@@ -4002,13 +4182,6 @@
     "text_content": "\u7279\u56f0\u751f\nEspecially tired person",
     "vibe": "exhausted, sleepy"
   },
-  "58.jpg": {
-    "emotion": "neutral",
-    "gesture": null,
-    "objects": "frame, flowers, ribbon",
-    "text_content": "\u7b2c\u56db\u96c6, .........",
-    "vibe": "solemn, muted"
-  },
   "580.jpg": {
     "emotion": "Surprised/Annoyed",
     "gesture": "Typing",
@@ -4079,16 +4252,6 @@
     "text_content": "\u5bf9A\nDouble A",
     "vibe": "unimpressed, pokerface"
   },
-  "59.jpg": {
-    "emotion": "annoyed",
-    "gesture": "about to hit",
-    "objects": [
-      "mallet",
-      "airplane"
-    ],
-    "text_content": "\u6253\u98de\u673a\nHit airplane",
-    "vibe": "destructive anger"
-  },
   "590.jpg": {
     "emotion": "confused",
     "gesture": "holding/embracing a head",
@@ -4158,20 +4321,6 @@
     "objects": null,
     "text_content": "\u6211\u61c2\nYes I know",
     "vibe": "knowing, smug"
-  },
-  "6.jpg": {
-    "emotion": "content",
-    "gesture": "holding object",
-    "objects": "mooncake",
-    "text_content": "\u4e2d\u79cb\u8282\u5feb\u4e50\nHappy Mid-Autumn's day",
-    "vibe": "festive, cute"
-  },
-  "60.jpg": {
-    "emotion": "disgust",
-    "gesture": "hands on head",
-    "objects": null,
-    "text_content": "\u52a0\u4e86\u7279\u6548\nDuang",
-    "vibe": "exaggerated disgust"
   },
   "600.jpg": {
     "emotion": "smug",
@@ -4253,13 +4402,6 @@
     "text_content": "\u4f60\n\u5fc3\u4e2d\u6709\u4f60\nYou are in my heart",
     "vibe": "loving, cute"
   },
-  "61.jpg": {
-    "emotion": "excited",
-    "gesture": "pointing with stick, holding book",
-    "objects": "book, pointer, chalkboard",
-    "text_content": "Some of A Beat, \u8ddf\u6211\u5ff5\u4e00\u904d",
-    "vibe": "enthusiastic learning"
-  },
   "610.jpg": {
     "emotion": "Excited, annoyed",
     "gesture": "Pointing, hugging",
@@ -4334,13 +4476,6 @@
     "text_content": "\u7528\u7231\u53d1\u7535\nUse Love Electricity Generation",
     "vibe": "cute, loving"
   },
-  "62.jpg": {
-    "emotion": "happy",
-    "gesture": "being petted, clenching fists",
-    "objects": null,
-    "text_content": "\u6478\u6478\u5934\nMoMo head",
-    "vibe": "cute, blessed"
-  },
   "620.jpg": {
     "emotion": "annoyed",
     "gesture": "holding hammer, leaning on surface",
@@ -4378,6 +4513,13 @@
     "text_content": "\u8138\u90fd\u4e0d\u8981\u4e86\nNo need the face",
     "vibe": "deadpan humor"
   },
+  "625.jpg": {
+    "emotion": "annoyed",
+    "gesture": "pushing away",
+    "objects": null,
+    "text_content": "\u4e0d\u6253\u6e38\u620f\uff0c\u604b\u7231\nDon't play games, fall in love",
+    "vibe": "playful rejection"
+  },
   "626.jpg": {
     "emotion": "sad",
     "gesture": "grabbing fabric",
@@ -4392,12 +4534,75 @@
     "text_content": "\u4e24\u773c\u4e00\u9ed1\nTwo eyes one black",
     "vibe": "creepy despair"
   },
+  "628.jpg": {
+    "emotion": "disappointed",
+    "gesture": "pinching fingers, blowing air",
+    "objects": null,
+    "text_content": "\u5c31\u8fd9\uff1f\nJust that?",
+    "vibe": "unimpressed, skeptical"
+  },
   "629.jpg": {
     "emotion": "threatening",
     "gesture": "holding bat above head, ready to strike",
     "objects": "baseball bat, bed",
     "text_content": "\u8f7b\u8f7b\u6572\u9192\u6c89\u7761\u7684\u5fc3\u7075\nLightly knock and wake up the sleeping soul",
     "vibe": "ominous, unsettling"
+  },
+  "630.jpg": {
+    "emotion": "crying",
+    "gesture": null,
+    "objects": "bricks",
+    "text_content": "\u773c\u775b\u8fdb\u7816\u5934\u4e86\nBricks got in eyes",
+    "vibe": "Exaggerated sorrow"
+  },
+  "631.jpg": {
+    "emotion": "shocked",
+    "gesture": "hands on cheeks",
+    "objects": null,
+    "text_content": "\u5927\u60ca\u5931\u8272\nBig shock lose colour",
+    "vibe": "intense dismay"
+  },
+  "632.jpg": {
+    "emotion": "puzzled",
+    "gesture": "holding her own head",
+    "objects": null,
+    "text_content": "\u5206\u5934\u884c\u52a8\nSplit head action",
+    "vibe": "bizarre, confused"
+  },
+  "633.jpg": {
+    "emotion": "annoyed",
+    "gesture": "holding papers",
+    "objects": "homework papers",
+    "text_content": "\u5bd2\u5047\n\u4f5c\u4e1a\n\u624b\u6495\u5bd2\u5047\u4f5c\u4e1a\nHand rip winter vacation homework",
+    "vibe": "homework rage"
+  },
+  "634.jpg": {
+    "emotion": "indifferent",
+    "gesture": "shrugging",
+    "objects": "money",
+    "text_content": "\u6211\u5bf9\u94b1\u6ca1\u5174\u8da3\nI have no interest in money",
+    "vibe": "not interested"
+  },
+  "635.jpg": {
+    "emotion": "cheerful",
+    "gesture": "leaning on object",
+    "objects": "anchor emblem",
+    "text_content": "\u8d70 \u5f00\u8239\u53bb!\nLet's play World of Warships together",
+    "vibe": "playful invitation"
+  },
+  "636.jpg": {
+    "emotion": "exasperated",
+    "gesture": "pulling on clothes",
+    "objects": null,
+    "text_content": "\u62c9\u626f\nBack and Forth",
+    "vibe": "playful squabble"
+  },
+  "637.jpg": {
+    "emotion": "frustrated",
+    "gesture": "typing",
+    "objects": "computer, blood pressure monitor",
+    "text_content": "\u8840\u538b\u98d9\u5347\nBlood pressure raising",
+    "vibe": "stressed, overworked"
   },
   "638.jpg": {
     "emotion": "pleading",
@@ -4412,13 +4617,6 @@
     "objects": "acorn",
     "text_content": "\u51b0\u6cb3\u4e16\u7eaa\nIce Age",
     "vibe": "chaotic, funny"
-  },
-  "64.jpg": {
-    "emotion": "impatient",
-    "gesture": "waiting",
-    "objects": null,
-    "text_content": "\u633a\u6025\u7684\nCome out quickly",
-    "vibe": "urgent, demanding"
   },
   "640.jpg": {
     "emotion": "unimpressed",
@@ -4490,16 +4688,6 @@
     "text_content": "\u6211\u771f\u7684\u54ed\u6b7b\nI really cry die",
     "vibe": "melodramatic despair"
   },
-  "65.jpg": {
-    "emotion": "annoyed",
-    "gesture": "holding",
-    "objects": [
-      "large seed",
-      "hamster"
-    ],
-    "text_content": "\u5413\u5f97\u6211\u8d76\u7d27\u62a2\u8d70\u4ed3\u9f20\u7684\u74dc\u5b50\nThis is mine",
-    "vibe": "possessive, greedy"
-  },
   "650.jpg": {
     "emotion": "loving",
     "gesture": "hugging",
@@ -4570,13 +4758,6 @@
     "text_content": "\u54ce \u4eba\u751f\nOh my life...",
     "vibe": "melancholy, apathetic"
   },
-  "66.jpg": {
-    "emotion": "flustered",
-    "gesture": "leaning forward, hands up",
-    "objects": null,
-    "text_content": "UMI OLO\n\u8bd5\u8863\u95f4\n\u8bd5\u8bd5\u8fd9\u4ef6\u5982\u4f55\nFollow me",
-    "vibe": "Shy, cute"
-  },
   "660.jpg": {
     "emotion": "neutral",
     "gesture": "holding objects",
@@ -4646,13 +4827,6 @@
     "objects": null,
     "text_content": "\u9000\u9000\u9000\nLeave Leave Leave",
     "vibe": "get away"
-  },
-  "67.jpg": {
-    "emotion": "manic",
-    "gesture": "holding paper cutout of face",
-    "objects": "paper cutout, bow",
-    "text_content": "\u731c\u731c\u6211\u662f\u8c01\nGuess who I am",
-    "vibe": "goofy, meme"
   },
   "670.jpg": {
     "emotion": "agitated",
@@ -4727,13 +4901,6 @@
     "text_content": "\u96f6\u552e\u4ef7 66 RMB, \u96ea\u7cd5\u523a\u5ba2 Icecream Assassin",
     "vibe": "pricey, deceptive"
   },
-  "68.jpg": {
-    "emotion": "menacing",
-    "gesture": "holding knife and telephone",
-    "objects": "knife, telephone",
-    "text_content": "\u5582\uff1f\u4f60\u662f\u8c01\uff1f\nHello?Who is this?",
-    "vibe": "creepy cute"
-  },
   "680.jpg": {
     "emotion": "exasperated",
     "gesture": "holding books",
@@ -4804,13 +4971,6 @@
     "text_content": "\u6211\u6709360\u4fdd\u62a4\nI have 360 protection",
     "vibe": "calm confidence"
   },
-  "69.jpg": {
-    "emotion": "incredulous",
-    "gesture": "shrugging",
-    "objects": null,
-    "text_content": "\u6ca1\u8138\u89c1\u4eba\nI'm don't have face",
-    "vibe": "Lost face"
-  },
   "690.jpg": {
     "emotion": "crying, despair",
     "gesture": "null",
@@ -4880,23 +5040,6 @@
     "objects": null,
     "text_content": "\u6258\u816e\u816e\nHolding cheek cheek",
     "vibe": "melancholy, cute"
-  },
-  "7.jpg": {
-    "emotion": "desperate",
-    "gesture": "slamming hands on table",
-    "objects": "table",
-    "text_content": "\u7ed9\u6211\u4e2a\u5bf9\u8c61\u4e0d\u7136\u6211\u9000\u7fa4 \u6211\u6ca1\u5f00\u73a9\u7b11 Give me a boyfriend",
-    "vibe": "demanding, dramatic"
-  },
-  "70.jpg": {
-    "emotion": "neutral",
-    "gesture": "pointing",
-    "objects": [
-      "fire",
-      "wood"
-    ],
-    "text_content": "\u59b9\u7ea2\n\u706b\u524d\u7559\u540d\nFire Name",
-    "vibe": "playful, whimsical"
   },
   "700.jpg": {
     "emotion": "smug",
@@ -4975,13 +5118,6 @@
     "text_content": "\u6d17\u628a\u81c9\nWash face",
     "vibe": "fresh, routine"
   },
-  "71.jpg": {
-    "emotion": "annoyed",
-    "gesture": "smoking",
-    "objects": "cigarette",
-    "text_content": "\u6709\u79cd\u7528\u7ea2\u5305\u6765\u804a\u5929\u554a Have seed take red packet talk to me",
-    "vibe": "sarcastic, edgy"
-  },
   "710.jpg": {
     "emotion": "happy",
     "gesture": null,
@@ -5053,17 +5189,6 @@
     "objects": "mask",
     "text_content": "\u4e00\u8138\u60b2\u4f24\nOne face sad",
     "vibe": "ironic sadness"
-  },
-  "72.jpg": {
-    "emotion": "annoyed",
-    "gesture": "chopping",
-    "objects": [
-      "cucumber",
-      "knife",
-      "cutting board"
-    ],
-    "text_content": "\u770b\u5e16\u4e0d\u56de\u5e16\u7684\u540e\u679c\nYou had better be careful",
-    "vibe": "threatening, passive-aggressive"
   },
   "720.jpg": {
     "emotion": "melancholy",
@@ -5137,13 +5262,6 @@
     ],
     "text_content": "\u4eba\u53c2 \u516c\u9e21\nPersonal insult",
     "vibe": "sarcastic, critical"
-  },
-  "73.jpg": {
-    "emotion": "neutral",
-    "gesture": "holding shovel, squatting",
-    "objects": "shovel, pile of feces",
-    "text_content": "\u6211\u53ea\u60f3\u5b89\u9759\u7684\u505a\u4e00\u4e2a\u94f2\u5c4e\u5b98\nI am ChanShiGuan",
-    "vibe": "resigned, ironic"
   },
   "730.jpg": {
     "emotion": "deadpan",
@@ -5221,13 +5339,6 @@
     "text_content": "\u4f60\u4e0d\u76f8\u4fe1?\u90a3\u6211\u53d1\u8a93\u884c\u4e86\u5427\nYou don't believe me?\nThen I swear ok?",
     "vibe": "frustrated pleading"
   },
-  "74.jpg": {
-    "emotion": "menacing",
-    "gesture": "holding",
-    "objects": "chainsaw",
-    "text_content": "\u6211\u60f3\u73a9\u4e2a\u6e38\u620f\nI want to play a game",
-    "vibe": "creepy cute"
-  },
   "740.jpg": {
     "emotion": "annoyed",
     "gesture": "writing",
@@ -5297,13 +5408,6 @@
     "objects": "red envelopes with coin symbol, satchel",
     "text_content": "\u54ce\u5440 \u4f7f\u4e0d\u5f97\nGive me money",
     "vibe": "playful greed"
-  },
-  "75.jpg": {
-    "emotion": "excited",
-    "gesture": "raising hand",
-    "objects": "desk",
-    "text_content": "\u6211\u80f8\u5927\u6211\u5148\u8bf4\nMy CHEST bigger than you",
-    "vibe": "assertive, boastful"
   },
   "750.jpg": {
     "emotion": "annoyed",
@@ -5375,13 +5479,6 @@
     "text_content": "\u6e38\u620f\u9886\u57df\u5927\u795e\nGods in the field of gaming",
     "vibe": "gamer shock"
   },
-  "76.jpg": {
-    "emotion": "happy",
-    "gesture": "thumbs up",
-    "objects": null,
-    "text_content": "\u597d\u5b69\u7eb8\nGood boy",
-    "vibe": "positive, encouraging"
-  },
   "760.jpg": {
     "emotion": "smug",
     "gesture": "holding a large sword",
@@ -5452,13 +5549,6 @@
     "text_content": "\u6211\u4e0d\u53ef\u4ee5\nI CAN'T",
     "vibe": "utter defeat"
   },
-  "77.jpg": {
-    "emotion": "neutral",
-    "gesture": "holding object",
-    "objects": "durian",
-    "text_content": "\u7cca\u4f60\u4e00\u5634\u69b4\u83b2 Look the Durian",
-    "vibe": "threatening, silly"
-  },
   "770.jpg": {
     "emotion": "annoyed",
     "gesture": "blocking",
@@ -5528,13 +5618,6 @@
     "objects": "coins",
     "text_content": "\u7206\u91d1\u5e01\nExplosive gold coin",
     "vibe": "greedy, chaotic"
-  },
-  "78.jpg": {
-    "emotion": "neutral",
-    "gesture": "holding object",
-    "objects": "plate, saucer, UFO",
-    "text_content": "\u789f\u4e2d\u789f\nSaucer middle Saucer",
-    "vibe": "cute, quirky"
   },
   "780.jpg": {
     "emotion": "annoyed",
@@ -5614,13 +5697,6 @@
     "text_content": "\u6211\u8981\u7761\u4e86 \u4f60\u8981\u7ed9\u6211\u8bf4\u665a\u5b89\nI'm going to sleep\nYou need to say Good Night to me",
     "vibe": "sleepy command"
   },
-  "79.jpg": {
-    "emotion": "distressed",
-    "gesture": null,
-    "objects": "paper",
-    "text_content": "\u5927\u89e6\u53c8\u6765\u5403\u4eba\u4e86\nHELP",
-    "vibe": "urgent, panicked"
-  },
   "790.jpg": {
     "emotion": "smug",
     "gesture": "arms crossed",
@@ -5690,22 +5766,6 @@
     "objects": "McDonald's meal, tray",
     "text_content": "\u8ba9\u4e00\u4e0b\u4f19\u8ba1\n\u522b\u649e\u5230\u6211\u7684\u9ea6\u5f53\u52b3\u5957\u9910\u4e86\nMove, buddy\nDon't knock my McDonald's meal over",
     "vibe": "protective, possessive"
-  },
-  "8.jpg": {
-    "emotion": "distressed",
-    "gesture": "holding up pills",
-    "objects": [
-      "pills"
-    ],
-    "text_content": "\u836f\u4e0d\u80fd\u505c\nGive you drugs",
-    "vibe": "manic energy"
-  },
-  "80.jpg": {
-    "emotion": "annoyed",
-    "gesture": "pointing",
-    "objects": null,
-    "text_content": "\u697c\u4e3b\u5728\u88c5B \u770b\u89c1\u6ca1\nDo you see LZ install B?",
-    "vibe": "provocative, confrontational"
   },
   "800.jpg": {
     "emotion": "concerned",
@@ -5777,13 +5837,6 @@
     "text_content": "\u8fd9\u4f4d\u6f02\u4eae\u7684\u59b9\u5b50,\u4f60\u6389\u4e86\u4e00\u4e2a\u53c8\u5e05\u53c8\u840c\u53c8\u731b\u7684\u7537\u670b\u53cb\n\u5feb\u5feb\u6361\u8d77\u6765\u597d\u5417?\nHi beautiful girl, you dropped a\nhandsome cute powerful boyfriend\ncould you pick it up now?",
     "vibe": "dramatic, humorous"
   },
-  "81.jpg": {
-    "emotion": "annoyed",
-    "gesture": "holding up a striped cloth",
-    "objects": "striped cloth",
-    "text_content": "\u8d76\u7d27\u7a7f\u4e0a\nPut it on",
-    "vibe": "reluctant request"
-  },
   "810.jpg": {
     "emotion": "emotional/tearful",
     "gesture": "hugging",
@@ -5854,13 +5907,6 @@
     "text_content": "\u4e3a\u4ec0\u4e48\u6211\u7684\u773c\u91cc\u7ecf\u5e38\u542b\u7740\u6cea\u6c34?\n\u56e0\u4e3a\u6211\u56f0\u5f97\u8981\u6b7b\nWhy are there always tears in my eyes?\nBecause I'm soo sleepy",
     "vibe": "tired, melancholic"
   },
-  "82.jpg": {
-    "emotion": "sleepy",
-    "gesture": "rubbing eye",
-    "objects": "sleep cap",
-    "text_content": "\u665a\u5b89\nGood night",
-    "vibe": "Tired, Sleepy"
-  },
   "820.jpg": {
     "emotion": "smug",
     "gesture": "holding a stick and gesturing",
@@ -5930,13 +5976,6 @@
     "objects": "shower head, water, soap bubbles",
     "text_content": "\u53ea\u6709\u5728\u6d17\u6fa1\u65f6\u624d\u6562\u5077\u5077\u54ed\nIt's only allowable to cry during shower",
     "vibe": "sad, vulnerable"
-  },
-  "83.jpg": {
-    "emotion": "happy",
-    "gesture": "holding something broken",
-    "objects": "broken winged badge",
-    "text_content": "\u6495B\nC B",
-    "vibe": "cheerful destruction"
   },
   "830.jpg": {
     "emotion": "crying while laughing",
@@ -6013,13 +6052,6 @@
     "text_content": "\u4e00\u5929\u4e00\u82f9\u679c \u654c\u4eba\u8fdc\u79bb\u6211\nAn apple once a day keeps\nyour enemies away",
     "vibe": "cheeky, healthy"
   },
-  "84.jpg": {
-    "emotion": "concerned",
-    "gesture": "hugging",
-    "objects": null,
-    "text_content": "\u83ab\u614c \u62b1\u7d27\u6211\nDon't worry baby",
-    "vibe": "reassuring, affectionate"
-  },
   "840.jpg": {
     "emotion": "tired",
     "gesture": "waving",
@@ -6094,13 +6126,6 @@
     "text_content": "2/7/14, 28/3/6, \u8ffd\u6355\u7537\u795e, Follow Male God",
     "vibe": "energetic, chasing"
   },
-  "85.jpg": {
-    "emotion": "crying",
-    "gesture": "pushing a cannon",
-    "objects": "cannon",
-    "text_content": "\u542b\u6cea\u4e5f\u8981\u6253\u5b8c\n555",
-    "vibe": "sad determination"
-  },
   "850.jpg": {
     "emotion": "ambivalent",
     "gesture": null,
@@ -6170,13 +6195,6 @@
     "objects": "dead cat plushie",
     "text_content": "\u4f60\u732b\u6b7b\u4e86\nYour cat is dead",
     "vibe": "darkly humorous"
-  },
-  "86.jpg": {
-    "emotion": "smug",
-    "gesture": "hands clasped",
-    "objects": null,
-    "text_content": "\u5728\u4e0b\u53f6\u826f\u8fb0\nI am YLC",
-    "vibe": "mischievous, confident"
   },
   "860.jpg": {
     "emotion": "sad",
@@ -6252,13 +6270,6 @@
     "text_content": "\u5fc3\u60c5\u4e0d\u597d\u53c8\u62bd\u4e86\u4e00\u5305\nBad mood\nI had another pack of chips",
     "vibe": "moody, snacking"
   },
-  "87.jpg": {
-    "emotion": "annoyed",
-    "gesture": "pushing",
-    "objects": null,
-    "text_content": "\u5584\u89e3\u4eba\u8863\nTake Off",
-    "vibe": "forceful removal"
-  },
   "870.jpg": {
     "emotion": "mischievous",
     "gesture": "hiding/digging",
@@ -6328,13 +6339,6 @@
     "objects": "duvet, pillow",
     "text_content": "\u6211\u660e\u767d\u4e86 \u6709\u4e9b\u4eba\n\u4e00\u8f6c\u8eab\u5c31\u4e00\u88ab\u5b50\nI see, some people, turn\naround and take away the duvet",
     "vibe": "cold, relatable"
-  },
-  "88.jpg": {
-    "emotion": "flustered",
-    "gesture": "offering",
-    "objects": "soap",
-    "text_content": "\u4f60\u4f86\uff1f\u6211\u4f86\uff1f You come? I come?",
-    "vibe": "suggestive, humorous"
   },
   "880.jpg": {
     "emotion": "pensive",
@@ -6411,17 +6415,6 @@
     "text_content": "\u5e74\u8f7b\u4eba\u542c\u53e5\u529d\nYoung people,listen to advice",
     "vibe": "exasperated advice"
   },
-  "89.jpg": {
-    "emotion": "excited",
-    "gesture": "holding objects up",
-    "objects": [
-      "gold coin",
-      "money bag",
-      "bell"
-    ],
-    "text_content": "\u62db\u8d22\u55b5\nMoney Cat",
-    "vibe": "lucky, cheerful"
-  },
   "890.jpg": {
     "emotion": "unhappy",
     "gesture": "eating",
@@ -6492,20 +6485,6 @@
     "text_content": "\u5df2\u7ecf\u4e0d\u4f1a\u518d\u5931\u53bb\u4e86\n\u80fd\u62b1\u7684\u53ea\u5269\u6211\u7684\u5c0f\u624b\u673a\u4e86\nI will not lose anything\nI can only hug my little phone",
     "vibe": "sad, lonely"
   },
-  "9.jpg": {
-    "emotion": "crying",
-    "gesture": "hugging object",
-    "objects": "pillow",
-    "text_content": "\u6211\u8981\u62b1\u62b1\nI want baobao",
-    "vibe": "sad, pleading"
-  },
-  "90.jpg": {
-    "emotion": "irritated",
-    "gesture": "raising finger",
-    "objects": null,
-    "text_content": "\u6e23\u6e23\u7ba1\u7406\u5458,\u7ed9\u8001\u5a18\n\u6765\u4e2a10\u5206\u949f\u7981\u8a00\u5957\u9910\nZaza administrator,give me 10\nminutes prohibition of speech set meal",
-    "vibe": "salty, demanding"
-  },
   "900.jpg": {
     "emotion": "apathetic",
     "gesture": "holding money",
@@ -6526,5 +6505,719 @@
     "objects": "horse toy",
     "text_content": "\u6211\u7684\u7684\u9a6c\u9a6c\u5440\nOh my Horse Horse",
     "vibe": "concerned, cute"
+  },
+  "903.jpg": {
+    "emotion": "peaceful",
+    "gesture": "hugging",
+    "objects": "horse",
+    "text_content": "\u62b1\u7d27\u6211\u7684\u9a6c\u9a6c\nHug my Horse Horse",
+    "vibe": "wholesome, affectionate"
+  },
+  "904.jpg": {
+    "emotion": "annoyed",
+    "gesture": "pointing",
+    "objects": "horse",
+    "text_content": "\u4f60\u5413\u5230\u6211\u9a6c\u9a6c\u4e86\nYou scared my Horse Horse",
+    "vibe": "upset, protective"
+  },
+  "905.jpg": {
+    "emotion": "happy",
+    "gesture": "eating",
+    "objects": "mooncake",
+    "text_content": "\u4e2d\u79cb\u8282\u5feb\u4e50\nHappy Mid Autumn's Day",
+    "vibe": "cute, celebratory"
+  },
+  "906.jpg": {
+    "emotion": "happy",
+    "gesture": "eating",
+    "objects": [
+      "mooncake"
+    ],
+    "text_content": "\u4e2d\u79cb\u8282\u5feb\u4e50\nHappy Mid Autumn's Day",
+    "vibe": "festive, cheerful"
+  },
+  "907.jpg": {
+    "emotion": "joyful",
+    "gesture": "eating",
+    "objects": "mooncake",
+    "text_content": "\u4e2d\u79cb\u8282\u5feb\u4e50\nHappy Mid Autumn's Day",
+    "vibe": "celebratory, cute"
+  },
+  "908.jpg": {
+    "emotion": "neutral",
+    "gesture": "drinking",
+    "objects": "milk carton, straw",
+    "text_content": "\u5e0c\u814a\u5976\nGreece MiLk",
+    "vibe": "cute, quirky"
+  },
+  "909.jpg": {
+    "emotion": "happy",
+    "gesture": "peeking out",
+    "objects": "McDonald's bag",
+    "text_content": "M \u5c5e\u6027\u5927\u7206\u53d1\nM Attribute Big Explosion",
+    "vibe": "playful silly"
+  },
+  "910.jpg": {
+    "emotion": "mischievous",
+    "gesture": "reaching",
+    "objects": "money bag",
+    "text_content": "\u624b\u597d\u51b7\u554a\u597d\u60f3\u4f38\u8fdb\u4f60\u7684\u94b1\u5305\u91cc\nMy hands are so cold\nThey want to get in your Money Bag",
+    "vibe": "greedy imp"
+  },
+  "911.jpg": {
+    "emotion": "confused",
+    "gesture": "shrugging",
+    "objects": null,
+    "text_content": "\u636e\u6211\u6240\u77e5 \u6211\u4e00\u65e0\u6240\u77e5\nAs far as I know\nI know nothing",
+    "vibe": "clueless cute"
+  },
+  "912.jpg": {
+    "emotion": "focused",
+    "gesture": "hammering",
+    "objects": [
+      "hammer",
+      "screws",
+      "wooden plank"
+    ],
+    "text_content": "\u677f\u4e0a\u9489\u9489\nScrew on plate",
+    "vibe": "crafting, cute"
+  },
+  "913.jpg": {
+    "emotion": "happy",
+    "gesture": "holding sign",
+    "objects": "sign",
+    "text_content": "\u4e92\u5173, \u63d0\u51fa\u4e92\u5173\u7533\u8bf7, Apply to follow each other",
+    "vibe": "cute pleading"
+  },
+  "914.jpg": {
+    "emotion": "thoughtful",
+    "gesture": "holding chin",
+    "objects": "chess pieces, chessboard",
+    "text_content": "\u751f\u6d3b\u5c31\u50cf\u4e00\u76d8\u56fd\u9645\u8c61\u68cb\nLife is like a chess",
+    "vibe": "contemplative, pensive"
+  },
+  "915.jpg": {
+    "emotion": "confused",
+    "gesture": "moving chess piece",
+    "objects": [
+      "chess board",
+      "chess pieces"
+    ],
+    "text_content": "\u6211\u4e0d\u4f1a\u4e0b\u8c61\u68cb, I don't know how to play chess",
+    "vibe": "clueless, bewildered"
+  },
+  "916.jpg": {
+    "emotion": "happy",
+    "gesture": "holding plate",
+    "objects": "cake, strawberries, banner",
+    "text_content": "\u751f\u65e5\u5feb\u4e50, Happy birthday",
+    "vibe": "Festive, cheerful"
+  },
+  "917.jpg": {
+    "emotion": "neutral",
+    "gesture": "eating with fork and knife",
+    "objects": [
+      "wine glass",
+      "plate",
+      "steak",
+      "fork",
+      "knife"
+    ],
+    "text_content": "\u7cbe\u81f4\u7684\u732a\u732a\nDelicate Pig Pig",
+    "vibe": "fancy pig"
+  },
+  "918.jpg": {
+    "emotion": "apathetic",
+    "gesture": "holding",
+    "objects": "WHO logo",
+    "text_content": "\u4e16\u754c\u536b\u751f\u7ec4\u7ec7\u5173\u5fc3\u4f60\nWHO Cares",
+    "vibe": "sarcastic indifference"
+  },
+  "919.jpg": {
+    "emotion": "confident",
+    "gesture": "waving",
+    "objects": null,
+    "text_content": "\u597d\u51b7\n\u51b7\u573a\u738b\n\u51b7!\n\u771f\u51b7\n\u7ed9\u6211\u51b7!\n\u51b7\u51b7\u51b7\n\u5927\u5bb6\u597d\n\u6211\u6765\u51b7\u573a\u4e86\nHi guys, I come to cold field",
+    "vibe": "cold greetings"
+  },
+  "920.jpg": {
+    "emotion": "annoyed",
+    "gesture": "making an \"X\" with her fingers",
+    "objects": "heart",
+    "text_content": "\u59d0\u7684\u5fc3\u2764\ufe0f\u7981\u6b62\u8bbf\u95ee\ud83d\udeab\nMy heart\u2764\ufe0fProhibit access\ud83d\udeab",
+    "vibe": "tsundere, gatekeeping"
+  },
+  "921.jpg": {
+    "emotion": "melancholy",
+    "gesture": "leaning on hands",
+    "objects": "trash can",
+    "text_content": "\u5176\u4ed6\u5783\u573e\nidual Waste\n\u5f53\u4e2a\u5783\u573e\u611f\u89c9\u633a\u597d\u7684\nIt feels OK to be trash",
+    "vibe": "self-deprecating, resigned"
+  },
+  "922.jpg": {
+    "emotion": "pleading",
+    "gesture": "reaching out with hand",
+    "objects": null,
+    "text_content": "\u5982\u679c\u7231 \u8bf7\u6253\u94b1\nIf love, please hit money",
+    "vibe": "begging, needy"
+  },
+  "923.jpg": {
+    "emotion": "inquisitive",
+    "gesture": "holding objects",
+    "objects": "toy cow, toy horse",
+    "text_content": "\u4f60\u662f\u4ec0\u4e48\u725b\u9a6c\nWhat kind of cow and horse are you",
+    "vibe": "curious, quirky"
+  },
+  "924.jpg": {
+    "emotion": "neutral",
+    "gesture": "standing",
+    "objects": null,
+    "text_content": "\u725b \u9a6c\nCow Horse",
+    "vibe": "cute, animalistic"
+  },
+  "925.jpg": {
+    "emotion": "cheerful",
+    "gesture": "posing",
+    "objects": "scroll, cow horns",
+    "text_content": "\u725b\u9a6c\u7cbe\u795e, Cow Horse Spirit",
+    "vibe": "energetic, festive"
+  },
+  "926.jpg": {
+    "emotion": "annoyed",
+    "gesture": "punching",
+    "objects": null,
+    "text_content": "0 / 20 / 0\n\u5403\u6211\u4e00\u8bb0\u55b5\u55b5\u62f3\nEat my Meow Meow fist",
+    "vibe": "aggressive cute"
+  },
+  "927.jpg": {
+    "emotion": "shocked",
+    "gesture": "hugging",
+    "objects": null,
+    "text_content": "\u6211\u7528\u771f\u5fc3\u5bf9\u4f60\n\u4f60\u5374\u53ea\u7528\u8868\u60c5\u5305\u6577\u884d\u6211\nI treated you with my heart\nBut you replied with your memes",
+    "vibe": "emotional betrayal"
+  },
+  "928.jpg": {
+    "emotion": "annoyed",
+    "gesture": "waving arm",
+    "objects": null,
+    "text_content": "\u6025\u4e86\nTriggered",
+    "vibe": "easily triggered"
+  },
+  "929.jpg": {
+    "emotion": "frustrated",
+    "gesture": "punching the air",
+    "objects": null,
+    "text_content": "\u6bcf\u5929\u5bf9\u7740\u7a7a\u6c14\u6253\u4e00\u62f3\n\u6211\u8ba8\u538c\u8fd9\u4e2a\u4e16\u754c\nHit air everyday\nI hate this world",
+    "vibe": "angry, relatable"
+  },
+  "930.jpg": {
+    "emotion": "pensive",
+    "gesture": "finger on chin",
+    "objects": null,
+    "text_content": "1/I = kR + b\nR0 = (U1-U2)/(l1-l2)\ny/cm\nT2 = lambda/v = 0.2/6 s = 1/2s\n14N + He -> 17O + ()\n235U + 1n -> 144Ba + 89Kr + 3(1n)\nPhysical Analysis",
+    "vibe": "smart, analytical"
+  },
+  "931.jpg": {
+    "emotion": "crying",
+    "gesture": null,
+    "objects": "volume control",
+    "text_content": "\u97f3\u91cf\n\u6211\u54ed\u5f97\u597d\u5927\u58f0\nI am crying loudly",
+    "vibe": "loud crying"
+  },
+  "932.jpg": {
+    "emotion": "crying",
+    "gesture": "holding chopsticks, eating",
+    "objects": "chopsticks, bowl of pig foot rice",
+    "text_content": "\u6cea\u6c34\u6253\u6e7f\u732a\u811a\u996d\n\u53d1\u8a93\u8981\u8d5a\u4e00\u767e\u4e07\nTears wet pig foot rice out\nSwearing to earn 1 million",
+    "vibe": "desperate yearning"
+  },
+  "933.jpg": {
+    "emotion": "crying",
+    "gesture": "holding bread, clutching chest",
+    "objects": "bread",
+    "text_content": "\u6cea\u6c34\u6253\u6e7f\u83e0\u841d\u5305\n\u53d1\u8a93\u4e0d\u505a\u53d7\u6c14\u5305\nTears wet pineapple bread out\nI promise I will not swallow shame any more",
+    "vibe": "sad, regretful"
+  },
+  "934.jpg": {
+    "emotion": "anxious",
+    "gesture": null,
+    "objects": null,
+    "text_content": "\u4e0d\u6562\u7741\u5f00\u773c\u775b\n\u5e0c\u671b\u662f\u6211\u7684\u5e7b\u89c9\nDare not to open eyes\nHoping it's my hallucination",
+    "vibe": "scared avoidance"
+  },
+  "935.jpg": {
+    "emotion": "annoyed",
+    "gesture": "holding stomach",
+    "objects": "lightning bolt",
+    "text_content": "\u5b9d\u5b9d\u809a\u809a\u6253\u96f7\u4e86\nBabe, my stomach is thundering",
+    "vibe": "gut-wrenching humor"
+  },
+  "936.jpg": {
+    "emotion": "calm",
+    "gesture": "patting head",
+    "objects": "dog",
+    "text_content": "\u5b89\u629a\u54ac\u4eba\u7684\u7f51\u53cb\nAppease biting net friend",
+    "vibe": "gentle, humorous"
+  },
+  "937.jpg": {
+    "emotion": "resigned",
+    "gesture": "kneeling, presenting",
+    "objects": "pizza box, knees",
+    "text_content": "\u8bf7\u6536\u4e0b\u6211\u7684\u819d\u76d6 Please accept my knees",
+    "vibe": "humorous surrender"
+  },
+  "938.jpg": {
+    "emotion": "happy",
+    "gesture": "open hands",
+    "objects": "cat",
+    "text_content": "\u6211\u5bb6\u7684\u732b\u4f1a\u540e\u7a7a\u7ffb\nMy home cat can do backflips",
+    "vibe": "Proud, Impressed"
+  },
+  "939.jpg": {
+    "emotion": "disappointed",
+    "gesture": null,
+    "objects": "cat",
+    "text_content": "\u4e0d\u7528\u7ec3\u4e86 \u5979\u8bf4\u5979\u4e0d\u6765\u4e86\nNo need for practice\nShe said she is not coming",
+    "vibe": "sad, defeated"
+  },
+  "940.jpg": {
+    "emotion": "annoyed",
+    "gesture": "smoking",
+    "objects": "cigarette",
+    "text_content": "\u628a\u6211\u7684\u5fc3\u4e8b\u548c\u9f20\u8bf4\u4e86\n\u9f20\u542c\u5b8c\u6c89\u9ed8\u7684\u5410\u8d77\u4e86\u70df\u5708\nMy home cat can do backflips",
+    "vibe": "apathetic, ironic"
+  },
+  "941.jpg": {
+    "emotion": "annoyed",
+    "gesture": null,
+    "objects": [
+      "grenade"
+    ],
+    "text_content": "\u5bf9\u65b9\u4e0d\u60f3\u8ddf\u4f60\u8bf4\u8bdd\n\u5e76\u5bf9\u4f60\u6254\u4e86\u4e00\u4e2a\u624b\u96f7\nShe doesn't want to speak with you\nAnd throw a grande to you",
+    "vibe": "aggressive rejection"
+  },
+  "942.jpg": {
+    "emotion": "annoyed",
+    "gesture": "raising hand, leaning on screen",
+    "objects": "computer screen",
+    "text_content": "\u9694\u7740\u5c4f\u5e55\u7ed9\u4f60\u4e00\u5df4\u638c\nSlap you through the screen",
+    "vibe": "aggressive, threatening"
+  },
+  "943.jpg": {
+    "emotion": "happy",
+    "gesture": "spraying",
+    "objects": "spray can",
+    "text_content": "LUCKY LUCKY LUCKY, \u597d\u8fd0\u55b7\u96fe, Good Luck Spray",
+    "vibe": "cute, whimsical"
+  },
+  "944.jpg": {
+    "emotion": "determined",
+    "gesture": "holding sign",
+    "objects": "sign",
+    "text_content": "\u5f3a\n\u4f60\u7684\u5f3a\u6765\u4e86\nYour strong is coming",
+    "vibe": "assertive, confident"
+  },
+  "945.jpg": {
+    "emotion": "happy",
+    "gesture": "pointing finger",
+    "objects": null,
+    "text_content": "\u4f38\u624b\u4e13\u6253\u7b11\u8138\u4eba\nStretch hands to hit smiling people specifically",
+    "vibe": "playful threat"
+  },
+  "946.jpg": {
+    "emotion": "annoyed",
+    "gesture": "covering mouth",
+    "objects": null,
+    "text_content": "\u201c\u6700\u8fd1\u6709\u4e00\u70b9\u70b9\u60f3\u8c08\u604b\u7231\u201d\n\u201c\u4e0d,\u4f60\u4e0d\u60f3\u201d\n\"Wanna get in a relationship recently\"\n\"No you don't\"",
+    "vibe": "assertive denial"
+  },
+  "947.jpg": {
+    "emotion": "sad/tired",
+    "gesture": "resting head on arms",
+    "objects": null,
+    "text_content": "\u725b\u9a6c\u7684\u547d\u4e5f\u662f\u547d\nLives of cow and horse are also lives",
+    "vibe": "melancholy acceptance"
+  },
+  "948.jpg": {
+    "emotion": "depressed",
+    "gesture": "resting head on hand",
+    "objects": "corn",
+    "text_content": "\u7389\u7389\u4e86\nGot Depression",
+    "vibe": "melancholy corn"
+  },
+  "949.jpg": {
+    "emotion": "pensive",
+    "gesture": "finger on chin",
+    "objects": null,
+    "text_content": "\u8c01\u53d1\u660e\u7684\u65e9\u4e0a\u597d?\n\u65e9\u4e0a\u5230\u5e95\u8c01\u597d?\nWho invented good morning?\nWho is good in the morning?",
+    "vibe": "thoughtful, questioning"
+  },
+  "950.jpg": {
+    "emotion": "happy",
+    "gesture": "holding object",
+    "objects": "heart",
+    "text_content": "\u8fd9\u662f\u6211\u5bf9\u4f60\u7684\u7231\n\u6bd4\u6211\u7684\u8138\u90fd\u5927\nThis is my love to you\nBigger than my face",
+    "vibe": "cute, loving"
+  },
+  "951.jpg": {
+    "emotion": "mischievous",
+    "gesture": "placing object down",
+    "objects": "rock",
+    "text_content": "\u4e3a\u4e86\u8bc1\u660e\u7f51\u53cb\u4eec\u56e0\u4e3a\u4efb\u4f55\u4e8b\u60c5\u90fd\u80fd\n\u5435\u8d77\u6765,\u6211\u5148\u653e\u4e00\u9897\u77f3\u5934\u5728\u8fd9\u91cc\nTo prove net friends can argue\nabout anything, I will place a\nrock here at this moment",
+    "vibe": "playful provocation"
+  },
+  "952.jpg": {
+    "emotion": "tired/upset",
+    "gesture": "holding a smiling mask",
+    "objects": "smiling mask",
+    "text_content": "\u8981\u6211\u4e00\u76f4\u7b11\u5417\uff1f Want me to keep langhing?",
+    "vibe": "Exhausted, ironic humor"
+  },
+  "953.jpg": {
+    "emotion": "smug",
+    "gesture": "hand to cheek",
+    "objects": null,
+    "text_content": "\u59d0\u59b9\u513f\u8981\u8138\nLads need faces",
+    "vibe": "mischievous, sassy"
+  },
+  "954.jpg": {
+    "emotion": "sleepy",
+    "gesture": "sleeping under blanket",
+    "objects": "blanket",
+    "text_content": "\u672c\u6765\u8499\u7740\u88ab\u5b50\u75db\u82e6\u5462\n\u7ed3\u679c\u592a\u6696\u548c\u7761\u7740\u4e86\nI was suffering under the duvet\nBut was so warm that I felt asleep",
+    "vibe": "cozy, sleepy"
+  },
+  "955.jpg": {
+    "emotion": "coy",
+    "gesture": "pointing inwards with both hands",
+    "objects": "bow",
+    "text_content": "\u649e\u5927\u8fd0 Hit Big Luck",
+    "vibe": "lucky, cute"
+  },
+  "956.jpg": {
+    "emotion": "calm",
+    "gesture": "holding string, raising hand",
+    "objects": "lamp",
+    "text_content": "\u597d\u4e86,\u5b69\u5b50\u4eec,\u8be5\u7761\u89c9\u4e86,\u591c\u6df1\u4e86,\n\u518d\u4e0d\u7761\u89c9\u5c31\u6709\u5927\u7070\u72fc\u6765\u4e86\nOk kids, time to sleep, it's very late,\nIf you don't sleep big grey wolf will come",
+    "vibe": "Bedtime story"
+  },
+  "957.jpg": {
+    "emotion": "questioning",
+    "gesture": "touching chin",
+    "objects": null,
+    "text_content": "\u9e3d\u5b50\u4e3a\u4ec0\u4e48\u8fd9\u4e48\u5927\nWhy pigeons are so big",
+    "vibe": "curious, absurd"
+  },
+  "958.jpg": {
+    "emotion": "peaceful",
+    "gesture": "lying down, hands clasped",
+    "objects": null,
+    "text_content": "\u773c\u775b\u95ed\u4e0a\u4e86\n\u4e0d\u77e5\u9053\u662f\u7761\u7740\u4e86\u8fd8\u662f\u6b7b\u4e86\nEyes are closed\nBut not sure slept or dead",
+    "vibe": "deadpan humor"
+  },
+  "959.jpg": {
+    "emotion": "melancholy",
+    "gesture": null,
+    "objects": null,
+    "text_content": "\u6211\u4ee5\u540e\u518d\u4e5f\u4e0d\u4f1a\u7b11\u4e86\nI will never laugh again",
+    "vibe": "solemn, sad"
+  },
+  "960.jpg": {
+    "emotion": "cheerful",
+    "gesture": "fist pump",
+    "objects": "steamed bun",
+    "text_content": "\u5305\u5728\u6211\u8eab\u4e0a\nSteamed stuffed bun on me",
+    "vibe": "upbeat, confident"
+  },
+  "961.jpg": {
+    "emotion": "happy",
+    "gesture": "placing hand on drum-headed character",
+    "objects": "drum",
+    "text_content": "\u8c22\u8c22\u4f60\u8499\u9f13\u4eba\nThank you Drum Coverer",
+    "vibe": "cute, thankful"
+  },
+  "962.jpg": {
+    "emotion": "distressed",
+    "gesture": "touching hands",
+    "objects": null,
+    "text_content": "\u5495\u5495\n\u597d\u997f\u554a\u8981\u6d88\u5931\u4e86\nSo hungry, almost disappear",
+    "vibe": "hungry, fading"
+  },
+  "963.jpg": {
+    "emotion": "crying laughing",
+    "gesture": null,
+    "objects": null,
+    "text_content": "\u7b11\u5230\u5934\u6389\nLaugh until head drops",
+    "vibe": "extreme laughter"
+  },
+  "964.jpg": {
+    "emotion": "neutral",
+    "gesture": "touching tire",
+    "objects": "wheel",
+    "text_content": "\u52a8\u4e86\u80ce\u6c14\nMoved the tire air",
+    "vibe": "mischievous energy"
+  },
+  "965.jpg": {
+    "emotion": "blank",
+    "gesture": null,
+    "objects": null,
+    "text_content": "\u611f\u89c9\u8111\u888b\u7a7a\u7a7a\u7684\nIt feels like my head is empty",
+    "vibe": "empty headed"
+  },
+  "966.jpg": {
+    "emotion": "neutral",
+    "gesture": "pointing",
+    "objects": "QR code",
+    "text_content": "\u505c\u4e00\u4e0b,\u6253\u4e2a\u5e7f\u544a\n\u5bcc\u5a46\u52a0\u6211\nStop, advertisement\nRich ladies add me",
+    "vibe": "advertising message"
+  },
+  "967.jpg": {
+    "emotion": "calm",
+    "gesture": "meditating",
+    "objects": null,
+    "text_content": "\u6ca1\u5173\u7cfb,\u7cbe\u795e\u7a33\u5b9a1\u5206\u949f\u5df2\u7ecf\u5f88\u5389\u5bb3\u4e86\nNo problem, mind be peace for\none minute is super good",
+    "vibe": "calm, chill"
+  },
+  "968.jpg": {
+    "emotion": "inquisitive",
+    "gesture": "examining something",
+    "objects": [
+      "brain",
+      "magnifying glass"
+    ],
+    "text_content": "\u6709\u7a7a\u53bb\u770b\u770b\u8111\u5b50\nLook at some brain when you are free",
+    "vibe": "curious, suggestive"
+  },
+  "969.jpg": {
+    "emotion": "neutral",
+    "gesture": "eating",
+    "objects": "chip",
+    "text_content": "\u5f53\u4e03\u5c81\u7684\u6211\u7528\u98df\u6307\u548c\n\u4e2d\u6307\u5939\u7740\u85af\u6761\u5403\u7684\u65f6\u5019\nWhen I was 7, I used index finger\nand mid finger to catch and eat chips",
+    "vibe": "chill snack"
+  },
+  "970.jpg": {
+    "emotion": "crying",
+    "gesture": null,
+    "objects": "water",
+    "text_content": "\u6b63\u5728\u5927\u91cf\u6d41\u5931\u6c34\u5206\nLosing a lot of water now",
+    "vibe": "melodramatic sadness"
+  },
+  "971.jpg": {
+    "emotion": "happy",
+    "gesture": "hugging cake",
+    "objects": "cake, strawberries, party hat, confetti",
+    "text_content": "\u751f\u65e5\u5feb\u4e50\nHappy birthday",
+    "vibe": "celebratory, sweet"
+  },
+  "972.jpg": {
+    "emotion": "neutral",
+    "gesture": "standing",
+    "objects": "tea bag, Lipton box",
+    "text_content": "\u4eca\u5e74\u4e07\u5723\u8282\u6211\u626e\u6f14\u8336\u5305\n\u4f60\u4eec\u53ef\u4ee5\u6ce1\u6211\nI am playing the part as tea bag\nYou can make me at halloween",
+    "vibe": "playful request"
+  },
+  "973.jpg": {
+    "emotion": "concerned",
+    "gesture": "spraying disinfectant",
+    "objects": [
+      "disinfectant spray",
+      "tablet",
+      "face mask"
+    ],
+    "text_content": "\u5168\u9762\u6d88\u6bd2\nComprehensive disinfection",
+    "vibe": "germ conscious"
+  },
+  "974.jpg": {
+    "emotion": "confused",
+    "gesture": "holding microphone",
+    "objects": "microphone",
+    "text_content": "\u4e3a\u4ec0\u4e48\u4e0d\u751f\u5b69\u5b50?\n\u56e0\u4e3a\u4e0d\u60f3\u751f\u4e0d\u8ba4\u8bc6\u7684\u4eba\n\u201cWhy don't I get a baby? Because I\ndon't create someone I don't know\u201d",
+    "vibe": "questioning, absurd"
+  },
+  "975.jpg": {
+    "emotion": "neutral",
+    "gesture": "hands on hips",
+    "objects": "french fries",
+    "text_content": "\u8fd9\u662f\u4e00\u5305\u85af\u6761,\u5982\u679c\u4f60\u770b\u89c1\u7684\u662f\nMokou\u7684\u8bdd,\u90a3\u8bf4\u660e\u6700\u8fd1\u4f60\u71ac\n\u591c\u592a\u591a\u4e86,\u4eca\u5929\u8981\u65e9\u7761\nToo long,I don't translate...",
+    "vibe": "goofy, warning"
+  },
+  "976.jpg": {
+    "emotion": "annoyed",
+    "gesture": "pointing finger",
+    "objects": null,
+    "text_content": "0/20/0\n2/7/14\n\u6211\u5efa\u8bae\u4f60\u4e0d\u8981\u5efa\u8bae\u6211\nI suggest you don't give me any suggestions",
+    "vibe": "sassy, dismissive"
+  },
+  "977.jpg": {
+    "emotion": "neutral",
+    "gesture": "holding object",
+    "objects": "fish, note",
+    "text_content": "\u81f3\u6b7b\n\u4e0d\u9c7c\n\u6211\u5728\u6478\u9c7c,\u6478\u7684\u4ec0\u4e48\u9c7c?\n\u7231\u4f60\u81f3\u6b7b\u4e0d\u9c7c\nI am touching fish, what fish?\nLove you until die fish",
+    "vibe": "cute, quirky"
+  },
+  "978.jpg": {
+    "emotion": "cool",
+    "gesture": "null",
+    "objects": "cigarette, sunglasses",
+    "text_content": "\u58a8\u955c\u4e00\u6234 \u8c01\u90fd\u4e0d\u7231\nSunglass on,no one loves",
+    "vibe": "savage, cool"
+  },
+  "979.jpg": {
+    "emotion": "tired",
+    "gesture": "lying down",
+    "objects": "couch",
+    "text_content": "\u8fc7\u53bb\u8f6f\u5f31\u7684\u6211\u5df2\u7ecf\u6b7b\u4e86\n\u73b0\u5728\u662f\u66f4\u8f6f\u5f31\u7684\u6211\nThe weak me has dead\nNow it's the weaker me",
+    "vibe": "lazy, defeated"
+  },
+  "980.jpg": {
+    "emotion": "melancholy",
+    "gesture": "holding phone",
+    "objects": "phone",
+    "text_content": "\u751f\u6d3b\u70c2\u900f\u4e86 \u4f46\u81f3\u5c11\u6709\u4e00\u5806meme\u53ef\u4ee5\u770b Life is completely rotten But at least I have some meme to look at",
+    "vibe": "sad relatable"
+  },
+  "981.jpg": {
+    "emotion": "neutral",
+    "gesture": null,
+    "objects": "burger",
+    "text_content": "\u4eca\u5929\u4e0d\u662f\u75af\u72c2\u661f\u671f\u56db\n\u4f46\u6211\u53ef\u4ee5\u505a\u4f60\u7684\u5821\u5821\nToday is not Crazy Thursday\nBut I can be your burgerger",
+    "vibe": "funny, cute"
+  },
+  "982.jpg": {
+    "emotion": "melancholy",
+    "gesture": "resting head on hand",
+    "objects": "phone",
+    "text_content": "\u5f53\u4f60\u5f88\u60f3\u5ff5\u67d0\u4e2a\u4eba\n\u4f46\u4f60\u77e5\u9053\u5bf9\u65b9\u5b8c\u5168\u4e0d\u4f1a\u60f3\u8d77\u4f60\nWhen you miss someone, but you know\nthat person will not think of you at all",
+    "vibe": "sad, relatable"
+  },
+  "983.jpg": {
+    "emotion": "stern",
+    "gesture": "pointing",
+    "objects": "gavel",
+    "text_content": "\u4f60\u6709\u7f6a\nYou are guilty",
+    "vibe": "Judgmental, humorous"
+  },
+  "984.jpg": {
+    "emotion": "flustered",
+    "gesture": "touching head, posing as sausage",
+    "objects": "sausage",
+    "text_content": "\u5982\u679c\u6211\u53d8\u6210\u9999\u80a0\u4f60\u8fd8\u7231\u6211\u5417?\nIf I become sausage\nWill you still love me?",
+    "vibe": "quirky, pleading"
+  },
+  "985.jpg": {
+    "emotion": "apathetic",
+    "gesture": "offering money",
+    "objects": "money, lollipop",
+    "text_content": "\u53d6\u60a6\u5230\u6211\u4e86 \u62ff\u53bb\u6325\u970d\nMakes me joyful, go spend it",
+    "vibe": "generous, disinterested"
+  },
+  "986.jpg": {
+    "emotion": "sad",
+    "gesture": "clenched fist",
+    "objects": "jail bars",
+    "text_content": "\u6e34\u671b\u7231\u60c5\nNeed love",
+    "vibe": "lonely, desperate"
+  },
+  "987.jpg": {
+    "emotion": "happy",
+    "gesture": "giving thumbs up",
+    "objects": "thumbs up",
+    "text_content": "\u5f53\u4f60\u610f\u8bc6\u5230\u70b9\u8d5e\u662f\u514d\u8d39\u7684\n\u5e76\u4e14\u6709\u80fd\u529b\u8ba9\u4e00\u4f4d\u964c\u751f\u7f51\u53cb\u5f00\u5fc3\u65f6\nWhen you realize like is free, and will\nmake some online unknown friend happy",
+    "vibe": "positive, supportive"
+  },
+  "988.jpg": {
+    "emotion": "annoyed",
+    "gesture": "pointing",
+    "objects": "umbrella",
+    "text_content": "\u667a\u6167\n\u4e0a\u5e1d\u5728\u4eba\u95f4\u6d12\u6ee1\u4e86\u667a\u6167\n\u552f\u72ec\u4f60\u6253\u4e86\u628a\u4f1e\nGod spray wisdom over the world\nOnly you are holding an umbrella",
+    "vibe": "salty, sarcastic"
+  },
+  "989.jpg": {
+    "emotion": "crying",
+    "gesture": "being hit",
+    "objects": "santa hat",
+    "text_content": "\u8c01\u6709\u75c5\u554a?\u5927\u665a\u4e0a\u8ddf\u5723\u8bde\u8001\u4eba\u8bb8\n\u613f\u4e16\u754c\u4e0a\u6ca1\u6709\u7a77\u4eba,\u6211\u5dee\u70b9\u88ab\u6253\u6b7b\u4e86\nWho is sick? Making wish late at\nnight to the santa that no poor man\nin the world,I am almost beaten to death",
+    "vibe": "comedic suffering"
+  },
+  "990.jpg": {
+    "emotion": "frustrated",
+    "gesture": "writing",
+    "objects": "pencil, books, paper",
+    "text_content": "S\u5c5e\u6027\u5927\u7206\u53d1, S Property Explosion-Study",
+    "vibe": "intense studying"
+  },
+  "991.jpg": {
+    "emotion": "peaceful",
+    "gesture": "sleeping",
+    "objects": "bed, pillow, window",
+    "text_content": "S\u5c5e\u6027\u5927\u7206\u53d1\nS Property Explosion-Sleeping",
+    "vibe": "sleepy, calm"
+  },
+  "992.jpg": {
+    "emotion": "shocked",
+    "gesture": "hanging",
+    "objects": "rope, ghost",
+    "text_content": "S\u5c5e\u6027\u5927\u7206\u53d1\nS Property Explosion-Suicide",
+    "vibe": "dark, concerning"
+  },
+  "993.jpg": {
+    "emotion": "shocked",
+    "gesture": null,
+    "objects": null,
+    "text_content": "\u4e0d\u53ef\u7f6e\u4fe1\nUnbelievable",
+    "vibe": "Overwhelmed, Stunned"
+  },
+  "994.jpg": {
+    "emotion": "bored",
+    "gesture": "holding rope",
+    "objects": "rope",
+    "text_content": "\u767b\u5f55\u5c31\u9001100\u62bd!\nLogin for 100 draws!",
+    "vibe": "unimpressed offer"
+  },
+  "995.jpg": {
+    "emotion": "outraged",
+    "gesture": "holding out bowl, carrying bindle",
+    "objects": "bowl, bindle",
+    "text_content": "\u8981\u996d\u600e\u4e48\u4e86?\u8981\u996d\u4e5f\u6bd4\n\u4f60\u4eec\u8fd9\u4e9b\u7092\u80a1\u7684\u5f3a\nSo what if I beg? Even begging is\nbetter than what you stock traders do",
+    "vibe": "aggressive beggar, angry"
+  },
+  "996.jpg": {
+    "emotion": "happy",
+    "gesture": "feet in water, sitting",
+    "objects": "river, sign",
+    "text_content": "\u7231\u6cb3\n\u6211\u8981\u5728\u4f60\u4eec\u7684\u7231\u6cb3\u91cc\u6d17\u811a\nI want to wash feet in your love river",
+    "vibe": "playful, mischievous"
+  },
+  "997.jpg": {
+    "emotion": "determined",
+    "gesture": "lifting weights",
+    "objects": "barbell",
+    "text_content": "\u6ca1\u4eba\u75bc\u5c31\u53bb\u5065\u8eab\n\u7ec3\u5b8c\u6d51\u8eab\u75bc\nNo one pain then go to gym, after training\npain will be everywhere in the body",
+    "vibe": "painful gains"
+  },
+  "998.jpg": {
+    "emotion": "defeated",
+    "gesture": "lying down",
+    "objects": "blood",
+    "text_content": "\u89c4\u77e9\u662f\u6b7b\u7684\n\u6ca1\u4e8b\u6211\u4e5f\u662f\u6b7b\u7684\nRule is dead\nIt's fine, I am dead too",
+    "vibe": "deadpan humor"
+  },
+  "999.jpg": {
+    "emotion": "excited",
+    "gesture": "holding noose",
+    "objects": [
+      "noose",
+      "beakers",
+      "flask"
+    ],
+    "text_content": "\u7ec8\u4e8e\u7814\u5236\u6210\u529f\u4e86 \u89e3\u51b3\u6211\u6240\u6709\u4eba\u751f\u95ee\u9898\u7684\u65b9\u6cd5 I've finally invented a method to solve all my life problems",
+    "vibe": "darkly humorous"
+  },
+  "1000.jpg": {
+    "emotion": "content",
+    "gesture": "arms outstretched",
+    "objects": null,
+    "text_content": "\u85e4\u539f\u59b9\u7ea2\u8868\u60c5\u53051000\u8fbe\u6210\nMokou Meme 1000 Achieved",
+    "vibe": "Meme collection"
   }
 }
