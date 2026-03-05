@@ -3,7 +3,7 @@ title: Computational description of a Diels-Alder reaction
 description: Doing some DFT calculations
 date: 2025-12-19
 ---
-<p style="font-size: 0.85em; line-height: 1.3;"><strong>March 2026 update</strong> — set up a computational chemistry workflow, wrote a tool to fragment products into starting geometries, found a transition state and verified it.</p>
+<p style="font-size: 0.85em; line-height: 1.3;"><strong>March 2026 update</strong> — tl;dr set up a computational chemistry workflow, wrote a tool to fragment products into starting geometries, found a transition state and verified it.</p>
 
 <p style="font-size: 0.85em; line-height: 1.3;"><em>Status: proof of concept. I'd like to benchmark more reactions from Loco et al.; transition states for reactions B2 and B3 were found in the same way as below, but I haven't looked into calculating pre-complex energies yet. Along the way I wrote a <a href="https://github.com/intentionallydense/DA-alignment">script</a> which separates a Diels-Alder product along the direction of bond formation into a plausible starting point for a relaxed surface scan. It will not work well for reactions where the transition state is not very similar to the product and does not guarantee endo approach, but is less annoying to use than trying to position starting materials by hand.</em></p>
 
