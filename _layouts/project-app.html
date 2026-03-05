@@ -1,0 +1,21 @@
+<!--
+  Layout for interactive/app-style projects that need more width
+  than a standard article. Doesn't wrap in <article> to avoid
+  image constraints from style.css.
+-->
+---
+layout: default
+---
+<style>
+  /* Wider than default 640px for app-style projects */
+  body { max-width: 900px; }
+</style>
+
+<h1 style="font-size: 1.5rem; margin-bottom: 0.5rem;">{{ page.title }}</h1>
+<div class="meta">{{ page.date | date: "%B %Y" }}</div>
+
+{{ content }}
+
+<div style="margin-top: 2rem;">
+  <a href="{{ '/projects/' | relative_url }}">← all projects</a>
+</div>
