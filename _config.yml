@@ -4,9 +4,12 @@ url: "https://intentionallydense.github.io" # will be https://yourusername.githu
 
 # Collections
 collections:
-  projects:
+  writing:
     output: true
-    permalink: /projects/:slug/
+    permalink: /writing/:slug/
+  artifacts:
+    output: true
+    permalink: /artifacts/:slug/
 
 # Build settings
 markdown: Kramdown
@@ -22,6 +25,11 @@ defaults:
       permalink: /posts/:slug/
   - scope:
       path: ""
-      type: "projects"
+      type: "writing"
     values:
       layout: "project"
+  - scope:
+      path: ""
+      type: "artifacts"
+    values:
+      layout: "project-app"

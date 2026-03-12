@@ -2,7 +2,6 @@
 title: Computational description of a Diels-Alder reaction
 description: Doing some DFT calculations
 date: 2025-12-19
-type: writing
 ---
 <p style="font-size: 0.85em; line-height: 1.3;"><strong>March 2026 update</strong> — tl;dr set up a computational chemistry workflow, wrote a tool to fragment products into starting geometries, found a transition state and verified it.</p>
 

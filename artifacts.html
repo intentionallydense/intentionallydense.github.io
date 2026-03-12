@@ -1,0 +1,12 @@
+---
+layout: default
+title: Artifacts
+permalink: /artifacts/
+---
+{% assign sorted = site.artifacts | sort: 'date' | reverse %}
+{% for item in sorted %}
+<div class="project-item">
+  <h2><a href="{{ item.url | relative_url }}">{{ item.title }}</a></h2>
+  <p>{{ item.description }}</p>
+</div>
+{% endfor %}
