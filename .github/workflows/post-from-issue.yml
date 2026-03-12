@@ -1,0 +1,123 @@
+# Creates a post from a GitHub issue.
+#
+# Usage: create an issue with the label "post".
+#   - Title: used for the filename slug (optional — falls back to date)
+#   - Body: caption text + pasted photos
+#
+# Photos pasted into the issue are downloaded from GitHub's CDN
+# and committed to assets/images/, matching the existing pattern.
+
+name: Post from issue
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  create-post:
+    if: github.event.label.name == 'post'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create post from issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const { execSync } = require('child_process');
+
+            const issue = context.payload.issue;
+            const title = issue.title.trim();
+            const body = issue.body || '';
+
+            // Date and slug
+            const now = new Date();
+            const dateStr = now.toISOString().split('T')[0];
+            const hours = String(now.getUTCHours()).padStart(2, '0');
+            const mins = String(now.getUTCMinutes()).padStart(2, '0');
+            const slug = title
+              .toLowerCase()
+              .replace(/[^a-z0-9]+/g, '-')
+              .replace(/^-|-$/g, '');
+
+            const filename = slug
+              ? `_posts/${dateStr}-${slug}.md`
+              : `_posts/${dateStr}.md`;
+
+            // Find GitHub CDN image URLs in the issue body
+            const imageRegex = /!\[([^\]]*)\]\((https:\/\/(?:user-images\.githubusercontent\.com|github\.com\/user-attachments\/assets)[^\)]+)\)/g;
+            let content = body;
+            const downloads = [];
+            let imageIndex = 0;
+
+            let match;
+            while ((match = imageRegex.exec(body)) !== null) {
+              imageIndex++;
+              downloads.push({
+                fullMatch: match[0],
+                alt: match[1],
+                url: match[2],
+                index: imageIndex
+              });
+            }
+
+            // Download images and rewrite URLs
+            for (const dl of downloads) {
+              const response = await fetch(dl.url);
+              if (!response.ok) {
+                console.log(`Failed to download ${dl.url}: ${response.status}`);
+                continue;
+              }
+
+              // Determine extension from content-type
+              const contentType = response.headers.get('content-type') || '';
+              let ext = 'jpg';
+              if (contentType.includes('png')) ext = 'png';
+              else if (contentType.includes('gif')) ext = 'gif';
+              else if (contentType.includes('webp')) ext = 'webp';
+
+              const imageFilename = slug
+                ? `${slug}-${dl.index}.${ext}`
+                : `${dateStr}-${dl.index}.${ext}`;
+
+              const buffer = Buffer.from(await response.arrayBuffer());
+              fs.writeFileSync(path.join('assets/images', imageFilename), buffer);
+
+              content = content.replace(
+                dl.fullMatch,
+                `![${dl.alt}](/assets/images/${imageFilename})`
+              );
+            }
+
+            // Write post file
+            const post = `---\ndate: ${dateStr} ${hours}:${mins}:00\n---\n${content.trim()}\n`;
+            fs.writeFileSync(filename, post);
+
+            // Commit and push
+            execSync('git config user.name "github-actions[bot]"');
+            execSync('git config user.email "github-actions[bot]@users.noreply.github.com"');
+            execSync('git add _posts/ assets/images/');
+            execSync(`git commit -m "new post: ${title || dateStr}"`);
+            execSync('git push');
+
+            // Close issue with link
+            const postSlug = slug || dateStr;
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              body: `Post published: https://intentionallydense.github.io/posts/${postSlug}/`
+            });
+
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              state: 'closed'
+            });
