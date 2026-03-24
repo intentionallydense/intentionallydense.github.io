@@ -41,6 +41,11 @@ a:hover {
 /* Header */
 header {
   margin-bottom: 1.5rem;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 10;
+  padding-bottom: 0.5rem;
 }
 
 header h1 {
@@ -80,7 +85,7 @@ nav a {
   color: #666;
   margin-bottom: 0;
   position: sticky;
-  top: 0.5rem;
+  top: 3.5rem;
   background: #fff;
   padding: 0.25rem 0;
 }
@@ -88,7 +93,7 @@ nav a {
 /* Parallax scroll — each element sticks at top, later layers over earlier */
 .note-content p {
   position: sticky;
-  top: 0.5rem;
+  top: 3.5rem;
   background: #fff;
   padding: 0.5rem 0;
   margin-bottom: 0;
@@ -183,7 +188,7 @@ article img {
 /* Post pages — parallax scroll, full-width images */
 article.post p {
   position: sticky;
-  top: 0.5rem;
+  top: 3.5rem;
   background: #fff;
   padding: 0.5rem 0;
   margin-bottom: 0;
