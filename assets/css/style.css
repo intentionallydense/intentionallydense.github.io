@@ -79,32 +79,31 @@ nav a {
   font-family: "SF Mono", Monaco, Consolas, "Courier New", monospace;
   font-size: 0.85rem;
   color: #666;
-  margin-bottom: 0;
   position: sticky;
   top: 3.5rem;
-  background: #fff;
+  background: transparent;
   padding: 0.25rem 0;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
 }
 
-/* Parallax scroll — each element sticks at top, later layers over earlier */
+/* Parallax scroll — each element sticks at top, later layers over earlier.
+   Images pin at top: 0 so they scroll behind the transparent header.
+   Text and dates pin below the header so they stay readable. */
 .notes-stream p {
   position: sticky;
   top: 3.5rem;
-  background: #fff;
+  background: transparent;
   padding: 0.5rem 0;
+  margin-top: 0.5rem;
   margin-bottom: 0;
 }
 
 .notes-stream p:has(img) {
-  background: transparent;
+  top: 0;
   padding: 0;
-  margin: 0;
-  line-height: 0;
-}
-
-/* Auto-separate consecutive images */
-.notes-stream p:has(img) + p:has(img) {
   margin-top: 0.5rem;
+  line-height: 0;
 }
 
 .notes-stream img {
@@ -190,15 +189,16 @@ article img {
 article.post p {
   position: sticky;
   top: 3.5rem;
-  background: #fff;
+  background: transparent;
   padding: 0.5rem 0;
+  margin-top: 0.5rem;
   margin-bottom: 0;
 }
 
 article.post p:has(img) {
-  background: transparent;
+  top: 0;
   padding: 0;
-  margin: 0;
+  margin-top: 0.5rem;
   line-height: 0;
 }
 
