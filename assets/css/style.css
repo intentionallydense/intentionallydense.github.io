@@ -94,11 +94,7 @@ nav a {
   margin-left: -1.25rem;
 }
 
-/* Alternating posts — every other post aligns flush with the header */
-.post-b .note-date {
-  margin-left: 0;
-}
-
+/* Alternating posts — captions alternate, dates stay consistent */
 .post-b p {
   margin-left: 0;
 }
