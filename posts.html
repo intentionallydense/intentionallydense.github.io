@@ -34,72 +34,72 @@ permalink: /posts/
 </style>
 
 <script>
-  // Zoom preview — composites all visible images onto a canvas at 3x zoom,
+  // Zoom preview — composites all visible images onto a canvas at 3× zoom,
   // treating the post stream as one continuous surface. No jumps between
   // photos because every overlapping image is drawn in stacking order.
   (function() {
-    var canvas = document.getElementById('zoom-preview');
-    if (!canvas || window.innerWidth <= 1040) return;
-    var ctx = canvas.getContext('2d');
+    const ZOOM = 3;
+    const CANVAS_SIZE = 300;
+    const MIN_VIEWPORT = 1040;
+    const VIEW_SIZE = CANVAS_SIZE / ZOOM; // 100px source region
 
-    var zoom = 3;
-    var size = 300;
-    var viewSize = size / zoom; // 100px source region
-    var mouseX = -1, mouseY = -1;
-    var ticking = false;
+    const canvas = document.getElementById('zoom-preview');
+    if (!canvas || window.innerWidth <= MIN_VIEWPORT) return;
+    const ctx = canvas.getContext('2d');
+
+    let mouseX = -1, mouseY = -1;
+    let ticking = false;
 
     function updatePreview() {
       ticking = false;
       if (mouseX < 0) return;
 
-      // Source region in viewport coords: 100x100 centered on cursor
-      var srcL = mouseX - viewSize / 2;
-      var srcT = mouseY - viewSize / 2;
-      var srcR = srcL + viewSize;
-      var srcB = srcT + viewSize;
+      // Source region in viewport coords: 100×100 centered on cursor
+      const srcL = mouseX - VIEW_SIZE / 2;
+      const srcT = mouseY - VIEW_SIZE / 2;
+      const srcR = srcL + VIEW_SIZE;
+      const srcB = srcT + VIEW_SIZE;
 
-      ctx.clearRect(0, 0, size, size);
+      ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
       ctx.fillStyle = '#fff';
-      ctx.fillRect(0, 0, size, size);
+      ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
 
-      var imgs = document.querySelectorAll('.notes-stream img');
-      var drewAny = false;
+      const imgs = document.querySelectorAll('.notes-stream img');
+      let drewAny = false;
 
       // Draw in DOM order (later images paint on top, matching CSS stacking)
       imgs.forEach(function(img) {
-        if (!img.naturalWidth) return; // not loaded yet
+        if (!img.naturalWidth) return;
 
-        var rect = img.getBoundingClientRect();
+        const rect = img.getBoundingClientRect();
 
         // Skip if no overlap with source region
         if (rect.right <= srcL || rect.left >= srcR ||
             rect.bottom <= srcT || rect.top >= srcB) return;
 
         // Intersection in viewport coords
-        var intL = Math.max(srcL, rect.left);
-        var intT = Math.max(srcT, rect.top);
-        var intR = Math.min(srcR, rect.right);
-        var intB = Math.min(srcB, rect.bottom);
+        const intL = Math.max(srcL, rect.left);
+        const intT = Math.max(srcT, rect.top);
+        const intR = Math.min(srcR, rect.right);
+        const intB = Math.min(srcB, rect.bottom);
 
         // Map intersection to image natural pixel coords (source)
-        var sx = (intL - rect.left) / rect.width * img.naturalWidth;
-        var sy = (intT - rect.top) / rect.height * img.naturalHeight;
-        var sw = (intR - intL) / rect.width * img.naturalWidth;
-        var sh = (intB - intT) / rect.height * img.naturalHeight;
+        const sx = (intL - rect.left) / rect.width * img.naturalWidth;
+        const sy = (intT - rect.top) / rect.height * img.naturalHeight;
+        const sw = (intR - intL) / rect.width * img.naturalWidth;
+        const sh = (intB - intT) / rect.height * img.naturalHeight;
 
         // Map intersection to canvas coords (destination)
-        var dx = (intL - srcL) * zoom;
-        var dy = (intT - srcT) * zoom;
-        var dw = (intR - intL) * zoom;
-        var dh = (intB - intT) * zoom;
+        const dx = (intL - srcL) * ZOOM;
+        const dy = (intT - srcT) * ZOOM;
+        const dw = (intR - intL) * ZOOM;
+        const dh = (intB - intT) * ZOOM;
 
-        try {
-          ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
-          drewAny = true;
-        } catch(e) {}
+        ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
+        drewAny = true;
       });
 
-      canvas.style.top = (mouseY - size / 2) + 'px';
+      canvas.style.top = (mouseY - CANVAS_SIZE / 2) + 'px';
       canvas.style.display = drewAny ? 'block' : 'none';
     }
 
@@ -124,50 +124,49 @@ permalink: /posts/
     });
   })();
 
-  // Dynamic sticky — images drift from 4.5rem to 1.5rem, hold, then release.
-  // Uses stable document positions (offsetTop) to avoid feedback loops.
+  // Dynamic sticky — images drift from MAX_TOP to MIN_TOP, hold, then release.
+  // Uses offsetTop (document-relative) instead of getBoundingClientRect to
+  // avoid feedback loops where changing sticky top shifts the element's rect.
   (function() {
-    var maxTop = 72;      // 4.5rem — starting pin position
-    var minTop = 24;      // 1.5rem — drift target
-    var driftOver = 400;  // px of scrolling to drift from maxTop to minTop
-    var holdFor = 800;    // px to hold at minTop before releasing
-    var ticking = false;
+    const MAX_TOP = 72;       // 4.5rem — starting pin position
+    const MIN_TOP = 24;       // 1.5rem — drift target
+    const DRIFT_OVER = 400;   // px of scrolling to complete the drift
+    const HOLD_FOR = 800;     // px to hold at MIN_TOP before releasing
 
-    // Compute each image's stick point after images load
-    var imgData = [];
+    let imgData = [];
+    let ticking = false;
+
     function computeStickPoints() {
-      var paras = document.querySelectorAll('.notes-stream p:has(img)');
+      const paras = document.querySelectorAll('.notes-stream p:has(img)');
       imgData = [];
       paras.forEach(function(p) {
         imgData.push({
           el: p,
-          // scrollY at which this image first becomes stuck
-          stickAt: p.offsetTop - maxTop
+          stickAt: p.offsetTop - MAX_TOP
         });
       });
     }
 
     function update() {
       ticking = false;
-      var scrollY = window.scrollY;
+      const scrollY = window.scrollY;
 
       imgData.forEach(function(d) {
-        var dist = scrollY - d.stickAt;
+        const dist = scrollY - d.stickAt;
 
         if (dist < 0) {
-          // Not stuck yet
-          d.el.style.top = maxTop + 'px';
-        } else if (dist <= driftOver) {
-          // Phase 1: drift from maxTop to minTop
-          var t = dist / driftOver;
-          d.el.style.top = (maxTop - t * (maxTop - minTop)) + 'px';
-        } else if (dist <= driftOver + holdFor) {
-          // Phase 2: hold at minTop
-          d.el.style.top = minTop + 'px';
+          d.el.style.top = MAX_TOP + 'px';
+        } else if (dist <= DRIFT_OVER) {
+          // Phase 1: drift from MAX_TOP to MIN_TOP
+          const t = dist / DRIFT_OVER;
+          d.el.style.top = (MAX_TOP - t * (MAX_TOP - MIN_TOP)) + 'px';
+        } else if (dist <= DRIFT_OVER + HOLD_FOR) {
+          // Phase 2: hold at MIN_TOP
+          d.el.style.top = MIN_TOP + 'px';
         } else {
-          // Phase 3: drift off screen — top goes negative
-          var excess = dist - driftOver - holdFor;
-          d.el.style.top = (minTop - excess) + 'px';
+          // Phase 3: drift off screen
+          const excess = dist - DRIFT_OVER - HOLD_FOR;
+          d.el.style.top = (MIN_TOP - excess) + 'px';
         }
       });
     }
@@ -184,7 +183,7 @@ permalink: /posts/
       computeStickPoints();
       update();
     });
-    // Also compute immediately for cached images
+    // Also run immediately in case images are cached and load already fired
     computeStickPoints();
 
     window.addEventListener('scroll', onScroll);

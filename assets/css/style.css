@@ -69,9 +69,6 @@ nav a {
 /* Notes stream */
 .notes-stream {
   margin-bottom: 3rem;
-}
-
-.notes-stream {
   font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 }
 
@@ -95,11 +92,6 @@ nav a {
   margin-left: -1.25rem;
 }
 
-/* Alternating posts — captions and images alternate indent */
-.post-b p {
-  margin-left: 0;
-}
-
 /* Parallax scroll — each element sticks at top, later layers over earlier.
    Images pin at top: 0 so they scroll behind the transparent header.
    Text and dates pin below the header with white bg, fit-content width,
@@ -115,13 +107,15 @@ nav a {
   margin-left: 2rem;
 }
 
+/* Alternating posts — post-b captions sit flush left */
+.post-b p {
+  margin-left: 0;
+}
+
 .notes-stream p:has(img) {
   top: 4.5rem;
   width: 100%;
-  padding-top: 0.5rem;
-  padding-bottom: 0;
-  padding-left: 0;
-  padding-right: 0;
+  padding: 0.5rem 0 0;
   margin-top: 0;
   margin-left: 0;
   line-height: 0;
