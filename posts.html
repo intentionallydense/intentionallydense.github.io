@@ -33,40 +33,69 @@ permalink: /posts/
 </style>
 
 <script>
-  // Zoom preview — hovering over a post image shows a 3x zoomed crop
-  // in the empty space to the right of the content column.
-  // Only active on viewports wide enough to fit the preview.
+  // Zoom preview — treats the entire post stream as one canvas.
+  // Uses elementsFromPoint to find whatever image is under the cursor,
+  // even behind text/dates. Updates on both mousemove and scroll.
   (function() {
     var preview = document.getElementById('zoom-preview');
     if (!preview || window.innerWidth <= 1040) return;
 
     var zoom = 3;
     var size = 300;
+    var mouseX = -1, mouseY = -1;
+    var ticking = false;
 
-    document.querySelectorAll('.notes-stream img').forEach(function(img) {
-      img.addEventListener('mouseenter', function() {
-        preview.style.backgroundImage = 'url(' + img.src + ')';
-        preview.style.display = 'block';
-      });
+    function updatePreview() {
+      ticking = false;
+      if (mouseX < 0) return;
 
-      img.addEventListener('mousemove', function(e) {
-        var rect = img.getBoundingClientRect();
-        var x = (e.clientX - rect.left) / rect.width;
-        var y = (e.clientY - rect.top) / rect.height;
+      // Find the first img under the cursor, regardless of what's on top
+      var elements = document.elementsFromPoint(mouseX, mouseY);
+      var img = null;
+      for (var i = 0; i < elements.length; i++) {
+        if (elements[i].tagName === 'IMG' && elements[i].closest('.notes-stream')) {
+          img = elements[i];
+          break;
+        }
+      }
 
-        var bgW = rect.width * zoom;
-        var bgH = rect.height * zoom;
-        var bgX = -(x * bgW) + size / 2;
-        var bgY = -(y * bgH) + size / 2;
-
-        preview.style.backgroundSize = bgW + 'px ' + bgH + 'px';
-        preview.style.backgroundPosition = bgX + 'px ' + bgY + 'px';
-        preview.style.top = (e.clientY - size / 2) + 'px';
-      });
-
-      img.addEventListener('mouseleave', function() {
+      if (!img) {
         preview.style.display = 'none';
-      });
+        return;
+      }
+
+      var rect = img.getBoundingClientRect();
+      var x = Math.max(0, Math.min(1, (mouseX - rect.left) / rect.width));
+      var y = Math.max(0, Math.min(1, (mouseY - rect.top) / rect.height));
+
+      var bgW = rect.width * zoom;
+      var bgH = rect.height * zoom;
+
+      preview.style.backgroundImage = 'url(' + img.src + ')';
+      preview.style.backgroundSize = bgW + 'px ' + bgH + 'px';
+      preview.style.backgroundPosition = (-(x * bgW) + size / 2) + 'px ' + (-(y * bgH) + size / 2) + 'px';
+      preview.style.top = (mouseY - size / 2) + 'px';
+      preview.style.display = 'block';
+    }
+
+    function requestUpdate() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updatePreview);
+      }
+    }
+
+    document.addEventListener('mousemove', function(e) {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      requestUpdate();
+    });
+
+    window.addEventListener('scroll', requestUpdate);
+
+    document.addEventListener('mouseleave', function() {
+      mouseX = -1;
+      preview.style.display = 'none';
     });
   })();
 </script>
