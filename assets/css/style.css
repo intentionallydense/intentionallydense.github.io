@@ -75,9 +75,9 @@ nav a {
   font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 }
 
-/* Post groups use display:contents so they don't break cross-post sticky */
+/* Each post-group is the containing block for its sticky elements.
+   Images stick while their post is in view, then scroll away. */
 .post-group {
-  display: contents;
 }
 
 .note-date {
