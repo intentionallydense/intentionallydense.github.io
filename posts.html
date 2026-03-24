@@ -10,3 +10,63 @@ permalink: /posts/
   {{ post.content }}
   {% endfor %}
 </div>
+
+<div id="zoom-preview"></div>
+
+<style>
+  #zoom-preview {
+    position: fixed;
+    left: 680px;
+    width: 300px;
+    height: 300px;
+    border: 1px solid #eee;
+    border-radius: 3px;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    display: none;
+    z-index: 5;
+  }
+
+  @media (max-width: 1040px) {
+    #zoom-preview { display: none !important; }
+  }
+</style>
+
+<script>
+  // Zoom preview — hovering over a post image shows a 3x zoomed crop
+  // in the empty space to the right of the content column.
+  // Only active on viewports wide enough to fit the preview.
+  (function() {
+    var preview = document.getElementById('zoom-preview');
+    if (!preview || window.innerWidth <= 1040) return;
+
+    var zoom = 3;
+    var size = 300;
+
+    document.querySelectorAll('.notes-stream img').forEach(function(img) {
+      img.addEventListener('mouseenter', function() {
+        preview.style.backgroundImage = 'url(' + img.src + ')';
+        preview.style.display = 'block';
+      });
+
+      img.addEventListener('mousemove', function(e) {
+        var rect = img.getBoundingClientRect();
+        var x = (e.clientX - rect.left) / rect.width;
+        var y = (e.clientY - rect.top) / rect.height;
+
+        var bgW = rect.width * zoom;
+        var bgH = rect.height * zoom;
+        var bgX = -(x * bgW) + size / 2;
+        var bgY = -(y * bgH) + size / 2;
+
+        preview.style.backgroundSize = bgW + 'px ' + bgH + 'px';
+        preview.style.backgroundPosition = bgX + 'px ' + bgY + 'px';
+        preview.style.top = (e.clientY - size / 2) + 'px';
+      });
+
+      img.addEventListener('mouseleave', function() {
+        preview.style.display = 'none';
+      });
+    });
+  })();
+</script>
