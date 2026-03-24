@@ -95,9 +95,13 @@ nav a {
   margin-left: -1.25rem;
 }
 
-/* Alternating posts — captions alternate, dates stay consistent */
+/* Alternating posts — captions and images alternate indent */
 .post-b p {
   margin-left: 0;
+}
+
+.post-b p:has(img) {
+  margin-left: 1.25rem;
 }
 
 /* Parallax scroll — each element sticks at top, later layers over earlier.
