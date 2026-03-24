@@ -124,61 +124,53 @@ permalink: /posts/
     });
   })();
 
-  // Dynamic sticky — images drift from 4.5rem to 1.5rem, hold for a while,
-  // then release so they scroll away. Based on scroll distance, not post.
+  // Dynamic sticky — images drift from 4.5rem to 1.5rem, hold, then release.
+  // Uses stable document positions (offsetTop) to avoid feedback loops.
   (function() {
     var maxTop = 72;      // 4.5rem — starting pin position
     var minTop = 24;      // 1.5rem — drift target
     var driftOver = 400;  // px of scrolling to drift from maxTop to minTop
-    var holdFor = 800;    // px of scrolling to hold at minTop before releasing
-    var imgParas = document.querySelectorAll('.notes-stream p:has(img)');
-    var stuckAt = new Map();
+    var holdFor = 800;    // px to hold at minTop before releasing
     var ticking = false;
+
+    // Compute each image's stick point after images load
+    var imgData = [];
+    function computeStickPoints() {
+      var paras = document.querySelectorAll('.notes-stream p:has(img)');
+      imgData = [];
+      paras.forEach(function(p) {
+        imgData.push({
+          el: p,
+          // scrollY at which this image first becomes stuck
+          stickAt: p.offsetTop - maxTop
+        });
+      });
+    }
 
     function update() {
       ticking = false;
       var scrollY = window.scrollY;
 
-      imgParas.forEach(function(p) {
-        var rect = p.getBoundingClientRect();
+      imgData.forEach(function(d) {
+        var dist = scrollY - d.stickAt;
 
-        // If released: check if we've scrolled back up past it
-        if (p.style.position === 'relative') {
-          if (rect.top > maxTop + 10) {
-            p.style.position = '';
-            p.style.top = maxTop + 'px';
-            stuckAt.delete(p);
-          }
-          return;
-        }
-
-        // Not stuck yet — natural position is below the pin point
-        var currentTop = parseFloat(p.style.top) || maxTop;
-        if (rect.top > currentTop + 2) {
-          stuckAt.delete(p);
-          p.style.top = maxTop + 'px';
-          return;
-        }
-
-        // Record when this image first became stuck
-        if (!stuckAt.has(p)) {
-          stuckAt.set(p, scrollY);
-        }
-
-        var dist = scrollY - stuckAt.get(p);
-
-        if (dist <= driftOver) {
+        if (dist < 0) {
+          // Not stuck yet
+          d.el.style.position = '';
+          d.el.style.top = maxTop + 'px';
+        } else if (dist <= driftOver) {
           // Phase 1: drift from maxTop to minTop
+          d.el.style.position = '';
           var t = dist / driftOver;
-          p.style.top = (maxTop - t * (maxTop - minTop)) + 'px';
+          d.el.style.top = (maxTop - t * (maxTop - minTop)) + 'px';
         } else if (dist <= driftOver + holdFor) {
           // Phase 2: hold at minTop
-          p.style.top = minTop + 'px';
+          d.el.style.position = '';
+          d.el.style.top = minTop + 'px';
         } else {
-          // Phase 3: release — switch to relative so it scrolls away
-          p.style.position = 'relative';
-          p.style.top = '';
-          stuckAt.delete(p);
+          // Phase 3: release — scroll away
+          d.el.style.position = 'relative';
+          d.el.style.top = '';
         }
       });
     }
@@ -189,6 +181,14 @@ permalink: /posts/
         requestAnimationFrame(update);
       }
     }
+
+    // Compute after all images load so heights are correct
+    window.addEventListener('load', function() {
+      computeStickPoints();
+      update();
+    });
+    // Also compute immediately for cached images
+    computeStickPoints();
 
     window.addEventListener('scroll', onScroll);
   })();
