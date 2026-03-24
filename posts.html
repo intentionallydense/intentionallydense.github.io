@@ -156,21 +156,18 @@ permalink: /posts/
 
         if (dist < 0) {
           // Not stuck yet
-          d.el.style.position = '';
           d.el.style.top = maxTop + 'px';
         } else if (dist <= driftOver) {
           // Phase 1: drift from maxTop to minTop
-          d.el.style.position = '';
           var t = dist / driftOver;
           d.el.style.top = (maxTop - t * (maxTop - minTop)) + 'px';
         } else if (dist <= driftOver + holdFor) {
           // Phase 2: hold at minTop
-          d.el.style.position = '';
           d.el.style.top = minTop + 'px';
         } else {
-          // Phase 3: release — scroll away
-          d.el.style.position = 'relative';
-          d.el.style.top = '';
+          // Phase 3: drift off screen — top goes negative
+          var excess = dist - driftOver - holdFor;
+          d.el.style.top = (minTop - excess) + 'px';
         }
       });
     }
