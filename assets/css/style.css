@@ -43,7 +43,7 @@ header {
   margin-bottom: 1.5rem;
   position: sticky;
   top: 0;
-  background: #fff;
+  background: transparent;
   z-index: 10;
   padding-bottom: 0.5rem;
 }
@@ -71,16 +71,12 @@ nav a {
   margin-bottom: 3rem;
 }
 
-.note-content {
+.notes-stream {
   font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 }
 
-.note-item {
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-
 .note-date {
+  font-family: "SF Mono", Monaco, Consolas, "Courier New", monospace;
   font-size: 0.85rem;
   color: #666;
   margin-bottom: 0;
@@ -91,7 +87,7 @@ nav a {
 }
 
 /* Parallax scroll — each element sticks at top, later layers over earlier */
-.note-content p {
+.notes-stream p {
   position: sticky;
   top: 3.5rem;
   background: #fff;
@@ -99,14 +95,19 @@ nav a {
   margin-bottom: 0;
 }
 
-.note-content p:has(img) {
+.notes-stream p:has(img) {
   background: transparent;
   padding: 0;
   margin: 0;
   line-height: 0;
 }
 
-.note-content img {
+/* Auto-separate consecutive images */
+.notes-stream p:has(img) + p:has(img) {
+  margin-top: 0.5rem;
+}
+
+.notes-stream img {
   display: block;
   width: 100%;
 }
