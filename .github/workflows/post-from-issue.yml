@@ -89,9 +89,11 @@ jobs:
               const buffer = Buffer.from(await response.arrayBuffer());
               fs.writeFileSync(path.join('assets/images', imageFilename), buffer);
 
+              // Blank lines around images so Kramdown creates separate <p> tags
+              // (needed for parallax scroll layering)
               content = content.replace(
                 dl.fullMatch,
-                `![${dl.alt}](/assets/images/${imageFilename})`
+                `\n\n![${dl.alt}](/assets/images/${imageFilename})\n\n`
               );
             }
 
