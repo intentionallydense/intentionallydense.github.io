@@ -136,8 +136,16 @@ permalink: /posts/
 
     function computeStickPoints() {
       const paras = document.querySelectorAll('.notes-stream p:has(img)');
+      const seen = new Set();
       imgData = [];
       paras.forEach(function(p) {
+        const group = p.closest('.post-group');
+        if (seen.has(group)) {
+          // Non-first images in a post: scroll normally, don't stack
+          p.style.position = 'static';
+          return;
+        }
+        seen.add(group);
         imgData.push({
           el: p,
           stickAt: p.offsetTop - STICK_TOP
