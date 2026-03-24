@@ -6,8 +6,10 @@ permalink: /posts/
 <div class="notes-stream">
   {% assign sorted_posts = site.posts | sort: 'date' | reverse %}
   {% for post in sorted_posts %}
-  <div class="note-date">{{ post.date | date: "%Y-%m-%d" }}</div>
-  {{ post.content }}
+  <div class="post-group {% cycle 'post-a', 'post-b' %}">
+    <div class="note-date">{{ post.date | date: "%Y-%m-%d" }}</div>
+    {{ post.content }}
+  </div>
   {% endfor %}
 </div>
 
@@ -97,5 +99,38 @@ permalink: /posts/
       mouseX = -1;
       preview.style.display = 'none';
     });
+  })();
+
+  // Dynamic sticky — images start pinned at 4.5rem and drift up toward
+  // 1.5rem as you scroll further into each image's sticky range.
+  (function() {
+    var maxTop = 72;   // 4.5rem in px
+    var minTop = 24;   // 1.5rem in px
+    var driftOver = 400; // px of scrolling to complete the drift
+    var imgParas = document.querySelectorAll('.notes-stream p:has(img)');
+    var ticking = false;
+
+    function updateDrift() {
+      ticking = false;
+      imgParas.forEach(function(p) {
+        var rect = p.getBoundingClientRect();
+        // How far the element has been pushed above its natural position
+        // (i.e., how long it's been stuck)
+        var stuck = maxTop - rect.top;
+        if (stuck < 0) stuck = 0;
+        var t = Math.min(1, stuck / driftOver);
+        var top = maxTop - t * (maxTop - minTop);
+        p.style.top = top + 'px';
+      });
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateDrift);
+      }
+    }
+
+    window.addEventListener('scroll', onScroll);
   })();
 </script>
