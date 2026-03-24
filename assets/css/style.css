@@ -71,23 +71,39 @@ nav a {
 }
 
 .note-item {
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #eee;
-}
-
-.note-item:last-child {
-  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 .note-date {
   font-size: 0.85rem;
   color: #666;
   margin-bottom: 0.5rem;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  padding: 0.5rem 0;
 }
 
-.note-content p:last-child {
+/* Parallax scroll — each element sticks at top, later layers over earlier */
+.note-content p {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  padding: 0.5rem 0;
   margin-bottom: 0;
+}
+
+.note-content p:has(img) {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  line-height: 0;
+}
+
+.note-content img {
+  display: block;
+  width: 100%;
 }
 
 /* Projects list */
@@ -155,13 +171,36 @@ img {
   height: auto;
 }
 
-/* Post images - constrained dimensions */
+/* Writing images - constrained dimensions */
 article img {
   max-width: 600px;
   max-height: 400px;
   width: auto;
   height: auto;
   object-fit: contain;
+}
+
+/* Post pages — parallax scroll, full-width images */
+article.post p {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  padding: 0.5rem 0;
+  margin-bottom: 0;
+}
+
+article.post p:has(img) {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  line-height: 0;
+}
+
+article.post img {
+  display: block;
+  width: 100%;
+  max-width: none;
+  max-height: none;
 }
 
 /* Section headers */
