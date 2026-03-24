@@ -124,33 +124,69 @@ permalink: /posts/
     });
   })();
 
-  // Dynamic sticky — images start pinned at 4.5rem and drift up toward
-  // 1.5rem as you scroll further into each image's sticky range.
+  // Dynamic sticky — images drift from 4.5rem to 1.5rem, hold for a while,
+  // then release so they scroll away. Based on scroll distance, not post.
   (function() {
-    var maxTop = 72;   // 4.5rem in px
-    var minTop = 24;   // 1.5rem in px
-    var driftOver = 400; // px of scrolling to complete the drift
+    var maxTop = 72;      // 4.5rem — starting pin position
+    var minTop = 24;      // 1.5rem — drift target
+    var driftOver = 400;  // px of scrolling to drift from maxTop to minTop
+    var holdFor = 800;    // px of scrolling to hold at minTop before releasing
     var imgParas = document.querySelectorAll('.notes-stream p:has(img)');
+    var stuckAt = new Map();
     var ticking = false;
 
-    function updateDrift() {
+    function update() {
       ticking = false;
+      var scrollY = window.scrollY;
+
       imgParas.forEach(function(p) {
         var rect = p.getBoundingClientRect();
-        // How far the element has been pushed above its natural position
-        // (i.e., how long it's been stuck)
-        var stuck = maxTop - rect.top;
-        if (stuck < 0) stuck = 0;
-        var t = Math.min(1, stuck / driftOver);
-        var top = maxTop - t * (maxTop - minTop);
-        p.style.top = top + 'px';
+
+        // If released: check if we've scrolled back up past it
+        if (p.style.position === 'relative') {
+          if (rect.top > maxTop + 10) {
+            p.style.position = '';
+            p.style.top = maxTop + 'px';
+            stuckAt.delete(p);
+          }
+          return;
+        }
+
+        // Not stuck yet — natural position is below the pin point
+        var currentTop = parseFloat(p.style.top) || maxTop;
+        if (rect.top > currentTop + 2) {
+          stuckAt.delete(p);
+          p.style.top = maxTop + 'px';
+          return;
+        }
+
+        // Record when this image first became stuck
+        if (!stuckAt.has(p)) {
+          stuckAt.set(p, scrollY);
+        }
+
+        var dist = scrollY - stuckAt.get(p);
+
+        if (dist <= driftOver) {
+          // Phase 1: drift from maxTop to minTop
+          var t = dist / driftOver;
+          p.style.top = (maxTop - t * (maxTop - minTop)) + 'px';
+        } else if (dist <= driftOver + holdFor) {
+          // Phase 2: hold at minTop
+          p.style.top = minTop + 'px';
+        } else {
+          // Phase 3: release — switch to relative so it scrolls away
+          p.style.position = 'relative';
+          p.style.top = '';
+          stuckAt.delete(p);
+        }
       });
     }
 
     function onScroll() {
       if (!ticking) {
         ticking = true;
-        requestAnimationFrame(updateDrift);
+        requestAnimationFrame(update);
       }
     }
 

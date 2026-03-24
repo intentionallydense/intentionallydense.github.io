@@ -75,9 +75,10 @@ nav a {
   font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 }
 
-/* Each post-group is the containing block for its sticky elements.
-   Images stick while their post is in view, then scroll away. */
+/* display:contents so sticky works across posts, not per-post.
+   JS handles releasing images after a scroll distance threshold. */
 .post-group {
+  display: contents;
 }
 
 .note-date {
