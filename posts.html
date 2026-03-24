@@ -124,14 +124,12 @@ permalink: /posts/
     });
   })();
 
-  // Dynamic sticky — images drift from MAX_TOP to MIN_TOP, hold, then release.
+  // Dynamic sticky — images pin at STICK_TOP, hold, then release off-screen.
   // Uses offsetTop (document-relative) instead of getBoundingClientRect to
   // avoid feedback loops where changing sticky top shifts the element's rect.
   (function() {
-    const MAX_TOP = 72;       // 4.5rem — starting pin position
-    const MIN_TOP = 24;       // 1.5rem — drift target
-    const DRIFT_OVER = 400;   // px of scrolling to complete the drift
-    const HOLD_FOR = 800;     // px to hold at MIN_TOP before releasing
+    const STICK_TOP = 72;     // 4.5rem — pin position
+    const HOLD_FOR = 1200;    // px to hold before releasing
 
     let imgData = [];
     let ticking = false;
@@ -142,7 +140,7 @@ permalink: /posts/
       paras.forEach(function(p) {
         imgData.push({
           el: p,
-          stickAt: p.offsetTop - MAX_TOP
+          stickAt: p.offsetTop - STICK_TOP
         });
       });
     }
@@ -155,18 +153,13 @@ permalink: /posts/
         const dist = scrollY - d.stickAt;
 
         if (dist < 0) {
-          d.el.style.top = MAX_TOP + 'px';
-        } else if (dist <= DRIFT_OVER) {
-          // Phase 1: drift from MAX_TOP to MIN_TOP
-          const t = dist / DRIFT_OVER;
-          d.el.style.top = (MAX_TOP - t * (MAX_TOP - MIN_TOP)) + 'px';
-        } else if (dist <= DRIFT_OVER + HOLD_FOR) {
-          // Phase 2: hold at MIN_TOP
-          d.el.style.top = MIN_TOP + 'px';
+          d.el.style.top = STICK_TOP + 'px';
+        } else if (dist <= HOLD_FOR) {
+          d.el.style.top = STICK_TOP + 'px';
         } else {
-          // Phase 3: drift off screen
-          const excess = dist - DRIFT_OVER - HOLD_FOR;
-          d.el.style.top = (MIN_TOP - excess) + 'px';
+          // Release: drift off screen
+          const excess = dist - HOLD_FOR;
+          d.el.style.top = (STICK_TOP - excess) + 'px';
         }
       });
     }
