@@ -13,7 +13,7 @@ permalink: /posts/
   {% endfor %}
 </div>
 
-<div id="zoom-preview"></div>
+<canvas id="zoom-preview" width="300" height="300"></canvas>
 
 <style>
   #zoom-preview {
@@ -23,7 +23,6 @@ permalink: /posts/
     height: 300px;
     border: 1px solid #eee;
     border-radius: 3px;
-    background-repeat: no-repeat;
     pointer-events: none;
     display: none;
     z-index: 5;
@@ -35,15 +34,17 @@ permalink: /posts/
 </style>
 
 <script>
-  // Zoom preview — treats the entire post stream as one canvas.
-  // Uses elementsFromPoint to find whatever image is under the cursor,
-  // even behind text/dates. Updates on both mousemove and scroll.
+  // Zoom preview — composites all visible images onto a canvas at 3x zoom,
+  // treating the post stream as one continuous surface. No jumps between
+  // photos because every overlapping image is drawn in stacking order.
   (function() {
-    var preview = document.getElementById('zoom-preview');
-    if (!preview || window.innerWidth <= 1040) return;
+    var canvas = document.getElementById('zoom-preview');
+    if (!canvas || window.innerWidth <= 1040) return;
+    var ctx = canvas.getContext('2d');
 
     var zoom = 3;
     var size = 300;
+    var viewSize = size / zoom; // 100px source region
     var mouseX = -1, mouseY = -1;
     var ticking = false;
 
@@ -51,33 +52,55 @@ permalink: /posts/
       ticking = false;
       if (mouseX < 0) return;
 
-      // Find the first img under the cursor, regardless of what's on top
-      var elements = document.elementsFromPoint(mouseX, mouseY);
-      var img = null;
-      for (var i = 0; i < elements.length; i++) {
-        if (elements[i].tagName === 'IMG' && elements[i].closest('.notes-stream')) {
-          img = elements[i];
-          break;
-        }
-      }
+      // Source region in viewport coords: 100x100 centered on cursor
+      var srcL = mouseX - viewSize / 2;
+      var srcT = mouseY - viewSize / 2;
+      var srcR = srcL + viewSize;
+      var srcB = srcT + viewSize;
 
-      if (!img) {
-        preview.style.display = 'none';
-        return;
-      }
+      ctx.clearRect(0, 0, size, size);
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(0, 0, size, size);
 
-      var rect = img.getBoundingClientRect();
-      var x = Math.max(0, Math.min(1, (mouseX - rect.left) / rect.width));
-      var y = Math.max(0, Math.min(1, (mouseY - rect.top) / rect.height));
+      var imgs = document.querySelectorAll('.notes-stream img');
+      var drewAny = false;
 
-      var bgW = rect.width * zoom;
-      var bgH = rect.height * zoom;
+      // Draw in DOM order (later images paint on top, matching CSS stacking)
+      imgs.forEach(function(img) {
+        if (!img.naturalWidth) return; // not loaded yet
 
-      preview.style.backgroundImage = 'url(' + img.src + ')';
-      preview.style.backgroundSize = bgW + 'px ' + bgH + 'px';
-      preview.style.backgroundPosition = (-(x * bgW) + size / 2) + 'px ' + (-(y * bgH) + size / 2) + 'px';
-      preview.style.top = (mouseY - size / 2) + 'px';
-      preview.style.display = 'block';
+        var rect = img.getBoundingClientRect();
+
+        // Skip if no overlap with source region
+        if (rect.right <= srcL || rect.left >= srcR ||
+            rect.bottom <= srcT || rect.top >= srcB) return;
+
+        // Intersection in viewport coords
+        var intL = Math.max(srcL, rect.left);
+        var intT = Math.max(srcT, rect.top);
+        var intR = Math.min(srcR, rect.right);
+        var intB = Math.min(srcB, rect.bottom);
+
+        // Map intersection to image natural pixel coords (source)
+        var sx = (intL - rect.left) / rect.width * img.naturalWidth;
+        var sy = (intT - rect.top) / rect.height * img.naturalHeight;
+        var sw = (intR - intL) / rect.width * img.naturalWidth;
+        var sh = (intB - intT) / rect.height * img.naturalHeight;
+
+        // Map intersection to canvas coords (destination)
+        var dx = (intL - srcL) * zoom;
+        var dy = (intT - srcT) * zoom;
+        var dw = (intR - intL) * zoom;
+        var dh = (intB - intT) * zoom;
+
+        try {
+          ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
+          drewAny = true;
+        } catch(e) {}
+      });
+
+      canvas.style.top = (mouseY - size / 2) + 'px';
+      canvas.style.display = drewAny ? 'block' : 'none';
     }
 
     function requestUpdate() {
@@ -97,7 +120,7 @@ permalink: /posts/
 
     document.addEventListener('mouseleave', function() {
       mouseX = -1;
-      preview.style.display = 'none';
+      canvas.style.display = 'none';
     });
   })();
 
