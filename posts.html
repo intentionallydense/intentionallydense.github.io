@@ -124,33 +124,34 @@ permalink: /posts/
     });
   })();
 
-  // Dynamic sticky — images pin at STICK_TOP, hold, then release off-screen.
+  // Dynamic sticky — each image pins at STICK_TOP, holds until the next image
+  // is about to pin, then releases off-screen. This gives every photo full
+  // screen time before the next one layers on top.
   // Uses offsetTop (document-relative) instead of getBoundingClientRect to
   // avoid feedback loops where changing sticky top shifts the element's rect.
   (function() {
-    const STICK_TOP = 72;     // 4.5rem — pin position
-    const HOLD_FOR = 1200;    // px to hold before releasing
+    const STICK_TOP = 72;         // 4.5rem — pin position
+    const LAST_HOLD_FOR = 1200;   // px to hold the final image before releasing
 
     let imgData = [];
     let ticking = false;
 
     function computeStickPoints() {
       const paras = document.querySelectorAll('.notes-stream p:has(img)');
-      const seen = new Set();
       imgData = [];
       paras.forEach(function(p) {
-        const group = p.closest('.post-group');
-        if (seen.has(group)) {
-          // Non-first images in a post: scroll normally, don't stack
-          p.style.position = 'static';
-          return;
-        }
-        seen.add(group);
         imgData.push({
           el: p,
           stickAt: p.offsetTop - STICK_TOP
         });
       });
+
+      // Each image releases when the next image arrives.
+      // Last image uses a fixed hold duration.
+      for (let i = 0; i < imgData.length; i++) {
+        const next = imgData[i + 1];
+        imgData[i].releaseAt = next ? next.stickAt : imgData[i].stickAt + LAST_HOLD_FOR;
+      }
     }
 
     function update() {
@@ -159,14 +160,15 @@ permalink: /posts/
 
       imgData.forEach(function(d) {
         const dist = scrollY - d.stickAt;
+        const holdDist = d.releaseAt - d.stickAt;
 
         if (dist < 0) {
           d.el.style.top = STICK_TOP + 'px';
-        } else if (dist <= HOLD_FOR) {
+        } else if (dist <= holdDist) {
           d.el.style.top = STICK_TOP + 'px';
         } else {
           // Release: drift off screen
-          const excess = dist - HOLD_FOR;
+          const excess = dist - holdDist;
           d.el.style.top = (STICK_TOP - excess) + 'px';
         }
       });
