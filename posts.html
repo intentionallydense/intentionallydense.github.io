@@ -124,33 +124,43 @@ permalink: /posts/
     });
   })();
 
-  // Dynamic sticky — each image pins at STICK_TOP, holds until the next image
-  // is about to pin, then releases off-screen. This gives every photo full
-  // screen time before the next one layers on top.
+  // Dynamic sticky — all sticky elements (images, text, dates) pin in place,
+  // hold until the next post arrives, then release off-screen together.
   // Uses offsetTop (document-relative) instead of getBoundingClientRect to
   // avoid feedback loops where changing sticky top shifts the element's rect.
   (function() {
-    const STICK_TOP = 72;         // 4.5rem — pin position
-    const LAST_HOLD_FOR = 1200;   // px to hold the final image before releasing
+    const IMG_TOP = 72;           // 4.5rem — image pin position
+    const TEXT_TOP = 56;          // 3.5rem — text/date pin position
+    const LAST_HOLD_FOR = 1200;   // px to hold the final post before releasing
 
-    let imgData = [];
+    let stickyData = [];
     let ticking = false;
 
     function computeStickPoints() {
-      const paras = document.querySelectorAll('.notes-stream p:has(img)');
-      imgData = [];
-      paras.forEach(function(p) {
-        imgData.push({
-          el: p,
-          stickAt: p.offsetTop - STICK_TOP
+      const elements = document.querySelectorAll('.notes-stream p, .notes-stream .note-date');
+      stickyData = [];
+      elements.forEach(function(el) {
+        const isImage = el.matches('p:has(img)');
+        const stickTop = isImage ? IMG_TOP : TEXT_TOP;
+        stickyData.push({
+          el: el,
+          stickTop: stickTop,
+          stickAt: el.offsetTop - stickTop,
+          group: el.closest('.post-group')
         });
       });
 
-      // Each image releases when the next image arrives.
-      // Last image uses a fixed hold duration.
-      for (let i = 0; i < imgData.length; i++) {
-        const next = imgData[i + 1];
-        imgData[i].releaseAt = next ? next.stickAt : imgData[i].stickAt + LAST_HOLD_FOR;
+      // All elements in a post release together: when the next post's
+      // first element is about to pin. Last post uses a fixed hold.
+      for (let i = 0; i < stickyData.length; i++) {
+        let releaseAt = stickyData[i].stickAt + LAST_HOLD_FOR;
+        for (let j = i + 1; j < stickyData.length; j++) {
+          if (stickyData[j].group !== stickyData[i].group) {
+            releaseAt = stickyData[j].stickAt;
+            break;
+          }
+        }
+        stickyData[i].releaseAt = releaseAt;
       }
     }
 
@@ -158,18 +168,18 @@ permalink: /posts/
       ticking = false;
       const scrollY = window.scrollY;
 
-      imgData.forEach(function(d) {
+      stickyData.forEach(function(d) {
         const dist = scrollY - d.stickAt;
         const holdDist = d.releaseAt - d.stickAt;
 
         if (dist < 0) {
-          d.el.style.top = STICK_TOP + 'px';
+          d.el.style.top = d.stickTop + 'px';
         } else if (dist <= holdDist) {
-          d.el.style.top = STICK_TOP + 'px';
+          d.el.style.top = d.stickTop + 'px';
         } else {
           // Release: drift off screen
           const excess = dist - holdDist;
-          d.el.style.top = (STICK_TOP - excess) + 'px';
+          d.el.style.top = (d.stickTop - excess) + 'px';
         }
       });
     }
