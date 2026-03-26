@@ -114,7 +114,7 @@ nav a {
 }
 
 .notes-stream p:has(img) {
-  top: 7rem;
+  top: 10rem;
   z-index: 1;
   width: 100%;
   padding: 0.5rem 0 0;
