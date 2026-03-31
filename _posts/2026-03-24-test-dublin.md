@@ -1,7 +1,7 @@
 ---
 date: 2026-03-24 00:49:00
 ---
-visiting nicky post-vfs. dublin feels like an old city
+dublin feels like an old city
 
 ![](/assets/images/img_561511.jpg)
 
