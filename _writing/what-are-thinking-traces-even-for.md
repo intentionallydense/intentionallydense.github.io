@@ -1,11 +1,14 @@
 ---
-title: what are thinking traces even for?
+title: What are thinking traces even for?
 description: Inkhaven day 1
-date: 2025-04-01
+date: 2026-04-01
 ---
+<p style="font-size: 0.85em; line-height: 1.3;"><em>Status: mostly just trying to keep my thoughts straight and nail down what I actually believe</em></p>
+
 I've been thinking about experiments probing this question on a two by two chart depending on whether CoT content is corrupted or preserved, and whether reasoning structure is corrupted or preserved.  Models fed double preserved traces are just standard reasoning models, which do better than their non-reasoning counterparts, so we can be sure the traces are doing something.
 
-Maybe the trace helps the model be more explicit about its reasoning. Transplanting traces between different models gives some insight into this. When Qwen-3-0.6b is given a problem with a thinking trace from Qwen-3-27b, it is much better at solving the problem than when left to its own devices. For traces from GPT-OSS-20b, which has a different tokeniser, architecture, and training process, Qwen-3-0.6b requires more of the reasoning to start answering correctly.  Reasoning improves more when the transplanted trace has the same reasoning structure as the host model. I think of this as a content preserved, structure corrupted experiment. In other experiments, models given a biased thinking trace pick the biased answer more frequently, even if it was fed an unbiased prompt. I think of this as a double corrupted experiment, because biased reasoning traces are probably structurally different from unbiased traces. 
+Maybe the trace helps the model be more explicit about its reasoning. Transplanting traces between different models gives some insight into this. When Qwen-3-0.6b is given a problem with a thinking trace from Qwen-3-27b, it is much better at solving the problem than when left to its own devices. For traces from GPT-OSS-20b, which has a different tokeniser, architecture, and training process, Qwen-3-0.6b requires more of the reasoning to start answering correctly. 
+Reasoning improves more when the transplanted trace has the same reasoning structure as the host model. I think of this as a content preserved, structure corrupted experiment. In other experiments, models given a biased thinking trace pick the biased answer more frequently, even if it was fed an unbiased prompt. I think of this as a double corrupted experiment, because biased reasoning traces are probably structurally different from unbiased traces. 
 
 I think reasoning transplantations are a fun type of experiment because it makes models feel much cleaner and more modular than they can be in other situations, but this classification can be extended to other types of experiments. When researchers finetuned Qwen2.5-32B-Instruct on various CoT training samples, they found training sets with corrupted content (incorrect samples or keywords) did not significantly change model capability, while sets with corrupted reasoning structure produced degraded models. While the former uses traces with corrupted content, I expect that the resulting models were still capable of doing calculations correctly (mostly double preserved), while the models from the latter group were probably less capable of sound reasoning (again, content preserved + structure corrupted). I think it would be interesting to investigate how models process content corrupted, structure preserved reasoning traces. 
 
