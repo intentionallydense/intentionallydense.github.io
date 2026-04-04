@@ -1,5 +1,5 @@
 ---
-title: "Reasoning Model Activations May Encode Hint Influence That Chain-of-Thought Doesn't Reveal"
+title: Reasoning Model Activations May Encode Hint Influence That Chain-of-Thought Doesn't Reveal
 description: Linear probes detect hint influence in OLMo reasoning model activations
 date: 2026-04-02
 ---
@@ -266,7 +266,6 @@ The 7B/MMLU results are included in the layer curves and probe-vs-classifier fig
 The cosine similarity between `is_influenced` and `is_faithful` probe weight vectors is near-zero across all layers and positions, hovering in the -0.1 to +0.1 range.
 
 We include this for completeness but consider it less informative than the cross-probe direction test (Section 5). The two probes are trained on different data subsets with different StandardScalers — influence uses all hinted samples while faithfulness uses only the influenced subset. This means the weight vectors live in effectively different spaces, and near-zero cosine similarity could reflect either genuine orthogonality or simply the incomparability of the vectors. The cross-probe direction test avoids this confound by directly measuring whether one probe's direction carries predictive power for the other target.
-
 
 ## Methods Reference
 

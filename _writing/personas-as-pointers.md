@@ -4,6 +4,7 @@ description: Using other people's vibes as shortcuts to states of mind
 date: 2026-04-03
 ---
 I saw a tweet recently about ADHD brains being similar to LLM minds, and it made me think about something adjacent, which is personas.
+
 ![Tweet about ADHD and LLM minds](/assets/images/personas-tweet.png)
 
 ## Shoggoth Thing
@@ -26,4 +27,4 @@ People make themselves do things all the time that are difficult in the moment b
 
 I have a ground state that I occupy when I'm alone. I can also occupy that ground state when there are people around me, and it's the easiest thing to do, but I know I'll have a worse time if I stay there. It doesn't make sense for me to do the short-term easier thing when I know I'm going to have a worse time. It makes sense for me to be more excited, upbeat, energetic, to talk more, because I know this is going to be better for me in five minutes. 
 
-I crashed some friend group's hangout today, paced around for the first 20 minutes and was off-putting. Then we sat down, watched the movie as planned, and afterwards pushed myself into that excited state. I stayed for an hour because I was having fun. And that is, in a sense, playing a persona. But what it really does is put me into a state of mind that's difficult for me to reach otherwise. It's a shortcut to get somewhere I want to be, and I don't think it loses anything. I could describe this state of mind as a list of adjectives, or I could say "it's what NorthernLion does when he's being funny." Same thing. 
+I crashed some friend group's hangout today, paced around for the first 20 minutes and was off-putting. Then we sat down, watched the movie as planned, and afterwards pushed myself into that excited state. I stayed for an hour because I was having fun. And that is, in a sense, playing a persona. But what it really does is put me into a state of mind that's difficult for me to reach otherwise. It's a shortcut to get somewhere I want to be, and I don't think it loses anything. I could describe this state of mind as a list of adjectives, or I could say "it's what NorthernLion does when he's being funny." Same thing.

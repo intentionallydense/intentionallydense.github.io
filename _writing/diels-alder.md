@@ -11,7 +11,7 @@ The reaction between acrylonitrile and cyclopentadiene (reaction B1 in Loco et a
 
 A relaxed surface scan was conducted first in order to find an initial structure close enough to the transition state. (This took 13 hours to complete because I turned off my laptop at some point before it finished, but I expect it would have taken around 2 hours undisturbed.) I had Claude plot the energy against the scanned coordinate to identify the structure most similar to the transition state.
 
-![Relaxed surface scan for the reaction between cyclopentadiene and acrylonitrile](/assets/images/relaxscan-B1-good.png)
+![Relaxed surface scan for the reaction between cyclopentadiene and acrylonitrile](/assets/images/relaxscan-b1-good.png)
 
 The Avogadro file corresponding to the maximum energy configuration (2.1A along the scan coordinate) was used for a transition state optimisation, which completed in around 13 minutes. Both of my previous transition state searches hit the maximum number of optimisation cycles after an hour, so I was hopeful that the program had produced something interesting this time. In order to verify a transition state, one conducts a frequency calculation in ORCA; transition states should have exactly one imaginary vibrational frequency. This was not immediately obvious to me, but here is my understanding of how it works: on a potential energy surface (or PES, a plot of energy against $ 3N-6 $ nuclear coordinates), transition states are saddle points lying between two local minima. Analogous to how local minima are critical points with no negative second derivatives, transition states are critical points with exactly one negative second derivative. The connection between this and the frequency analysis is that chemical bonds, like springs, have specific ways in which they can vibrate, and they do so at specific frequencies 
 
@@ -38,13 +38,16 @@ So that's definitely the transition state. It's kind of exciting to have a repre
 Transition state optimisation run 1: Maximum cycles reached, result was product-like
 
 Relaxed surface scan run 1: Unclear what went wrong but energy at 1.8A should not be higher than the transition state. Also energy barrier is much larger than reported by Loco et. al.
-![](/assets/images/relaxscan-B1-bad.png)
+
+![](/assets/images/relaxscan-b1-bad.png)
 
 Transition state optimisation run 2 - Didn't use the result from the relaxed surface scan, but initial structure was poorly drawn. Maximum cycles reached, terminated at an aziridine.
-![](/assets/images/bad-optTS.jpg)
+
+![](/assets/images/bad-optts.jpg)
 
 Relaxed surface scan run 2 (2D): Same as previous surface scan, energy barrier is more reasonable but still much larger than expected.
-![](/assets/images/relaxscan-B1-2D.png)
+
+![](/assets/images/relaxscan-b1-2d.png)
 
 ## References
 
