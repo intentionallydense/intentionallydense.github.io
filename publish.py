@@ -2,7 +2,7 @@
 """
 Publish Obsidian notes to Jekyll.
 
-Scans the vault's "7. website/" folder for markdown files with
+Scans the vault's "5. notes/" folder for markdown files with
 `published: true` frontmatter, converts Obsidian syntax to Jekyll,
 copies images, and commits to the right collection.
 
@@ -20,7 +20,7 @@ Usage:
     python3 publish.py --go --push  # publish and git push
 """
 # Used by: zsh alias `publish` (in nix-config modules/home/zsh/default.nix)
-# Depends on: Obsidian vault at ~/Documents/Obsidian/magnesium/
+# Depends on: Obsidian vault at ~/Documents/obsidian/magnesium/
 
 import argparse
 import hashlib
@@ -30,8 +30,8 @@ import subprocess
 from datetime import datetime
 from pathlib import Path
 
-VAULT_PATH = Path.home() / "Documents/Obsidian/magnesium"
-WEBSITE_DIR = VAULT_PATH / "7. website"
+VAULT_PATH = Path.home() / "Documents/obsidian/magnesium"
+NOTES_DIR = VAULT_PATH / "5. notes"
 JEKYLL_ROOT = Path(__file__).resolve().parent
 POSTS_DIR = JEKYLL_ROOT / "_posts"
 WRITING_DIR = JEKYLL_ROOT / "_writing"
@@ -84,10 +84,9 @@ def sanitize_image_name(name):
 def find_image(name, note_path):
     """Find an image file by name, searching outward from the note's location."""
     search_dirs = [
-        note_path.parent / "images",
+        note_path.parent / "screenshots",
         note_path.parent,
-        WEBSITE_DIR / "images",
-        WEBSITE_DIR,
+        NOTES_DIR,
         VAULT_PATH,
     ]
     for d in search_dirs:
@@ -189,12 +188,12 @@ def convert_body(body, note_path, dry_run):
 
 
 def find_published_notes():
-    """Scan 7. website/ for markdown files with published: true."""
+    """Scan 5. notes/ for markdown files with published: true."""
     notes = []
-    if not WEBSITE_DIR.is_dir():
-        print(f"Notes directory not found: {WEBSITE_DIR}")
+    if not NOTES_DIR.is_dir():
+        print(f"Notes directory not found: {NOTES_DIR}")
         return notes
-    for md in WEBSITE_DIR.rglob("*.md"):
+    for md in NOTES_DIR.rglob("*.md"):
         text = md.read_text(encoding="utf-8")
         meta, body = parse_frontmatter(text)
         if meta.get("published") is True:
@@ -249,14 +248,14 @@ def main():
 
     notes = find_published_notes()
     if not notes:
-        print("No published notes found in 7. website/")
+        print("No published notes found in 5. notes/")
         return
 
     changed = []
     all_images = []
 
     for note_path, meta, body in notes:
-        rel = note_path.relative_to(WEBSITE_DIR)
+        rel = note_path.relative_to(NOTES_DIR)
         note_type = meta.get("type", "post")
         print(f"{'[DRY] ' if dry_run else ''}Processing ({note_type}): {rel}")
 

@@ -12,7 +12,7 @@ Personal site built with Jekyll, hosted on GitHub Pages.
 - `_writing/` — Writing collection (essays, writeups). Each file becomes a `/writing/:slug/` page
 - `_artifacts/` — Artifacts collection (interactive tools). Each file becomes an `/artifacts/:slug/` page
 - `_posts/` — Blog post collection (photo posts, short notes)
-- `publish.py` — Publishes from Obsidian vault `7. website/` (files with `published: true`) to `_posts/` or `_writing/`, converts wiki-links, copies images
+- `publish.py` — Publishes Obsidian notes (with `published: true`) to `_posts/`, converts wiki-links, copies images
 - `.github/workflows/post-from-issue.yml` — GitHub Action to create posts from issues (paste photos + caption, label "post")
 - `assets/css/style.css` — Global styles
 - `mokoudb/emotes/` — Mokou emote image files
@@ -34,4 +34,4 @@ Personal site built with Jekyll, hosted on GitHub Pages.
 - Jekyll builds static HTML from layouts + collections
 - mokou_search loads `/mokoudb/tags.json` at runtime via fetch, images served from `/mokoudb/emotes/`
 - Posts can be created via GitHub Issues → GitHub Action → commit to `_posts/`
-- Posts and writing can be published from Obsidian vault `7. website/` → `publish.py` → commit to `_posts/`, `_writing/`, and `assets/images/`
+- Posts can be created from Obsidian vault → `publish.py` → commit to `_posts/` and `assets/images/`
