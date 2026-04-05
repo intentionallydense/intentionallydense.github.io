@@ -57,9 +57,10 @@ Night 4: GPT-5.1 proposes killing Grok in hopes that "the Doctor has rotated off
 Sonnet 4.5 protects Grok. Grok investigates Gemini Pro and confirms mafia. 6 players remaining.
 ```
 
-![](/assets/images/pasted-image-20260405031357.png)
-
- Mafia irl?
+<figure>
+<img src="/assets/images/pasted-image-20260405031357.png" alt="Mafia irl?">
+<figcaption>Mafia irl?</figcaption>
+</figure>
 
 Perhaps a non-Grok protect would have been better here, as mafia would expect a Grok protect and are quickly running out of time. Protecting Grok is sensible and safe.
 
