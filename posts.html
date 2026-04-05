@@ -131,7 +131,7 @@ permalink: /posts/
   (function() {
     const IMG_TOP = 80;           // 5rem — image pin position
     const TEXT_TOP = 56;          // 3.5rem — text/date pin position
-    const LAST_HOLD_FOR = 1200;   // px to hold the final post before releasing
+    const HOLD_FOR = 1200;        // px each element holds at the top before releasing
 
     let stickyData = [];
     let ticking = false;
@@ -150,17 +150,10 @@ permalink: /posts/
         });
       });
 
-      // All elements in a post release together: when the next post's
-      // first element is about to pin. Last post uses a fixed hold.
+      // Each element holds independently for HOLD_FOR px, then releases.
+      // No dependency on other posts — every element behaves the same way.
       for (let i = 0; i < stickyData.length; i++) {
-        let releaseAt = stickyData[i].stickAt + LAST_HOLD_FOR;
-        for (let j = i + 1; j < stickyData.length; j++) {
-          if (stickyData[j].group !== stickyData[i].group) {
-            releaseAt = stickyData[j].stickAt;
-            break;
-          }
-        }
-        stickyData[i].releaseAt = releaseAt;
+        stickyData[i].releaseAt = stickyData[i].stickAt + HOLD_FOR;
       }
     }
 
