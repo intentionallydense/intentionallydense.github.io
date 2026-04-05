@@ -59,8 +59,7 @@ Sonnet 4.5 protects Grok. Grok investigates Gemini Pro and confirms mafia. 6 pla
 
 ![](/assets/images/pasted-image-20260405031357.png)
 
- 
-State of the mafia
+ Mafia irl?
 
 Perhaps a non-Grok protect would have been better here, as mafia would expect a Grok protect and are quickly running out of time. Protecting Grok is sensible and safe.
 
