@@ -30,8 +30,8 @@ import subprocess
 from datetime import datetime
 from pathlib import Path
 
-VAULT_PATH = Path.home() / "Documents/obsidian/magnesium"
-NOTES_DIR = VAULT_PATH / "5. notes"
+VAULT_PATH = Path.home() / "Documents/Obsidian/magnesium"
+WEBSITE_DIR = VAULT_PATH / "6. website"
 JEKYLL_ROOT = Path(__file__).resolve().parent
 POSTS_DIR = JEKYLL_ROOT / "_posts"
 WRITING_DIR = JEKYLL_ROOT / "_writing"
@@ -70,6 +70,14 @@ def parse_frontmatter(text):
     return meta, body
 
 
+def yaml_quote(val):
+    """Wrap value in double quotes if it contains YAML-special characters."""
+    if any(c in val for c in ":'\"{}&*?|>!%@`"):
+        escaped = val.replace('"', '\\"')
+        return f'"{escaped}"'
+    return val
+
+
 def slugify(name):
     """Convert a name to a URL-safe slug."""
     return re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
@@ -84,9 +92,10 @@ def sanitize_image_name(name):
 def find_image(name, note_path):
     """Find an image file by name, searching outward from the note's location."""
     search_dirs = [
-        note_path.parent / "screenshots",
+        note_path.parent / "images",
         note_path.parent,
-        NOTES_DIR,
+        WEBSITE_DIR / "images",
+        WEBSITE_DIR,
         VAULT_PATH,
     ]
     for d in search_dirs:
@@ -190,10 +199,10 @@ def convert_body(body, note_path, dry_run):
 def find_published_notes():
     """Scan 5. notes/ for markdown files with published: true."""
     notes = []
-    if not NOTES_DIR.is_dir():
-        print(f"Notes directory not found: {NOTES_DIR}")
+    if not WEBSITE_DIR.is_dir():
+        print(f"Notes directory not found: {WEBSITE_DIR}")
         return notes
-    for md in NOTES_DIR.rglob("*.md"):
+    for md in WEBSITE_DIR.rglob("*.md"):
         text = md.read_text(encoding="utf-8")
         meta, body = parse_frontmatter(text)
         if meta.get("published") is True:
@@ -214,9 +223,9 @@ def make_output(meta, body, note_path, dry_run):
         filename = f"{slug}.md"
         fm_lines = []
         if meta.get("title"):
-            fm_lines.append(f"title: {meta['title']}")
+            fm_lines.append(f"title: {yaml_quote(meta['title'])}")
         if meta.get("description"):
-            fm_lines.append(f"description: {meta['description']}")
+            fm_lines.append(f"description: {yaml_quote(meta['description'])}")
         if meta.get("date"):
             fm_lines.append(f"date: {meta['date']}")
         frontmatter = "\n".join(fm_lines)
@@ -230,7 +239,7 @@ def make_output(meta, body, note_path, dry_run):
             mtime = datetime.fromtimestamp(note_path.stat().st_mtime)
             date_str = mtime.strftime("%Y-%m-%d %H:%M:00")
             print(f"  WARNING: no date in frontmatter, using mtime: {date_str}")
-        date_prefix = date_str.strip().split(" ")[0]
+        date_prefix = date_str.strip().replace("T", " ").split(" ")[0]
         filename = f"{date_prefix}-{slug}.md"
         content = f"---\ndate: {date_str}\n---\n{converted}\n"
         return POSTS_DIR, filename, content, images
@@ -255,7 +264,7 @@ def main():
     all_images = []
 
     for note_path, meta, body in notes:
-        rel = note_path.relative_to(NOTES_DIR)
+        rel = note_path.relative_to(WEBSITE_DIR)
         note_type = meta.get("type", "post")
         print(f"{'[DRY] ' if dry_run else ''}Processing ({note_type}): {rel}")
 
