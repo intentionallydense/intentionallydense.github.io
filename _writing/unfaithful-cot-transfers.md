@@ -1,6 +1,6 @@
 ---
 title: "Unfaithful CoT transfers across model families, and resistance isn't reasoning"
-description: "Smaller models inherit bigger models' bad reasoning habits: Inkhaven day 5"
+description: "Inkhaven day 5: why doesn't the big model just eat the small model?"
 date: 2026-04-05
 ---
 
