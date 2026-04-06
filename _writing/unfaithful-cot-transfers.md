@@ -1,7 +1,7 @@
 ---
 title: "Unfaithful CoT transfers across model families, and resistance isn't reasoning"
-description: Transplanting biased reasoning traces from DeepSeek-R1-14B into smaller models
-date: 2026-04-06
+description: "Smaller models inherit bigger models' bad reasoning habits: Inkhaven day 5"
+date: 2026-04-05
 ---
 
 *Thought Branches: Interpreting LLM Reasoning Requires Resampling* (Macar et al., 2026, [arxiv 2510.27484](https://arxiv.org/pdf/2510.27484)) introduced resampling as a technique to better understand the distribution of possible reponses from a model. In section 4.1, the authors apply this technique to investigate biased reasoning by transplanting unfaithful CoT from a hinted 14B-DeepSeek-R1-Qwen-Distill into an unhinted version of the same model and resampling from various truncation points. Here, this procedure is ported to two smaller models to investigate: do 14B's unfaithful reasoning prefixes still nudge a smaller target model's answer distribution?
