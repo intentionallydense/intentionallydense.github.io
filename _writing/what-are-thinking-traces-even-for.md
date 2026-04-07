@@ -1,5 +1,5 @@
 ---
-title: What are thinking traces even for?
+title: "What are thinking traces even for?"
 description: Inkhaven day 1
 date: 2026-04-01
 ---

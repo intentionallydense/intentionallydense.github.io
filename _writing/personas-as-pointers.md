@@ -1,6 +1,6 @@
 ---
 title: Personas as pointers
-description: Using other people's vibes as shortcuts to states of mind
+description: "Using other people's vibes as shortcuts to states of mind"
 date: 2026-04-03
 ---
 I saw a tweet recently about ADHD brains being similar to LLM minds, and it made me think about something adjacent, which is personas.

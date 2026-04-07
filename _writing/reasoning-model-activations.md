@@ -1,5 +1,5 @@
 ---
-title: Reasoning Model Activations May Encode Hint Influence That Chain-of-Thought Doesn't Reveal
+title: "Reasoning Model Activations May Encode Hint Influence That Chain-of-Thought Doesn't Reveal"
 description: Linear probes detect hint influence in OLMo reasoning model activations
 date: 2026-04-02
 ---
