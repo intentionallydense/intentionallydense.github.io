@@ -40,8 +40,8 @@ IMAGES_DIR = JEKYLL_ROOT / "assets/images"
 
 # Obsidian wiki-link images: ![[file.jpg]] or ![[file.jpg|alt text]]
 WIKI_IMAGE_RE = re.compile(r"!\[\[([^\]|]+?)(?:\|([^\]]*))?\]\]")
-# Standard markdown images (local only, not http): ![alt](path)
-MD_IMAGE_RE = re.compile(r"!\[([^\]]*)\]\((?!https?://)([^)]+)\)")
+# Standard markdown images (local only, not http or already-converted /assets/): ![alt](path)
+MD_IMAGE_RE = re.compile(r"!\[([^\]]*)\]\((?!https?://|/assets/)([^)]+)\)")
 # Obsidian comments: %%...%%
 COMMENT_RE = re.compile(r"%%.*?%%", re.DOTALL)
 # Non-image wiki-links: [[page]] or [[page|display]]
