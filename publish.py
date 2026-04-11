@@ -135,24 +135,22 @@ def copy_image(src, dest_name, dry_run):
                 return True  # Renamed but content unchanged, skip re-copy
     if not dry_run:
         shutil.copy2(src, dest)
-        # Resize with sips (macOS built-in) if wider than MAX_IMAGE_WIDTH
+        # Resize with ImageMagick if wider than MAX_IMAGE_WIDTH
         try:
             result = subprocess.run(
-                ["sips", "-g", "pixelWidth", str(dest)],
+                ["magick", "identify", "-format", "%w", str(dest)],
                 capture_output=True, text=True,
             )
-            for line in result.stdout.splitlines():
-                if "pixelWidth" in line:
-                    width = int(line.split(":")[-1].strip())
-                    if width > MAX_IMAGE_WIDTH:
-                        subprocess.run(
-                            ["sips", "--resampleWidth", str(MAX_IMAGE_WIDTH), str(dest)],
-                            capture_output=True,
-                        )
-                        print(f"  Resized: {dest_name} ({width}px → {MAX_IMAGE_WIDTH}px)")
-                    break
+            if result.returncode == 0 and result.stdout.strip().isdigit():
+                width = int(result.stdout.strip())
+                if width > MAX_IMAGE_WIDTH:
+                    subprocess.run(
+                        ["magick", str(dest), "-resize", f"{MAX_IMAGE_WIDTH}x>", str(dest)],
+                        capture_output=True,
+                    )
+                    print(f"  Resized: {dest_name} ({width}px -> {MAX_IMAGE_WIDTH}px)")
         except FileNotFoundError:
-            pass  # sips not available (non-macOS), skip resize
+            pass  # magick not available, skip resize
     return True
 
 
