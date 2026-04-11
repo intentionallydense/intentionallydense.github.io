@@ -19,18 +19,19 @@ Usage:
     python3 publish.py --go         # publish
     python3 publish.py --go --push  # publish and git push
 """
-# Used by: zsh alias `publish` (in nix-config modules/home/zsh/default.nix)
-# Depends on: Obsidian vault at ~/Documents/obsidian/magnesium/
+# Used by: systemd timer on carbon (nix-config hosts/carbon/configuration.nix)
+# Depends on: OBSIDIAN_VAULT env var (set per-host by nix-config)
 
 import argparse
 import hashlib
+import os
 import re
 import shutil
 import subprocess
 from datetime import datetime
 from pathlib import Path
 
-VAULT_PATH = Path.home() / "Documents/Obsidian/magnesium"
+VAULT_PATH = Path(os.environ["OBSIDIAN_VAULT"]) if "OBSIDIAN_VAULT" in os.environ else Path.home() / "Documents/Obsidian/calcium"
 WEBSITE_DIR = VAULT_PATH / "6. website"
 JEKYLL_ROOT = Path(__file__).resolve().parent
 POSTS_DIR = JEKYLL_ROOT / "_posts"
