@@ -12,6 +12,7 @@ collections:
     permalink: /artifacts/:slug/
 
 # Build settings
+future: true  # posts use noon dates but often publish overnight, before noon UTC
 markdown: Kramdown
 highlighter: rouge
 
