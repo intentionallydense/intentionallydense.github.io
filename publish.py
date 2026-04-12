@@ -135,8 +135,15 @@ def copy_image(src, dest_name, dry_run):
                 return True  # Renamed but content unchanged, skip re-copy
     if not dry_run:
         shutil.copy2(src, dest)
-        # Resize with ImageMagick if wider than MAX_IMAGE_WIDTH
         try:
+            # Bake EXIF orientation into pixel data, then strip all metadata
+            # (GPS coords, device info, timestamps). Auto-orient must come first
+            # or portrait photos revert to sensor orientation (sideways).
+            subprocess.run(
+                ["magick", "mogrify", "-auto-orient", "-strip", str(dest)],
+                capture_output=True,
+            )
+            # Resize with ImageMagick if wider than MAX_IMAGE_WIDTH
             result = subprocess.run(
                 ["magick", "identify", "-format", "%w", str(dest)],
                 capture_output=True, text=True,
@@ -150,7 +157,7 @@ def copy_image(src, dest_name, dry_run):
                     )
                     print(f"  Resized: {dest_name} ({width}px -> {MAX_IMAGE_WIDTH}px)")
         except FileNotFoundError:
-            pass  # magick not available, skip resize
+            print(f"  WARNING: magick not found — image not stripped or resized: {dest_name}")
     return True
 
 
