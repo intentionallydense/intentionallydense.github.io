@@ -326,6 +326,36 @@ article.post img {
   margin-bottom: 0.5rem;
 }
 
+/* Now playing (assets/js/now-playing.js) */
+.now-playing {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  clear: both;
+}
+
+.now-playing[hidden] {
+  display: none;
+}
+
+.now-playing-art {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.now-playing-label {
+  color: #666;
+}
+
+.now-playing.is-playing .now-playing-label:first-child::before {
+  content: "♪ ";
+}
+
 /* Utility */
 hr {
   border: none;
