@@ -2,6 +2,8 @@
 
 Personal site built with Jekyll, hosted on GitHub Pages.
 
+Served at https://www.intentiondense.net via the `CNAME` file (DNS at Porkbun: `www` CNAME → intentionallydense.github.io). The bare domain is tin's: its nginx serves Matrix there and redirects everything else to `www` (see `modules/matrix` in nix-config). Old github.io links redirect automatically.
+
 ## File/module map
 
 - `_config.yml` — Site config, collections, permalink settings

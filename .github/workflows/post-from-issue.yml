@@ -114,7 +114,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: issue.number,
-              body: `Post published: https://intentionallydense.github.io/posts/${postSlug}/`
+              body: `Post published: https://www.intentiondense.net/posts/${postSlug}/`
             });
 
             await github.rest.issues.update({
