@@ -208,6 +208,9 @@ kbd { font: 11px ui-monospace, monospace; border: 1px solid var(--border); borde
         <option value="custom" disabled>custom</option><option value="all">all</option>
       </select></label>
     <button id="play" title="Slide the window forward through time">▶ play</button>
+    <select id="speed" aria-label="Play speed" title="Play speed">
+      <option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="5">5×</option>
+    </select>
     <button id="treset" title="Show the whole week">all</button></span>
 </div>
 <main>
@@ -1367,7 +1370,16 @@ $('#treset').addEventListener('click', () => { stopPlay(); ramp = 0; t0.value = 
 // ▶ play from the start of the week (the default window, or "all") or from its end begins on an empty canvas: the
 // window opens from nothing to its width (`ramp`), then slides. From anywhere else, or after a pause, it carries on.
 let playing = null, ramp = 0, lastW1 = null;
+const speedSel = $('#speed'), STEP_MS = 120;  // 1×: one 15-minute step every 120 ms
 function stopPlay() { if (playing) { clearInterval(playing); playing = null; $('#play').textContent = '▶ play'; } }
+function playStep() {
+  if (+t1.value >= NSTEP) { ramp = 0; return stopPlay(); }
+  if (ramp && +t1.value - +t0.value < ramp) t1.value = +t1.value + 1;
+  else { ramp = 0; t0.value = +t0.value + 1; t1.value = +t1.value + 1; }
+  syncTime();
+}
+const startTimer = () => { clearInterval(playing); playing = setInterval(playStep, STEP_MS / +speedSel.value); };
+speedSel.addEventListener('change', () => { if (playing) startTimer(); saveHash(); });
 $('#play').addEventListener('click', () => {
   if (playing) return stopPlay();
   if (twidth.value === 'all') setWidth(String(W_DEFAULT));  // play needs a window narrower than the week: the default 3 h
@@ -1375,12 +1387,7 @@ $('#play').addEventListener('click', () => {
     ramp = +t1.value - +t0.value; t0.value = 0; t1.value = 0; lastW1 = TMIN - 1; syncTime();
   }
   $('#play').textContent = '❚❚ pause';
-  playing = setInterval(() => {
-    if (+t1.value >= NSTEP) { ramp = 0; return stopPlay(); }
-    if (ramp && +t1.value - +t0.value < ramp) t1.value = +t1.value + 1;
-    else { ramp = 0; t0.value = +t0.value + 1; t1.value = +t1.value + 1; }
-    syncTime();
-  }, 120);
+  startTimer();
 });
 
 $('#theme').addEventListener('click', () => {
@@ -1392,7 +1399,7 @@ matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { re
 
 // ---------- URL state ----------
 // The hash holds the whole view (selection, guide, family, window, layers, edges, flagged, table tab), defaults omitted:
-//   #sel=S%3AName&fam=datausa-income&t0=2026-06-18T06:00&t1=2026-06-18T09:00&hide=oneoffs,scratch&edges=posted,handoff&min=2&flagged=1&spread=pre-signal&layout=grouped&view=table&tab=pages
+//   #sel=S%3AName&fam=datausa-income&t0=2026-06-18T06:00&t1=2026-06-18T09:00&hide=oneoffs,scratch&edges=posted,handoff&min=2&flagged=1&spread=pre-signal&speed=2&layout=grouped&view=table&tab=pages
 // A bare #S:Name from older links still selects.
 const LAYERS = [['oneoffs', 'showOneoffs'], ['pages', 'showPages'], ['scratch', 'showScratch']];
 const isoMin = ms => new Date(ms).toISOString().slice(0, 16);
@@ -1408,6 +1415,7 @@ function hashState() {
   if (state.minW !== 1) h.set('min', state.minW);
   if (state.flaggedOnly) h.set('flagged', '1');
   if (state.spread) h.set('spread', state.spread);
+  if (speedSel.value !== '1') h.set('speed', speedSel.value);
   if (state.grouped) h.set('layout', 'grouped');
   if (isTable()) h.set('view', 'table');
   if (tableKind !== 'agents') h.set('tab', tableKind);
@@ -1432,6 +1440,7 @@ function readHash() {
   if (h.has('edges')) { const on = h.get('edges').split(','); for (const c of EDGE_ORDER) state.edgeOn[c] = on.includes(c); }
   if ([2, 3, 5].includes(+h.get('min'))) state.minW = +h.get('min');
   state.flaggedOnly = h.get('flagged') === '1';
+  if ([...speedSel.options].some(o => o.value === h.get('speed'))) speedSel.value = h.get('speed');
   if (spreadBy.has(h.get('spread'))) { state.spread = h.get('spread'); sortKey = 'spreadT'; sortDir = 1; }
   if (h.get('tab') === 'pages') tableKind = 'pages';
   return { sel: h.get('sel'), guide: h.get('guide') === '1', table: h.get('view') === 'table', grouped: h.get('layout') === 'grouped' };
