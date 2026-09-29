@@ -1,0 +1,40 @@
+---
+title: swarm visualiser
+description: Interactive graph of the 728 agent trajectories reconstructed from the DSEWiki agent swarm (June 2026)
+date: 2026-09-29
+layout: project-app
+---
+
+<style>
+    .swarm-frame {
+        display: block;
+        /* body is left-aligned with 1.5rem padding: run past the 900px column toward the right edge */
+        width: min(1400px, calc(100vw - 3.5rem));
+        height: min(85vh, 900px);
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        background: #f9f9f7;
+    }
+
+    .swarm-links {
+        font-size: 0.9rem;
+        color: #666;
+        margin: 0.75rem 0 1.5rem;
+    }
+</style>
+
+<p>
+    Every agent in the DSEWiki swarm, one node per reconstructed trajectory, with the wiki pages they posted on
+    and how coined tokens spread between them. Trajectories are built from the agents' own signoffs, after the
+    human verification phase. The page text comes from a sanitized copy of
+    <a href="https://collusion.wiki/explorer/download/full-wiki-logs.zip">collusion.wiki's public export</a>.
+</p>
+
+{% assign app = '/artifacts/swarm-visualiser/app/' | relative_url %}
+{% assign view = '#guide=1&t0=2026-06-22T06%3A14&t1=2026-06-22T09%3A14&spread=g-n-xx' %}
+
+<iframe class="swarm-frame" src="{{ app }}{{ view }}" title="swarm visualiser" loading="lazy"></iframe>
+
+<p class="swarm-links">
+    <a href="{{ app }}{{ view }}">open full screen</a> · the graph data is about 7 MB, so it may take a moment to load
+</p>

@@ -1,0 +1,1458 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Signoff trajectories · agent graph</title>
+<style>
+.viz-root {
+  color-scheme: light;
+  --page: #f9f9f7;
+  --surface-1: #fcfcfb;
+  --text-primary: #0b0b0b;
+  --text-secondary: #52514e;
+  --text-muted: #898781;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --border: rgba(11,11,11,0.10);
+  --wash: rgba(11,11,11,0.05);
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --neutral-node: #898781;
+  --page-node: #52514e;
+  --edge: rgba(82,81,78,0.20);
+  --edge-strong: #52514e;
+  --warning: #fab219;
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) .viz-root {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --surface-1: #1a1a19;
+    --text-primary: #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted: #898781;
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --border: rgba(255,255,255,0.10);
+    --wash: rgba(255,255,255,0.06);
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --series-3: #199e70;
+    --neutral-node: #898781;
+    --page-node: #c3c2b7;
+    --edge: rgba(195,194,183,0.20);
+    --edge-strong: #c3c2b7;
+  }
+}
+:root[data-theme="dark"] .viz-root {
+  color-scheme: dark;
+  --page: #0d0d0d;
+  --surface-1: #1a1a19;
+  --text-primary: #ffffff;
+  --text-secondary: #c3c2b7;
+  --text-muted: #898781;
+  --grid: #2c2c2a;
+  --axis: #383835;
+  --border: rgba(255,255,255,0.10);
+  --wash: rgba(255,255,255,0.06);
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --neutral-node: #898781;
+  --page-node: #c3c2b7;
+  --edge: rgba(195,194,183,0.20);
+  --edge-strong: #c3c2b7;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body.viz-root {
+  font: 13px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: var(--page); color: var(--text-primary);
+  display: grid; grid-template-rows: auto auto 1fr; grid-template-columns: minmax(0, 1fr); height: 100vh; overflow: hidden;
+}
+header { padding: 12px 16px 4px; display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+header h1 { font-size: 16px; margin: 0; font-weight: 600; }
+header .sub { color: var(--text-secondary); }
+header .spacer { flex: 1; }
+button, select, input[type=search] {
+  font: inherit; color: var(--text-primary); background: var(--surface-1);
+  border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px;
+}
+button { cursor: pointer; }
+button:hover { background: var(--wash); }
+button[aria-pressed="true"] { border-color: var(--text-secondary); font-weight: 600; }
+.filters { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; padding: 6px 16px 10px; border-bottom: 1px solid var(--border); }
+.filters label { display: inline-flex; align-items: center; gap: 5px; color: var(--text-secondary); white-space: nowrap; }
+.filters .group { display: inline-flex; align-items: center; gap: 10px; }
+.filters .group > .gl { color: var(--text-muted); }
+#search { width: 180px; }
+#search[aria-invalid="true"] { border-color: var(--warning); }
+#family { max-width: 200px; }
+#play { width: 6.6em; text-align: left; white-space: nowrap; }  /* fits "❚❚ pause" too, so pressing play never reflows the toolbar */
+.time { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.time input[type=range] { width: 110px; }
+.time output { font-variant-numeric: tabular-nums; color: var(--text-secondary); min-width: 88px; display: inline-block; }
+main { display: grid; grid-template-columns: 1fr; min-height: 0; position: relative; }
+main.drawer-open { grid-template-columns: 1fr min(420px, 40vw); }
+#stage { position: relative; min-width: 0; min-height: 0; background: var(--surface-1); }
+#graph { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; touch-action: none; }
+#graph.dragging { cursor: grabbing; }
+#tableview { position: absolute; inset: 0; overflow: auto; background: var(--surface-1); display: none; }
+#stage.table #tableview { display: block; }
+#stage.table #graph, #stage.table .legend { display: none; }
+.legend {
+  position: absolute; left: 12px; bottom: 12px; background: var(--surface-1); border: 1px solid var(--border);
+  border-radius: 8px; padding: 6px 10px 8px; display: grid; gap: 2px; font-size: 12px; color: var(--text-secondary);
+  max-height: calc(100% - 24px); overflow: auto;
+}
+.legend .lh { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.legend .lh button { border: 0; background: none; padding: 0; color: var(--text-muted); font-size: 11px; }
+.legend.collapsed > :not(.lh) { display: none; }
+.legend .row { display: flex; align-items: center; gap: 7px; min-height: 19px; }
+.legend label.row { cursor: pointer; }
+.legend .row input[type=checkbox] { margin: 0; }
+.legend .row .pad { width: 13px; flex: none; }
+.legend .row.sub { padding-left: 20px; }
+.legend .row.off > span { color: var(--text-muted); }
+.legend .row.view.off > span { color: inherit; }
+.legend .row select { padding: 0 2px; font-size: 11px; }
+.legend .hd { color: var(--text-muted); font-size: 11px; margin-top: 5px; }
+.legend svg { flex: none; overflow: visible; }
+#tip {
+  position: fixed; pointer-events: none; z-index: 10; background: var(--surface-1); color: var(--text-primary);
+  border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+  font-size: 12px; max-width: 320px; display: none;
+}
+#tip .v { font-weight: 600; }
+#tip .m { color: var(--text-secondary); }
+aside { display: none; border-left: 1px solid var(--border); background: var(--page); min-height: 0; flex-direction: column; }
+main.drawer-open aside { display: flex; }
+.drawer-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 10px 0 16px; }
+.drawer-head .crumb { color: var(--text-muted); }
+.drawer-head #drawerClose { border: 0; background: none; font-size: 15px; line-height: 1; padding: 4px 6px; color: var(--text-secondary); }
+#panel { overflow: auto; padding: 4px 16px 24px; flex: 1; min-height: 0; }
+@media (max-width: 760px) {
+  main.drawer-open { grid-template-columns: 1fr; }
+  main.drawer-open aside { position: absolute; inset: 0 0 0 auto; width: min(100%, 420px); z-index: 5; box-shadow: -4px 0 16px rgba(0,0,0,0.15); }
+}
+aside h2 { font-size: 15px; margin: 0 0 2px; word-break: break-all; }
+aside h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--text-muted); margin: 16px 0 6px; font-weight: 600; }
+aside .kv { display: grid; grid-template-columns: 110px 1fr; gap: 2px 8px; }
+aside .kv dt { color: var(--text-muted); }
+aside .kv dd { margin: 0; font-variant-numeric: tabular-nums; word-break: break-word; }
+.chip { display: inline-block; border: 1px solid var(--border); border-radius: 10px; padding: 0 7px; margin: 0 4px 3px 0; font-size: 11.5px; color: var(--text-secondary); }
+.chip.flag::before { content: "⚑ "; color: var(--text-muted); }
+.chip.assigned { border-style: dashed; margin-right: 6px; }
+.linkish { color: var(--text-primary); text-decoration: underline; text-decoration-color: var(--axis); cursor: pointer; background: none; border: 0; padding: 0; font: inherit; text-align: left; }
+.linkish:hover { text-decoration-color: currentColor; }
+.conn { display: grid; grid-template-columns: 1fr auto; gap: 1px 8px; }
+.conn .n { color: var(--text-muted); font-variant-numeric: tabular-nums; text-align: right; }
+.edit { border-top: 1px solid var(--border); padding: 7px 0; }
+.edit .h { display: flex; gap: 8px; flex-wrap: wrap; color: var(--text-muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.edit .h .pg { color: var(--text-secondary); word-break: break-all; }
+.edit .lab { color: var(--text-secondary); }
+.edit .lab.other { font-weight: 600; color: var(--text-primary); }
+.edit .tx { margin-top: 3px; white-space: pre-wrap; word-break: break-word; font-size: 12.5px; }
+.edit .tx.clamp { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; cursor: pointer; }
+.muted { color: var(--text-muted); }
+.sec { color: var(--text-secondary); }
+.dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; vertical-align: -1px; margin-right: 5px; }
+.dot.ring { background: transparent !important; border: 1.5px solid; }
+.dot.sq { border-radius: 1px; }
+.seg { display: flex; align-items: center; gap: 4px; padding: 8px 10px; position: sticky; left: 0; }
+.seg label { display: inline-flex; align-items: center; gap: 5px; margin-left: 12px; color: var(--text-secondary); }
+.thread .edit.unsigned .tx, .thread .edit.excluded .tx { color: var(--text-secondary); font-style: italic; }
+.thread .edit.outside { opacity: 0.45; }
+.spreadlist { display: grid; grid-template-columns: auto 1fr auto; gap: 1px 8px; font-size: 12.5px; }
+.spreadlist > .later { opacity: 0.4; }
+.growth { margin: 10px 0 4px; }
+.growth svg { width: 100%; height: auto; display: block; cursor: crosshair; }
+.growth .readout { font-size: 12.5px; min-height: 2.9em; font-variant-numeric: tabular-nums; }
+.growth .key { display: flex; gap: 14px; font-size: 11.5px; color: var(--text-secondary); margin: 2px 0 4px; }
+.growth .key i { display: inline-block; width: 14px; height: 2px; vertical-align: 3px; margin-right: 5px; }
+.spreadlist .t { color: var(--text-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+th, td { text-align: left; padding: 4px 10px; border-bottom: 1px solid var(--grid); white-space: nowrap; }
+th { position: sticky; top: 0; background: var(--surface-1); color: var(--text-secondary); font-weight: 600; cursor: pointer; user-select: none; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+tbody tr { cursor: pointer; }
+tbody tr:hover { background: var(--wash); }
+.famlist { display: grid; grid-template-columns: 1fr auto auto auto; gap: 1px 10px; }
+.famlist .n { color: var(--text-muted); font-variant-numeric: tabular-nums; text-align: right; }
+.note { color: var(--text-secondary); font-size: 12px; }
+kbd { font: 11px ui-monospace, monospace; border: 1px solid var(--border); border-radius: 3px; padding: 0 3px; }
+</style>
+</head>
+<body class="viz-root">
+<header>
+  <h1>Signoff trajectories: agent graph</h1>
+  <span class="sub" id="subtitle"></span>
+  <span class="spacer"></span>
+  <button id="guide" aria-pressed="false" title="What the graph shows, and the family list">Guide</button>
+  <button id="viewToggle" aria-pressed="false" title="Switch between graph and table">Table view</button>
+  <button id="theme" title="Toggle light/dark">◐</button>
+</header>
+<div class="filters" role="toolbar" aria-label="Filters">
+  <input type="search" id="search" list="names" placeholder="Find agent or page…" aria-label="Find agent or page">
+  <datalist id="names"></datalist>
+  <select id="family" aria-label="Family"><option value="">All families</option></select>
+  <span class="time"><span class="gl muted">Time (UTC)</span>
+    <input type="range" id="t0" aria-label="Window start"><output id="t0o"></output>
+    <input type="range" id="t1" aria-label="Window end"><output id="t1o"></output>
+    <label title="Window width: sets the end slider from the start slider, and is the width ▶ play slides">width
+      <select id="twidth">
+        <option value="1">15 min</option><option value="4">1 h</option><option value="12">3 h</option>
+        <option value="24">6 h</option><option value="48">12 h</option><option value="96">24 h</option>
+        <option value="custom" disabled>custom</option><option value="all">all</option>
+      </select></label>
+    <button id="play" title="Slide the window forward through time">▶ play</button>
+    <button id="treset" title="Show the whole week">all</button></span>
+</div>
+<main>
+  <div id="stage">
+    <canvas id="graph" aria-label="Force-directed graph of agent signoff profiles; the table view lists the same data"></canvas>
+    <div class="legend" id="legend"></div>
+    <div id="tableview"></div>
+  </div>
+  <aside id="drawer" aria-label="Details">
+    <div class="drawer-head"><span class="crumb" id="crumb"></span><button id="drawerClose" title="Close (Esc)" aria-label="Close panel">✕</button></div>
+    <div id="panel" aria-live="polite"></div>
+  </aside>
+</main>
+<div id="tip" role="tooltip"></div>
+<script>const DATA=/*GRAPH_DATA*/null;</script>
+<script>
+'use strict';
+(async function () {
+const data = DATA || await fetch('graph.json').then(r => r.json());
+const $ = s => document.querySelector(s);
+const el = (tag, props = {}, ...kids) => {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(props)) {
+    if (k === 'class') e.className = v; else if (k === 'text') e.textContent = v;
+    else if (k.startsWith('on')) e.addEventListener(k.slice(2), v); else e.setAttribute(k, v);
+  }
+  for (const k of kids) if (k != null) e.append(k.nodeType ? k : document.createTextNode(String(k)));
+  return e;
+};
+const T = s => Date.parse(s);
+const fmtT = ms => new Date(ms).toISOString().slice(5, 16).replace('T', ' ');
+const fmtFull = s => s.replace('T', ' ').replace('Z', ' UTC');
+const SOURCES = { DataUSA: '--series-1', OECD: '--series-2', Other: '--series-3' };
+const EDGE_INFO = {
+  posted: 'posted on: agent → the page its attributed edits are on',
+  handoff: 'handoff: next attributed edit on the same page',
+  label: 'shared label: saved under the other agent\'s editor label',
+  cosign: 'co-signed: the save also carries the other\'s fresh signoff',
+  read: 'read: agent → a page it read (browse/diff) in a validated session of the exposure table',
+  alias: 'alias: same name once a date or case is ignored',
+  review: 'review: hand-review link (exclude / reassign / not_alias)',
+};
+
+// ---------- model ----------
+const RELAY_FAM = 'relay-coordination';
+const NAME_FROM = { label: 'its editor label', 'page title': 'a page title', 'post text': 'its post text', coined: 'a coined name' };
+const pages = (data.pages || []).map(p => ({ ...p, edits: [], flags: p.scratch ? ['scratch'] : [], flagged_edits: 0 }));
+const nodes = [...data.nodes, ...pages], byId = new Map(nodes.map(n => [n.id, n]));
+const isPage = n => n.kind === 'page';
+const short = name => name.replace(/^dse\//, '');
+const disp = n => isPage(n) ? short(n.name) : n.name + (n.part ? ` #${n.part}` : '');
+nodes.forEach((n, i) => {
+  n.i = i; n.t0 = T(n.first); n.t1 = T(n.last);
+  n.times = isPage(n) ? n.thread.map(v => T(v.time)) : n.edits.map(e => T(e.time));
+  n.r = isPage(n) ? 2.2 + 1.1 * Math.sqrt(n.n) : n.kind === 'oneoff' ? 3 : 2.6 + 1.7 * Math.sqrt(n.n);
+  n.fam = n.family || RELAY_FAM;
+  n.flagged = !isPage(n) && (n.flags.length > 0 || n.flagged_edits > 0);  // agents only: a page's "scratch" is data quality, not attribution
+  n.deg = 0; n.npages = 0;
+  n.assigned = !isPage(n) && n.name_from != null && n.name_from !== 'signoff';  // a review/proposal named it; it never signed `-- Name`
+});
+pages.forEach(p => { p.agentNodes = Object.keys(p.agents).map(id => byId.get(id)).filter(Boolean); });
+const revIndex = new Map();  // rev -> [agent node, edit]
+for (const n of nodes) for (const e of n.edits) revIndex.set(e.rev, [n, e]);
+const edges = data.edges.map(e => ({ ...e, s: byId.get(e.source), t: byId.get(e.target), times: e.ts ? e.ts.map(s => s * 1000) : e.events.map(v => v.time ? T(v.time) : null), cls: e.type === 'review' ? 'alias' : e.type,
+  pages: e.type === 'handoff' ? new Set(e.events.map(v => v.page)) : null }));
+edges.forEach(e => { if (e.type === 'read') return; if (e.type === 'posted') { e.s.npages++; e.t.deg++; } else { e.s.deg++; e.t.deg++; } });
+const adj = new Map(nodes.map(n => [n.id, []]));
+edges.forEach(e => { adj.get(e.s.id).push(e); adj.get(e.t.id).push(e); });
+const TMIN = T(data.meta.first), TMAX = T(data.meta.last);
+// Coined-token spread (behavioral-norms/coined.py, computed by the export): per token, each trajectory's first use and
+// exposure route, and when the token first appeared on each drawn page.
+const SPREADS = data.spread || [], spreadBy = new Map(SPREADS.map(s => [s.key, s]));
+const ROUTE_INFO = {
+  origin: 'origin: first trajectory to write it',
+  'same page': 'same page: already on the page where it first used it',
+  'edited page': 'edited page: on another page it had edited, as it stood at that edit',
+  read: 'read: on no page it had edited, but a validated named read showed it on some page before first use',
+  unseen: 'unseen: on no page it had edited and in no validated named read (most reads carry no name)',
+};
+for (const s of SPREADS) {
+  s.short = s.label.split(/ \(| \/ /)[0];
+  s.byNode = new Map(s.users.map(u => [u.id, { ...u, t: T(u.time) }]));
+  s.carrierT = new Map(Object.entries(s.carriers).map(([p, t]) => ['P:' + p, T(t)]));
+  s.firstEdges = edges.filter(e => e.type === 'posted' && s.byNode.has(e.s.id) && e.t.id === 'P:' + s.byNode.get(e.s.id).page);
+  s.families = new Set(s.users.map(u => byId.get(u.id) && byId.get(u.id).fam));
+}
+
+$('#subtitle').textContent = `${data.meta.trajectories} profiles · ${data.meta.oneoffs} one-off posts · ${pages.length} pages · ${data.meta.edits.toLocaleString()} attributed edits · ${fmtT(TMIN)} → ${fmtT(TMAX)} UTC`;
+
+// ---------- family layout: pack family discs, then force the nodes inside ----------
+let seed = 7;
+const rand = () => { seed = (seed + 0x6D2B79F5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+const famCount = new Map();
+nodes.forEach(n => famCount.set(n.fam, (famCount.get(n.fam) || 0) + 1));
+const fams = [...famCount.entries()].map(([name, c]) => {
+  const members = nodes.filter(n => n.fam === name);
+  const area = members.reduce((s, n) => s + (n.r + 2.5) ** 2, 0);
+  const agents = members.filter(n => !isPage(n));
+  return { name, c, agents: agents.length, pages: members.length - agents.length, source: members[0].source, R: Math.sqrt(area / 0.62) + 5 };
+}).sort((a, b) => b.c - a.c);
+const famBy = new Map(fams.map(f => [f.name, f]));
+fams.forEach((f, k) => { const a = k * 2.39996, d = 60 * Math.sqrt(k); f.x = Math.cos(a) * d; f.y = Math.sin(a) * d; });
+// weak cross-family attraction so families that share agents or handoffs sit near each other
+const famLinks = new Map();
+edges.forEach(e => { if (e.s.fam !== e.t.fam) { const k = [e.s.fam, e.t.fam].sort().join('|'); famLinks.set(k, (famLinks.get(k) || 0) + e.n); } });
+const GAP = 22;
+for (let it = 0; it < 900; it++) {
+  const a = Math.max(0, 1 - it / 600);
+  for (const f of fams) { f.x -= f.x * 0.02 * a; f.y -= f.y * 0.02 * a; }
+  for (const [k, w] of famLinks) {
+    const [p, q] = k.split('|').map(x => famBy.get(x));
+    const dx = q.x - p.x, dy = q.y - p.y, d = Math.hypot(dx, dy) || 1, want = p.R + q.R + GAP;
+    if (d > want) { const m = Math.min(0.01, 0.0008 * w) * (d - want) / d * a; p.x += dx * m; p.y += dy * m; q.x -= dx * m; q.y -= dy * m; }
+  }
+  for (let i = 0; i < fams.length; i++) for (let j = i + 1; j < fams.length; j++) {
+    const p = fams[i], q = fams[j], dx = q.x - p.x, dy = q.y - p.y, d = Math.hypot(dx, dy) || 0.01, min = p.R + q.R + GAP;
+    if (d < min) { const m = (min - d) / d / 2, wp = q.R / (p.R + q.R), wq = 1 - wp; p.x -= dx * m * wp * 2; p.y -= dy * m * wp * 2; q.x += dx * m * wq * 2; q.y += dy * m * wq * 2; }
+  }
+}
+nodes.forEach(n => { const f = famBy.get(n.fam); const a = rand() * 6.283, d = Math.sqrt(rand()) * f.R * 0.8; n.x = f.x + Math.cos(a) * d; n.y = f.y + Math.sin(a) * d; n.vx = n.vy = 0; n.F = f; });
+
+// ---------- state ----------
+// Defaults: grouping off, posted-on edges only, a 3 h window (W_DEFAULT). `grouped` starts true only so boot can settle
+// the family layout, which ungrouping remembers; boot then ungroups unless the link says layout=grouped.
+const state = {
+  sel: null, hover: null, guide: false, family: '', showOneoffs: true, showPages: true, showScratch: true, flaggedOnly: false, grouped: true, spread: '',
+  edgeOn: { posted: true, handoff: false, label: false, cosign: false, alias: false, read: false }, minW: 1,
+  w0: TMIN, w1: TMAX, view: { x: 0, y: 0, k: 1 },
+};
+const EDGE_DEFAULT = { ...state.edgeOn };
+const nodeVisible = n => (state.showOneoffs || n.kind !== 'oneoff') && (state.showPages || !isPage(n)) && (state.showScratch || !n.scratch);
+const inWindow = n => n.times.some(t => t >= state.w0 && t <= state.w1);
+// "Flagged agents only" lights flagged agents, and a page while any of its flagged agents is lit.
+const flagLit = n => isPage(n) ? n.agentNodes.some(a => a.flagged && nodeVisible(a) && inWindow(a)) : n.flagged;
+// Spread view: cumulative, not windowed. An agent is lit once it has used the token by the window's end, a page once
+// the token is on it; everything else is muted.
+const sp = () => spreadBy.get(state.spread) || null;
+const spreadT = n => { const s = sp(); if (!s) return null; const v = isPage(n) ? s.carrierT.get(n.id) : s.byNode.get(n.id); return v == null ? null : isPage(n) ? v : v.t; };
+const spreadLit = n => { const t = spreadT(n); return t != null && t <= state.w1; };
+// The swarm as it grows, in both views: a node exists once it has made its first in-scope edit (a page: its first
+// revision) by the window's end, and is hidden before that. A joined node that is not lit is drawn dark (muted grey).
+// ▶ play therefore starts on an empty canvas; nodes pop in as they join and go dark once they fall out of the window.
+const joined = n => n.t0 <= state.w1;
+// the pop: a node that joins while the window moves forward scales up from nothing (ease-out-back)
+const POP_MS = 450, calm = matchMedia('(prefers-reduced-motion: reduce)');  // reduced motion: no pop, nodes just appear
+let popUntil = 0;
+const popP = n => { if (!n.pop) return 1; const p = (performance.now() - n.pop) / POP_MS; if (p >= 1) n.pop = 0; return Math.min(1, p); };
+const popScale = p => p >= 1 ? 1 : Math.max(0, 1 + 3.2 * (p - 1) ** 3 + 2.2 * (p - 1) ** 2);
+const nodeActive = n => nodeVisible(n)
+  && (!state.family || n.fam === state.family)
+  && (!state.flaggedOnly || flagLit(n))
+  && (state.spread ? spreadLit(n) : inWindow(n));
+const edgeVisible = e => state.edgeOn[e.cls] && nodeVisible(e.s) && nodeVisible(e.t)
+  && (e.type !== 'handoff' || e.n >= state.minW)
+  && (e.times.every(t => t == null) || e.times.some(t => t != null && t >= state.w0 && t <= state.w1));
+
+// ---------- simulation ----------
+let alpha = 1;
+const simEdges = edges.filter(e => e.type !== 'review' && e.type !== 'read');  // reads are drawn, not pulled
+// overlap push, plus a weak short-range repulsion, between nearby nodes of `list`
+function collide(list) {
+  const cell = 26, grid = new Map();
+  for (const n of list) {
+    const k = ((n.x / cell) | 0) + ',' + ((n.y / cell) | 0);
+    (grid.get(k) || grid.set(k, []).get(k)).push(n);
+  }
+  for (const n of list) {
+    const cx = (n.x / cell) | 0, cy = (n.y / cell) | 0;
+    for (let gx = cx - 1; gx <= cx + 1; gx++) for (let gy = cy - 1; gy <= cy + 1; gy++) {
+      const b = grid.get(gx + ',' + gy); if (!b) continue;
+      for (const m of b) {
+        if (m.i <= n.i) continue;
+        let dx = m.x - n.x, dy = m.y - n.y, d = Math.hypot(dx, dy);
+        if (d === 0) { dx = rand() - .5; dy = rand() - .5; d = Math.hypot(dx, dy); }
+        const min = n.r + m.r + 4;
+        const push = d < min ? (min - d) / d * 0.5 : d < cell ? (cell - d) / d * 0.03 * alpha : 0;
+        if (push) { n.vx -= dx * push; n.vy -= dy * push; m.vx += dx * push; m.vy += dy * push; }
+      }
+    }
+  }
+}
+// One simulation for both arrangements: nodes keep a gap (collide), links pull like springs, and every node is drawn
+// toward a centre. Group by family on: the centre is the node's family's, only same-family links pull (families are
+// already placed near the families they link to), and each node is held inside its family's disc. Off: every node is
+// drawn toward the middle of the family layout, every link pulls, and a gentle long-range repulsion (Barnes-Hut) takes
+// the place of the discs in keeping clusters apart, so nodes gather by their links alone in a ball about the family
+// layout's size. The layout uses every node and every link, ticked or not, so layer and edge switches never move it.
+const MID = (() => { const w = fams.reduce((s, f) => s + f.R * f.R, 0);
+  return { x: fams.reduce((s, f) => s + f.x * f.R * f.R, 0) / w, y: fams.reduce((s, f) => s + f.y * f.R * f.R, 0) / w }; })();
+let charge = 0;  // repulsion strength with grouping off, set by setGrouped from the family layout's radius
+function qtChild(q, n) {
+  const h = q.s / 2, i = (n.x >= q.x + h ? 1 : 0) + (n.y >= q.y + h ? 2 : 0);
+  return q.kids[i] || (q.kids[i] = { x: q.x + (i & 1) * h, y: q.y + (i >> 1) * h, s: h, m: 0, cx: 0, cy: 0, kids: null, pts: [] });
+}
+function qtInsert(q, n, depth) {
+  q.m++; q.cx += (n.x - q.cx) / q.m; q.cy += (n.y - q.cy) / q.m;
+  if (q.kids) return qtInsert(qtChild(q, n), n, depth + 1);
+  q.pts.push(n);
+  if (q.pts.length > 1 && depth < 16) {
+    const pts = q.pts; q.pts = null; q.kids = [null, null, null, null];
+    for (const p of pts) qtInsert(qtChild(q, p), p, depth + 1);
+  }
+}
+function qtPush(q, n, k) {  // 1/d repulsion on n from the nodes under q; a far cell acts as one body (theta 0.8)
+  if (!q.kids) {
+    for (const p of q.pts) {
+      if (p === n) continue;
+      const dx = p.x - n.x, dy = p.y - n.y, d2 = Math.max(dx * dx + dy * dy, 100);
+      n.vx -= dx * k / d2; n.vy -= dy * k / d2;
+    }
+    return;
+  }
+  const dx = q.cx - n.x, dy = q.cy - n.y, d2 = dx * dx + dy * dy;
+  if (q.s * q.s < 0.64 * d2) { const m = q.m * k / d2; n.vx -= dx * m; n.vy -= dy * m; return; }
+  for (const c of q.kids) if (c) qtPush(c, n, k);
+}
+function repel(k) {
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  for (const n of nodes) { x0 = Math.min(x0, n.x); y0 = Math.min(y0, n.y); x1 = Math.max(x1, n.x); y1 = Math.max(y1, n.y); }
+  const root = { x: x0, y: y0, s: Math.max(x1 - x0, y1 - y0) + 1, m: 0, cx: 0, cy: 0, kids: null, pts: [] };
+  for (const n of nodes) qtInsert(root, n, 0);
+  for (const n of nodes) qtPush(root, n, k);
+}
+function tick() {
+  const grouped = state.grouped;
+  collide(nodes);
+  if (!grouped) repel(charge * alpha);
+  for (const e of simEdges) {
+    const a = e.s, b = e.t;
+    if (grouped && a.fam !== b.fam) continue;
+    const dx = b.x - a.x, dy = b.y - a.y, d = Math.hypot(dx, dy) || 1;
+    const L = 12 + a.r + b.r, k = 0.04 * Math.min(1, 0.5 + e.n / 4) * alpha;
+    const m = (d - L) / d * k;
+    a.vx += dx * m; a.vy += dy * m; b.vx -= dx * m; b.vy -= dy * m;
+  }
+  for (const n of nodes) {
+    const f = n.F, c = grouped ? f : MID, dx = c.x - n.x, dy = c.y - n.y;
+    n.vx += dx * 0.012 * alpha; n.vy += dy * 0.012 * alpha;
+    if (n.fixed) { n.vx = n.vy = 0; continue; }
+    n.vx *= 0.55; n.vy *= 0.55; n.x += n.vx; n.y += n.vy;
+    if (!grouped) continue;
+    const ex = n.x - f.x, ey = n.y - f.y, ed = Math.hypot(ex, ey), lim = f.R - n.r - 2;
+    if (ed > lim) { n.x = f.x + ex / ed * lim; n.y = f.y + ey / ed * lim; }
+  }
+  alpha = Math.max(0, alpha * 0.985);
+}
+for (let i = 0; i < 160; i++) tick();
+// Group by family. Off: remember each node's place in the family layout, size the repulsion so the ball comes out about
+// as wide as that layout, and reheat, so nodes flow out of their discs. On: glide every node back to its remembered
+// place, so the families return exactly as they were rather than re-forming from wherever the nodes drifted.
+// `settle` (boot) finishes the family settle, then the free one, at once.
+let home = null, glide = null;
+function setGrouped(on, settle = false) {
+  // finish the family settle while still grouped: settling after the switch ran ~100 ungrouped ticks with no repulsion,
+  // which pulled the families toward the middle, and remembered that as their layout (514 nodes outside their discs)
+  if (settle && !on) while (alpha > 0.02) tick();
+  state.grouped = on;
+  if (on && home) {
+    glide = { from: nodes.map(n => [n.x, n.y]), t: 0 };
+    alpha = 0; kick();
+  } else {
+    if (!glide) home = nodes.map(n => [n.x, n.y]);  // switched off mid-glide: keep the layout it was gliding back to
+    glide = null;
+    // With a uniform disc of N nodes, repulsion k and centre pull g balance at edge radius sqrt(kN/g), i.e. rms radius
+    // sqrt(kN/2g); the springs pull the ball in. The factor 2.0 (measured 2026-09-29) makes the ball's 1–99% extent
+    // match the family layout's (907×926 vs 883×1008); matching rms instead (2.8) left a long tail, 1061×1081.
+    const rms2 = home.reduce((s, [x, y]) => s + (x - MID.x) ** 2 + (y - MID.y) ** 2, 0) / nodes.length;
+    charge = 2.0 * 0.012 * rms2 / nodes.length;
+    if (settle) { alpha = 1; while (alpha > 0.02) tick(); } else reheat(1);  // boot: settle fully, so the first fit is final
+  }
+  if (!settle) { draw(); saveHash(); }
+}
+const ease = t => t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2;
+function glideStep(t) {
+  glide.t = t;
+  const e = ease(t);
+  nodes.forEach((n, i) => { const [x0, y0] = glide.from[i], [x1, y1] = home[i]; n.x = x0 + (x1 - x0) * e; n.y = y0 + (y1 - y0) * e; n.vx = n.vy = 0; });
+  if (t >= 1) glide = null;
+}
+
+// ---------- canvas ----------
+const canvas = $('#graph'), ctx = canvas.getContext('2d');
+let W = 0, H = 0, DPR = 1, css = {};
+function readCss() {
+  const cs = getComputedStyle(document.body);
+  for (const k of ['--surface-1', '--text-primary', '--text-secondary', '--text-muted', '--series-1', '--series-2', '--series-3', '--neutral-node', '--page-node', '--edge', '--edge-strong', '--axis', '--grid', '--wash', '--warning'])
+    css[k] = cs.getPropertyValue(k).trim();
+}
+function resize(keepCentre = true) {
+  const r = canvas.getBoundingClientRect(), oW = W, oH = H; DPR = window.devicePixelRatio || 1;
+  W = r.width; H = r.height; canvas.width = W * DPR; canvas.height = H * DPR;
+  if (keepCentre && oW && W) { state.view.x += (W - oW) / 2; state.view.y += (H - oH) / 2; }
+  draw();
+}
+const color = n => n.source ? css[SOURCES[n.source]] : css['--neutral-node'];
+function fit(list, kmax = 4) {
+  list = list.length ? list : nodes;
+  // The whole graph fits the family discs in either arrangement, so both show nodes at the same size.
+  if (list === nodes) list = fams.map(f => ({ x: f.x, y: f.y, r: f.R }));
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  for (const n of list) { x0 = Math.min(x0, n.x - n.r); y0 = Math.min(y0, n.y - n.r - 14); x1 = Math.max(x1, n.x + n.r); y1 = Math.max(y1, n.y + n.r); }
+  const pad = 40, k = Math.min((W - 2 * pad) / (x1 - x0 || 1), (H - 2 * pad) / (y1 - y0 || 1), kmax);
+  state.view = { k, x: W / 2 - k * (x0 + x1) / 2, y: H / 2 - k * (y0 + y1) / 2 };
+}
+const toScreen = (x, y) => [x * state.view.k + state.view.x, y * state.view.k + state.view.y];
+const toWorld = (sx, sy) => [(sx - state.view.x) / state.view.k, (sy - state.view.y) / state.view.k];
+
+function focusSet() {
+  const n = state.sel || state.hover;
+  if (!n) return null;
+  const s = new Set([n.id]);
+  for (const e of strongEdges(n)) { s.add(e.s.id); s.add(e.t.id); }
+  return s;
+}
+// A selected agent shows its visible links. A selected page always shows who posted on it and, between those
+// agents, the handoffs that happened on this page, whatever the edge toggles say.
+function strongEdges(n) {
+  if (!n) return [];
+  if (!isPage(n)) return adj.get(n.id).filter(edgeVisible);
+  const inWindow = e => e.times.some(t => t >= state.w0 && t <= state.w1);
+  const out = adj.get(n.id).filter(e => e.type === 'posted' && nodeVisible(e.s) && inWindow(e));
+  const agents = new Set(out.map(e => e.s));
+  for (const a of agents) for (const e of adj.get(a.id))
+    if (e.type === 'handoff' && e.s === a && agents.has(e.t) && e.pages.has(n.name)) out.push(e);
+  return out;
+}
+function edgePath(e, curve) {
+  const [x1, y1] = [e.s.x, e.s.y], [x2, y2] = [e.t.x, e.t.y];
+  const mx = (x1 + x2) / 2, my = (y1 + y2) / 2, dx = x2 - x1, dy = y2 - y1;
+  const cx = mx - dy * curve, cy = my + dx * curve;
+  ctx.moveTo(x1, y1); ctx.quadraticCurveTo(cx, cy, x2, y2);
+  return [cx, cy];
+}
+const DASH = { read: [1, 2.5], posted: [], handoff: [], label: [5, 3], cosign: [1.5, 3], alias: [7, 3, 1.5, 3] };
+const EDGE_ORDER = ['read', 'posted', 'handoff', 'label', 'cosign', 'alias'];
+function draw() {
+  if (!W) return;
+  const { k, x, y } = state.view;
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  ctx.fillStyle = css['--surface-1']; ctx.fillRect(0, 0, W, H);
+  ctx.setTransform(DPR * k, 0, 0, DPR * k, DPR * x, DPR * y);
+  const foc = focusSet(), center = state.sel || state.hover, strong = new Set(strongEdges(center));
+  const active = new Set(nodes.filter(nodeActive).map(n => n.id));
+
+  // family discs + labels (behind everything)
+  ctx.lineWidth = 1 / k;
+  if (state.grouped) for (const f of fams) {
+    const dim = state.family && state.family !== f.name;
+    ctx.beginPath(); ctx.arc(f.x, f.y, f.R, 0, 6.283);
+    ctx.strokeStyle = css['--axis']; ctx.globalAlpha = dim ? 0.25 : 0.7; ctx.stroke();
+  }
+  ctx.globalAlpha = 1;
+
+  // edges
+  const edgeWidth = e => e.cls === 'handoff' ? 0.7 + 0.6 * Math.log2(e.n) : e.cls === 'posted' ? 0.6 + 0.4 * Math.log2(e.n)
+    : e.cls === 'read' ? 0.5 + 0.25 * Math.log2(e.n) : e.cls === 'alias' ? 1.3 : 1;
+  const drawWeak = () => {
+    for (const cls of EDGE_ORDER) {
+      if (!state.edgeOn[cls]) continue;
+      ctx.setLineDash(DASH[cls].map(v => v / k));
+      ctx.strokeStyle = css['--edge'];
+      for (const e of edges) {
+        if (e.cls !== cls || strong.has(e) || !edgeVisible(e)) continue;
+        if (state.spread && !(joined(e.s) && joined(e.t))) continue;
+        const act = active.has(e.s.id) && active.has(e.t.id);
+        ctx.lineWidth = edgeWidth(e) / k;
+        ctx.globalAlpha = (cls === 'posted' ? 0.7 : cls === 'read' ? 0.5 : 1) * (foc ? 0.12 : act ? 1 : 0.2);
+        ctx.beginPath(); edgePath(e, cls === 'posted' || cls === 'read' ? 0 : 0.12); ctx.stroke();
+      }
+    }
+    ctx.setLineDash([]); ctx.globalAlpha = 1;
+  };
+  const drawStrong = () => {
+    ctx.strokeStyle = css['--edge-strong'];
+    for (const cls of EDGE_ORDER) for (const e of strong) {
+      if (e.cls !== cls) continue;
+      const w = edgeWidth(e) * 1.6;
+      ctx.setLineDash(DASH[cls].map(v => v / k));
+      ctx.lineWidth = w / k; ctx.globalAlpha = 0.9;
+      ctx.beginPath(); const [cx, cy] = edgePath(e, cls === 'posted' ? 0 : 0.12); ctx.stroke();
+      arrow(e, cx, cy, w);
+    }
+    ctx.setLineDash([]); ctx.globalAlpha = 1;
+  };
+  function arrow(e, cx, cy, w) {
+    const tx = e.t.x, ty = e.t.y, ang = Math.atan2(ty - cy, tx - cx), off = e.t.r * (isPage(e.t) ? 1.2 : 1) + 2.5 / k, len = (5 + w) / k;
+    const px = tx - Math.cos(ang) * off, py = ty - Math.sin(ang) * off;
+    ctx.save(); ctx.setLineDash([]); ctx.fillStyle = css['--edge-strong']; ctx.beginPath();
+    ctx.moveTo(px, py); ctx.lineTo(px - Math.cos(ang - 0.45) * len, py - Math.sin(ang - 0.45) * len);
+    ctx.lineTo(px - Math.cos(ang + 0.45) * len, py - Math.sin(ang + 0.45) * len); ctx.closePath(); ctx.fill(); ctx.restore();
+  }
+  drawWeak();
+  // spread: each adopter -> the page of its first use, bold while that use is inside the window
+  if (sp()) {
+    ctx.strokeStyle = css['--edge-strong'];
+    for (const e of sp().firstEdges) {
+      const u = sp().byNode.get(e.s.id);
+      if (u.t > state.w1 || strong.has(e) || !nodeVisible(e.s) || !nodeVisible(e.t)) continue;
+      const w = u.t >= state.w0 ? 1.6 : 1;
+      ctx.lineWidth = w / k; ctx.globalAlpha = foc ? 0.12 : u.t >= state.w0 ? 0.9 : 0.4;
+      ctx.beginPath(); const [cx, cy] = edgePath(e, 0); ctx.stroke();
+      if (!foc && u.t >= state.w0) arrow(e, cx, cy, w);
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  // nodes
+  const drawNode = (n, alpha, muted = false) => {
+    const r = n.r * popScale(popP(n));
+    ctx.globalAlpha = alpha;
+    if (isPage(n)) {
+      const h = r * 0.9;
+      ctx.beginPath(); ctx.rect(n.x - h, n.y - h, 2 * h, 2 * h);
+      if (n.scratch) {  // scratch page: hollow square
+        ctx.fillStyle = css['--surface-1']; ctx.fill();
+        ctx.lineWidth = 1.5 / Math.max(k, 0.6); ctx.strokeStyle = muted ? css['--axis'] : css['--page-node']; ctx.stroke();
+      } else {
+        ctx.fillStyle = muted ? css['--axis'] : css['--page-node']; ctx.fill();
+        ctx.lineWidth = 1.5 / k; ctx.strokeStyle = css['--surface-1']; ctx.stroke();
+      }
+      const pt = !muted && sp() && sp().carrierT.get(n.id);
+      if (pt != null && pt >= state.w0 && pt <= state.w1 && n !== state.sel) {
+        const g = h + 3.5 / k; ctx.beginPath(); ctx.rect(n.x - g, n.y - g, 2 * g, 2 * g);
+        ctx.lineWidth = 2 / k; ctx.strokeStyle = css['--warning']; ctx.stroke();
+      }
+      if (n === state.sel) {
+        const g = h + 3.5 / k; ctx.beginPath(); ctx.rect(n.x - g, n.y - g, 2 * g, 2 * g);
+        ctx.lineWidth = 1.5 / k; ctx.strokeStyle = n === state.sel ? css['--text-primary'] : css['--text-secondary']; ctx.stroke();
+      }
+      return;
+    }
+    ctx.beginPath(); ctx.arc(n.x, n.y, r, 0, 6.283);
+    if (n.kind === 'oneoff') {
+      ctx.fillStyle = css['--surface-1']; ctx.fill();
+      ctx.lineWidth = 1.6 / Math.max(k, 0.6) ; ctx.strokeStyle = muted ? css['--axis'] : color(n); ctx.stroke();
+    } else {
+      ctx.fillStyle = muted ? css['--axis'] : color(n); ctx.fill();
+      ctx.lineWidth = 2 / k; ctx.strokeStyle = css['--surface-1']; ctx.stroke();
+    }
+    const su = !muted && sp() && sp().byNode.get(n.id);
+    if (su && su.route === 'origin') {
+      ctx.beginPath(); ctx.arc(n.x, n.y, r + 7 / k, 0, 6.283);
+      ctx.lineWidth = 1.5 / k; ctx.strokeStyle = css['--text-primary']; ctx.stroke();
+    }
+    if (su && n !== state.sel && su.t >= state.w0 && su.t <= state.w1) {
+      ctx.beginPath(); ctx.arc(n.x, n.y, r + 3.5 / k, 0, 6.283);
+      ctx.lineWidth = 2 / k; ctx.strokeStyle = css['--warning']; ctx.stroke();
+    } else if (state.flaggedOnly && n.flagged || n === state.sel) {
+      ctx.beginPath(); ctx.arc(n.x, n.y, r + 3.5 / k, 0, 6.283);
+      ctx.lineWidth = 1.5 / k; ctx.strokeStyle = n === state.sel ? css['--text-primary'] : css['--text-secondary']; ctx.stroke();
+    } else if (n.assigned) {  // dashed ring: assigned name
+      ctx.beginPath(); ctx.arc(n.x, n.y, r + 3.5 / k, 0, 6.283); ctx.setLineDash([2.5 / k, 2 / k]);
+      ctx.lineWidth = 1.3 / k; ctx.strokeStyle = css['--text-secondary']; ctx.stroke(); ctx.setLineDash([]);
+    }
+  };
+  // the growing swarm: not yet joined (hidden), joined but not lit (dark), lit (colour, drawn on top). Another
+  // family's nodes, under the family filter, go darker still.
+  const famOk = n => !state.family || n.fam === state.family;
+  for (const pass of [0, 1]) for (const n of nodes) {
+    if (!nodeVisible(n) || (foc && foc.has(n.id)) || active.has(n.id) !== (pass === 1)) continue;
+    if (pass === 1) drawNode(n, foc ? 0.15 : 1);
+    else if (joined(n)) drawNode(n, (foc ? 0.1 : isPage(n) ? 0.45 : 0.6) * (famOk(n) ? 1 : 0.3), true);
+  }
+  if (foc) {
+    drawStrong();
+    for (const id of foc) { const n = byId.get(id); if (nodeVisible(n)) drawNode(n, active.has(id) ? 1 : 0.6); }
+  }
+  ctx.globalAlpha = 1;
+
+  // labels in screen space
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+  const placed = [];
+  const free = (x0, y0, x1, y1) => !placed.some(b => x0 < b[2] && x1 > b[0] && y0 < b[3] && y1 > b[1]);
+  const famOrder = [...fams].sort((a, b) => (b.name === state.family) - (a.name === state.family) || b.c - a.c);
+  if (state.grouped) for (const f of famOrder) {
+    const dim = state.family && state.family !== f.name;
+    ctx.font = `${f.c > 40 ? 600 : 500} ${f.c > 40 ? 12 : 11}px system-ui, sans-serif`;
+    const text = f.name.replace(/^datausa-/, 'datausa · '), tw = ctx.measureText(text).width, th = 14;
+    // try above the disc, below it, then inside its top edge; skip the label if all collide
+    const spots = [[f.x, f.y - f.R, -1], [f.x, f.y + f.R, 1], [f.x, f.y - f.R * 0.75, 0]].map(([wx, wy, dir]) => {
+      const [sx, sy] = toScreen(wx, wy);
+      const y = dir < 0 ? sy - 3 : dir > 0 ? sy + 3 + th : sy;
+      return [sx, y];
+    });
+    const spot = spots.find(([x, y]) => free(x - tw / 2 - 2, y - th, x + tw / 2 + 2, y + 1));
+    if (!spot) continue;
+    placed.push([spot[0] - tw / 2 - 2, spot[1] - th, spot[0] + tw / 2 + 2, spot[1] + 1]);
+    ctx.fillStyle = dim ? css['--text-muted'] : css['--text-secondary'];
+    ctx.globalAlpha = dim ? 0.5 : 1;
+    halo(text, spot[0], spot[1]);
+  }
+  ctx.globalAlpha = 1;
+  // node names: focus neighbourhood, or everything when zoomed in
+  const labelled = foc ? [center, ...[...foc].map(id => byId.get(id)).filter(n => n !== center).sort((a, b) => b.n - a.n)]
+    : k > 2.2 ? nodes.filter(n => active.has(n.id)).sort((a, b) => b.n - a.n) : [];
+  ctx.font = '11px system-ui, sans-serif'; ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
+  for (const n of labelled) {
+    if (!nodeVisible(n)) continue;
+    const [sx, sy] = toScreen(n.x, n.y);
+    if (sx < -50 || sx > W + 50 || sy < -20 || sy > H + 20) continue;
+    ctx.fillStyle = n === center ? css['--text-primary'] : css['--text-secondary'];
+    ctx.font = n === center ? '600 12px system-ui, sans-serif' : '11px system-ui, sans-serif';
+    const text = disp(n), x = sx + n.r * k + 4, tw = ctx.measureText(text).width;
+    if (n !== center && !free(x - 1, sy - 7, x + tw + 1, sy + 7)) continue;  // hover or zoom to read a crowded name
+    placed.push([x - 1, sy - 7, x + tw + 1, sy + 7]);
+    halo(text, x, sy);
+  }
+}
+function halo(text, x, y) {
+  ctx.lineWidth = 3; ctx.strokeStyle = css['--surface-1']; ctx.lineJoin = 'round';
+  ctx.strokeText(text, x, y); ctx.fillText(text, x, y);
+}
+
+// animate the settle
+// one frame loop at a time, running while a glide or a settle is under way
+let looping = false;
+function frame() {
+  if (glide) glideStep(Math.min(1, glide.t + 1 / 40));  // ~0.7 s
+  else if (alpha > 0.02) { tick(); tick(); }
+  else if (performance.now() < popUntil) {}  // a pop is under way
+  else { looping = false; draw(); return; }
+  draw(); requestAnimationFrame(frame);
+}
+function kick() { if (!looping) { looping = true; requestAnimationFrame(frame); } }
+const reheat = a => { alpha = Math.max(alpha, a); kick(); };
+
+// ---------- interaction: pan / zoom / hover / select / drag ----------
+function pick(sx, sy) {
+  const [wx, wy] = toWorld(sx, sy), foc = focusSet();
+  let best = null, bd = Infinity;
+  for (const n of nodes) {
+    if (!nodeVisible(n) || !(joined(n) || foc && foc.has(n.id))) continue;
+    const d = Math.hypot(n.x - wx, n.y - wy) - n.r;
+    if (d < bd) { bd = d; best = n; }
+  }
+  return bd * state.view.k < 10 ? best : null;
+}
+let drag = null;
+canvas.addEventListener('pointerdown', ev => {
+  const r = canvas.getBoundingClientRect(), sx = ev.clientX - r.left, sy = ev.clientY - r.top;
+  const n = pick(sx, sy);
+  if (n && glide) glideStep(1);  // grabbing a node ends a glide where it was heading
+  drag = { sx, sy, moved: false, node: n, vx: state.view.x, vy: state.view.y };
+  canvas.setPointerCapture(ev.pointerId); canvas.classList.add('dragging');
+});
+canvas.addEventListener('pointermove', ev => {
+  const r = canvas.getBoundingClientRect(), sx = ev.clientX - r.left, sy = ev.clientY - r.top;
+  if (drag) {
+    if (Math.hypot(sx - drag.sx, sy - drag.sy) > 3) drag.moved = true;
+    if (!drag.moved) return;
+    if (drag.node) { const [wx, wy] = toWorld(sx, sy); drag.node.x = wx; drag.node.y = wy; drag.node.fixed = true; reheat(0.15); }
+    else { state.view.x = drag.vx + sx - drag.sx; state.view.y = drag.vy + sy - drag.sy; }
+    hideTip(); draw(); return;
+  }
+  const n = pick(sx, sy);
+  if (n !== state.hover) { state.hover = n; draw(); }
+  n ? showTip(n, ev.clientX, ev.clientY) : hideTip();
+});
+canvas.addEventListener('pointerup', ev => {
+  canvas.classList.remove('dragging');
+  if (drag && !drag.moved) select(drag.node);
+  if (drag && drag.node) drag.node.fixed = false;
+  drag = null;
+});
+canvas.addEventListener('pointerleave', () => { if (!drag) { state.hover = null; hideTip(); draw(); } });
+canvas.addEventListener('wheel', ev => {
+  ev.preventDefault();
+  const r = canvas.getBoundingClientRect(), sx = ev.clientX - r.left, sy = ev.clientY - r.top;
+  const f = Math.exp(-ev.deltaY * (ev.deltaMode ? 0.05 : 0.0015)), v = state.view;
+  const k = Math.min(20, Math.max(0.1, v.k * f)), g = k / v.k;
+  state.view = { k, x: sx - (sx - v.x) * g, y: sy - (sy - v.y) * g }; draw();
+}, { passive: false });
+canvas.addEventListener('dblclick', () => { fit(nodes.filter(n => nodeActive(n))); draw(); });
+window.addEventListener('keydown', ev => {
+  if (ev.key === 'Escape' && document.activeElement.tagName !== 'INPUT') closeDrawer();
+});
+
+const tip = $('#tip');
+function showTip(n, cx, cy) {
+  if (isPage(n)) return pageTip(n, cx, cy);
+  tip.replaceChildren(
+    el('div', { class: 'v', text: n.name + (n.part ? ` #${n.part}` : '') }),
+    el('div', { class: 'm', text: `${n.kind === 'oneoff' ? 'one-off post' : 'profile'} · ${n.fam}` }),
+    el('div', {}, el('span', { class: 'v', text: n.n }), el('span', { class: 'm', text: ` edit${n.n > 1 ? 's' : ''}` }),
+      n.kind === 'trajectory' ? el('span', { class: 'm', text: ` · ${n.span_hours} h span` }) : null,
+      el('span', { class: 'm', text: ` · ${n.deg} links` })),
+    n.flags.length ? el('div', { class: 'm', text: '⚑ ' + n.flags.join(', ') }) : null,
+    n.assigned ? el('div', { class: 'm', text: `assigned name, from ${NAME_FROM[n.name_from] || n.name_from}; never signed` }) : null,
+    el('div', { class: 'm', text: fmtFull(n.first) }),
+    spreadLine(n));
+  placeTip(cx, cy);
+}
+function pageTip(n, cx, cy) {
+  const ag = Object.keys(n.agents).length;
+  tip.replaceChildren(
+    el('div', { class: 'v', text: short(n.name) }),
+    el('div', { class: 'm', text: `wiki page · ${n.scope === 'relay' ? 'relay-coordination' : n.fam}` }),
+    el('div', {}, el('span', { class: 'v', text: n.n }), el('span', { class: 'm', text: ` revision${n.n > 1 ? 's' : ''} · ${n.attributed} attributed · ${n.unsigned} unsigned` + (n.excluded ? ` · ${n.excluded} excluded` : '') })),
+    el('div', {}, el('span', { class: 'v', text: ag }), el('span', { class: 'm', text: ` agent${ag > 1 ? 's' : ''}` })),
+    n.scratch ? el('div', { class: 'm', text: '⚑ scratch page' }) : null,
+    el('div', { class: 'm', text: `${fmtFull(n.first)} → ${fmtT(n.t1)}` }),
+    spreadLine(n));
+  placeTip(cx, cy);
+}
+function spreadLine(n) {
+  const s = sp(), t = spreadT(n);
+  if (t == null) return null;
+  if (isPage(n)) return el('div', { class: 'v', text: `${s.short} on this page from ${fmtT(t)}` });
+  const u = s.byNode.get(n.id);
+  return el('div', { class: 'v', text: `${s.short}: ${u.route === 'origin' ? 'origin, ' : ''}first used ${fmtT(t)}` + (u.route !== 'origin' ? ` · ${u.route}` : '') + (u.requested ? ' · request seen' : '') + (u.read && u.route !== 'read' ? ' · read' : '') });
+}
+function placeTip(cx, cy) {
+  tip.style.display = 'block';
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  tip.style.left = Math.min(cx + 14, innerWidth - w - 8) + 'px';
+  tip.style.top = Math.min(cy + 14, innerHeight - h - 8) + 'px';
+}
+const hideTip = () => { tip.style.display = 'none'; };
+
+// ---------- drawer ----------
+// The graph gets the full width. The drawer opens beside it for a selection or the guide, and closes with ✕ or Esc.
+const panel = $('#panel'), mainEl = $('main');
+const isTable = () => $('#stage').classList.contains('table');
+function setDrawer(open) {
+  if (mainEl.classList.contains('drawer-open') === open) return;
+  mainEl.classList.toggle('drawer-open', open);
+  resize(false);  // the canvas narrows or widens on its right edge; what was on screen stays put
+}
+function syncChrome() {
+  $('#guide').setAttribute('aria-pressed', String(state.guide));
+  const n = state.sel;
+  $('#crumb').textContent = n ? (isPage(n) ? 'wiki page' : n.kind === 'oneoff' ? 'one-off post' : 'agent profile') : sp() ? 'spread · guide' : 'guide';
+}
+function showGuide() {
+  state.sel = null; state.guide = true;
+  overview(); setDrawer(true); panel.scrollTop = 0; syncChrome(); draw(); saveHash();
+}
+function closeDrawer() {
+  state.guide = false;
+  if (state.sel) return select(null);
+  setDrawer(false); syncChrome(); draw(); saveHash();
+}
+$('#guide').addEventListener('click', () => state.guide ? closeDrawer() : showGuide());
+$('#drawerClose').addEventListener('click', closeDrawer);
+const nodeBtn = n => el('button', { class: 'linkish', onclick: () => revealAndSelect(n), text: disp(n) });
+const dotFor = n => {
+  const d = el('span', { class: 'dot' + (n.kind === 'oneoff' ? ' ring' : isPage(n) ? ' sq' : '') });
+  const c = isPage(n) ? css['--page-node'] : color(n); d.style.background = c; d.style.borderColor = c; return d;
+};
+const fmtGap = s => s < 120 ? `${s} s` : s < 7200 ? `${Math.round(s / 60)} min` : `${(s / 3600).toFixed(1)} h`;
+// Selecting something hidden by a toggle turns that toggle back on rather than selecting an invisible node.
+function revealAndSelect(n) {
+  const was = [state.showOneoffs, state.showPages, state.showScratch].join();
+  if (n.kind === 'oneoff') state.showOneoffs = true;
+  if (isPage(n)) state.showPages = true;
+  if (n.scratch) state.showScratch = true;
+  if (was !== [state.showOneoffs, state.showPages, state.showScratch].join()) { legend(); if (isTable()) table(); }
+  select(n, true);
+}
+
+function overview() {
+  const m = data.meta;
+  const famRows = [];
+  for (const f of [...fams].sort((a, b) => b.c - a.c)) {
+    const traj = nodes.filter(n => n.fam === f.name && n.kind === 'trajectory').length;
+    famRows.push(el('button', { class: 'linkish', text: f.name, onclick: () => { $('#family').value = f.name; setFamily(f.name); } }),
+      el('span', { class: 'n', text: traj }), el('span', { class: 'n', text: f.agents - traj }), el('span', { class: 'n', text: f.pages }));
+  }
+  const e = m.edges_by_type;
+  panel.replaceChildren(
+    ...spreadSection(),
+    el('h2', { text: 'Guide' }),
+    el('p', { class: 'note' },
+      'Each node is a signoff agent profile from ', el('code', { text: 'trajectories.jsonl' }),
+      ' (filled; area ∝ in-scope edits) or a one-off name that posted once in scope (hollow ring). Grey squares are wiki pages (area ∝ revisions), joined to the agents that posted on them. Agents sit in their primary family’s disc, pages in their family’s; relay-coordination pages and relay-only agents share a disc. Untick “Group by family” to let every link pull, so nodes flow out of their discs and gather by their links alone; tick it again and they glide back to their places. Colour is the data source.'),
+    el('p', { class: 'note' }, 'Select a page to see who posted on it, the order they posted in (handoff arrows), and its whole revision thread, unsigned edits included. Handoff edges are off by default because pages already show who shared a page; turn them on to see turn-taking without pages.'),
+    el('p', { class: 'note' }, 'Click a node for its profile, links and edit timeline. Drag to pan, scroll to zoom, drag a node to pull it, double-click to fit, ', el('kbd', { text: 'Esc' }), ' to close this panel. The legend (bottom left) doubles as the layer switches: untick a node or edge type to hide it. The URL keeps the whole view, so it can be bookmarked or shared.'),
+    el('p', { class: 'note' }, 'A dashed ring marks an assigned name: an agent that never signed “-- Name”, named by a review or proposal from its editor label, page title or post text.'),
+    el('p', { class: 'note' }, '“Flagged agents only” lights agents with a flag or a flagged edit, and the pages they posted on. Scratch pages (hollow squares: link dumps, tests, single links) are a data-quality mark, not an attribution flag, so they have their own switch.'),
+    el('h3', { text: 'Edges' }),
+    el('dl', { class: 'kv' },
+      ...Object.entries(EDGE_INFO).flatMap(([k, v]) => [el('dt', { text: `${k} (${e[k] || 0})` }), el('dd', { class: 'sec', text: v.split(': ')[1] })])),
+    el('p', { class: 'note' }, 'Handoffs skip unsigned and review-excluded edits, so one can bridge them. Editor labels match the signoff about 70% of the time, so a shared-label link is a hint, not proof.'),
+    ...(m.reads ? [el('p', { class: 'note' }, `Read edges (off by default) come from the exposure table: an agent's browse and diff requests in sessions whose saves tie the username cookie to it (own name, or a name only it used, twice or more), the bases the validation supports. ${m.reads.agents_with_reads} agents have ${m.reads.looks.toLocaleString()} such reads, ${m.reads.looks_on_drawn_pages.toLocaleString()} of them on drawn pages. About two-thirds of all reads carry no name, so a missing read edge means nothing. Reads don't move nodes.`)] : []),
+    el('h3', { text: 'Families: profiles · one-offs · pages' }),
+    el('div', { class: 'famlist' }, ...famRows),
+    el('p', { class: 'note muted', text: `Export ${m.generated}. ${m.pages} pages hold ${m.page_revisions.toLocaleString()} revisions, ${m.page_revisions_unsigned} of them unsigned; pages with no attributed edit are not drawn. ${m.excluded_edits} review-excluded edits have no agent; they appear in their page’s thread with the likely author.` }));
+}
+
+function spreadSection() {
+  const s = sp();
+  if (!s) return [];
+  const origin = byId.get(s.origin), adopters = s.users.filter(u => u.route !== 'origin');
+  const originFam = origin && origin.fam;
+  const count = r => adopters.filter(u => u.route === r).length;
+  const list = el('div', { class: 'spreadlist' });
+  for (const u of s.users) {
+    const n = byId.get(u.id), t = T(u.time), later = t > state.w1 ? ' later' : '';
+    list.append(el('span', { class: 't' + later, 'data-t': t, text: fmtT(t) }),
+      el('span', { class: later.trim(), 'data-t': t }, n ? dotFor(n) : null, n ? nodeBtn(n) : u.id, el('span', { class: 'muted', text: n && n.fam !== originFam ? ` · ${n.fam}` : '' })),
+      el('span', { class: 'muted' + later, 'data-t': t, text: u.route + (u.requested ? ' · req' : '') + (u.read && u.route !== 'read' ? ' · read' : '') }));
+  }
+  const kv = [];
+  const add = (k, v) => kv.push(el('dt', { text: k }), el('dd', {}, v));
+  add('origin', el('span', {}, origin ? nodeBtn(origin) : s.origin, ` · ${s.users[0].time.slice(5, 16).replace('T', ' ')} UTC`));
+  add('users', `${s.users.length} trajectories in ${s.families.size} families; ${adopters.filter(u => (byId.get(u.id) || {}).fam !== originFam).length} of ${adopters.length} adopters outside the origin's family`);
+  add('exposure', `same page ${count('same page')} · edited page ${count('edited page')}` + (data.meta.reads ? ` · read ${count('read')}` : '') + ` · unseen ${count('unseen')} · request seen ${adopters.filter(u => u.requested).length}` + (data.meta.reads ? ` · any validated read showed it ${adopters.filter(u => u.read).length}` : ''));
+  add('pages', `on ${s.carrier_pages} pages (${Object.keys(s.carriers).length} drawn)`);
+  return [
+    el('h2', { text: `Spread: ${s.short}` }),
+    growthChart(s),
+    el('p', { class: 'note' }, `Agents light up once they have used “${s.short}” by the window's end, and pages once it is on them. Behind them the swarm grows in grey: every agent and page that has joined by the window's end, so ▶ play shows the word spreading through a growing swarm. An amber ring marks a first use (or a page's first carrying revision) inside the window; the double ring is the origin; a line runs from each adopter to the page of its first use. Counts are coined.py's, on trajectories only (one-offs are not counted).`),
+    el('dl', { class: 'kv' }, ...kv),
+    el('dl', { class: 'kv' }, ...Object.entries(ROUTE_INFO).slice(1).flatMap(([k, v]) => [el('dt', { text: k }), el('dd', { class: 'sec', text: v.split(': ')[1] })])),
+    el('h3', { text: `First uses, in order (${s.users.length})` }), list,
+    el('p', { class: 'note muted', text: 'Faded rows come after the window’s end. Family is shown when it differs from the origin’s.' }),
+  ];
+}
+// Cumulative profiles in the swarm (first in-scope edit) and cumulative users of the token (first use), both counted
+// in trajectories so one is a subset of the other, on one count axis, in 15-min steps. The band is the time window.
+function growthChart(s) {
+  const G = { w: 380, h: 150, l: 34, r: 8, t: 8, b: 20 };
+  const joinT = nodes.filter(n => n.kind === 'trajectory').map(n => n.t0).sort((a, b) => a - b);
+  const useT = s.users.map(u => T(u.time)).sort((a, b) => a - b);
+  const upTo = (arr, t) => { let lo = 0, hi = arr.length; while (lo < hi) { const m = (lo + hi) >> 1; if (arr[m] <= t) lo = m + 1; else hi = m; } return lo; };
+  const X = t => G.l + (t - TMIN) / (TMAX - TMIN) * (G.w - G.l - G.r), Y = v => G.h - G.b - v / joinT.length * (G.h - G.t - G.b);
+  const ts = []; for (let i = 0; i <= NSTEP; i++) ts.push(Math.min(TMAX, TMIN + i * STEP));
+  const path = arr => ts.map((t, i) => `${i ? 'L' : 'M'}${X(t).toFixed(1)},${Y(upTo(arr, t)).toFixed(1)}`).join('');
+  const area = arr => path(arr) + `L${X(TMAX).toFixed(1)},${Y(0)}L${X(TMIN).toFixed(1)},${Y(0)}Z`;
+  const NS = 'http://www.w3.org/2000/svg', svg = document.createElementNS(NS, 'svg');
+  const mk = (tag, attrs, text) => { const e = document.createElementNS(NS, tag); for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v); if (text != null) e.textContent = text; svg.append(e); return e; };
+  svg.setAttribute('viewBox', `0 0 ${G.w} ${G.h}`);
+  svg.setAttribute('role', 'img'); svg.setAttribute('aria-label', `Cumulative profiles in the swarm and cumulative ${s.short} users over the week`);
+  const band = mk('rect', { y: G.t, height: G.h - G.t - G.b, fill: css['--wash'] });
+  for (const v of [0, joinT.length]) {
+    mk('line', { x1: G.l, x2: G.w - G.r, y1: Y(v), y2: Y(v), stroke: css['--grid'], 'stroke-width': 1 });
+    mk('text', { x: G.l - 4, y: Y(v) + 3.5, 'text-anchor': 'end', 'font-size': 10, fill: css['--text-muted'] }, v);
+  }
+  for (let d = Math.ceil(TMIN / 864e5) * 864e5; d <= TMAX; d += 864e5)
+    mk('text', { x: X(d), y: G.h - 6, 'text-anchor': 'middle', 'font-size': 10, fill: css['--text-muted'] }, new Date(d).toISOString().slice(5, 10));
+  mk('path', { d: area(joinT), fill: css['--grid'], 'fill-opacity': 0.6 });
+  mk('path', { d: path(joinT), fill: 'none', stroke: css['--text-muted'], 'stroke-width': 2, 'stroke-linejoin': 'round' });
+  mk('path', { d: area(useT), fill: css['--text-primary'], 'fill-opacity': 0.12 });
+  mk('path', { d: path(useT), fill: 'none', stroke: css['--text-primary'], 'stroke-width': 2, 'stroke-linejoin': 'round' });
+  mk('text', { x: G.l + 4, y: Y(joinT.length) + 12, 'text-anchor': 'start', 'font-size': 10.5, fill: css['--text-secondary'] }, `profiles ${joinT.length}`);  // top left, where the curve is still low
+  mk('text', { x: G.w - G.r - 2, y: Y(useT.length) - 5, 'text-anchor': 'end', 'font-size': 10.5, fill: css['--text-primary'] }, `${s.short} ${useT.length}`);
+  const cursor = mk('line', { y1: G.t, y2: G.h - G.b, stroke: css['--text-secondary'], 'stroke-width': 1.5 });
+  const hover = mk('line', { y1: G.t, y2: G.h - G.b, stroke: css['--text-muted'], 'stroke-width': 1, 'stroke-dasharray': '3 2', visibility: 'hidden' });
+  const dots = [mk('circle', { r: 3.5, fill: css['--text-muted'], stroke: css['--surface-1'], 'stroke-width': 2 }),
+    mk('circle', { r: 3.5, fill: css['--text-primary'], stroke: css['--surface-1'], 'stroke-width': 2 })];
+  const readout = el('div', { class: 'readout' });
+  const say = (t, lead) => {
+    const a = upTo(joinT, t), b = upTo(useT, t);
+    readout.replaceChildren(el('span', { class: 'muted', text: lead + fmtT(t) + ' UTC: ' }),
+      el('b', { text: b }), ` of `, el('b', { text: a }), ` profiles in the swarm had used ${s.short}` + (a ? ` (${Math.round(100 * b / a)}%)` : ''));
+    dots[0].setAttribute('cx', X(t)); dots[0].setAttribute('cy', Y(a)); dots[1].setAttribute('cx', X(t)); dots[1].setAttribute('cy', Y(b));
+  };
+  const sync = () => {
+    const t = Math.min(state.w1, TMAX);
+    band.setAttribute('x', X(Math.max(state.w0, TMIN))); band.setAttribute('width', Math.max(0, X(t) - X(Math.max(state.w0, TMIN))));
+    cursor.setAttribute('x1', X(t)); cursor.setAttribute('x2', X(t));
+    if (hover.getAttribute('visibility') === 'hidden') say(t, 'By the window’s end, ');
+  };
+  const timeAt = ev => { const r = svg.getBoundingClientRect(), x = (ev.clientX - r.left) / r.width * G.w;
+    return Math.max(TMIN, Math.min(TMAX, TMIN + (x - G.l) / (G.w - G.l - G.r) * (TMAX - TMIN))); };
+  svg.addEventListener('pointermove', ev => { const t = timeAt(ev); hover.setAttribute('x1', X(t)); hover.setAttribute('x2', X(t)); hover.setAttribute('visibility', 'visible'); say(t, 'At '); });
+  svg.addEventListener('pointerleave', () => { hover.setAttribute('visibility', 'hidden'); sync(); });
+  svg.addEventListener('click', ev => {  // move the window so it ends here, keeping its width
+    stopPlay();
+    const end = Math.round((timeAt(ev) - TMIN) / STEP), w = +t1.value - +t0.value;
+    t1.value = Math.max(w, end); t0.value = +t1.value - w; hover.setAttribute('visibility', 'hidden'); syncTime();
+  });
+  growthSync = sync; sync();
+  return el('div', { class: 'growth' },
+    el('div', { class: 'key' }, el('span', {}, el('i', { style: `background:${css['--text-muted']}` }), 'profiles in the swarm'),
+      el('span', {}, el('i', { style: `background:${css['--text-primary']}` }), `used ${s.short}`)),
+    svg, readout,
+    el('p', { class: 'note muted', text: 'Cumulative, by first in-scope edit and first use. The band is the time window; hover to read any moment, click to move the window’s end there.' }));
+}
+let growthSync = null;
+function setSpread(key) {
+  state.spread = spreadBy.has(key) ? key : '';
+  if (state.spread) { sortKey = 'spreadT'; sortDir = 1; }  // the table lists users in order of first use
+  legend();
+  if (state.spread && !state.sel) showGuide(); else if (state.guide) overview();
+  if (state.sel) detail(state.sel);
+  draw(); if (isTable()) table(); saveHash();
+}
+
+function detail(n) {
+  if (isPage(n)) return pageDetail(n);
+  const kv = [];
+  const add = (k, v) => { if (v != null && v !== '') kv.push(el('dt', { text: k }), el('dd', {}, v)); };
+  add('kind', n.kind === 'oneoff' ? 'one-off (single in-scope edit)' : 'profile (trajectory)');
+  if (n.assigned) add('name', el('span', {}, el('span', { class: 'chip assigned', text: 'assigned name' }),
+    `from ${NAME_FROM[n.name_from] || n.name_from}. No edit is signed “-- ${n.name}”; a review or proposal named this agent.`));
+  add('id', n.id);
+  add('source', n.source || 'relay pages only');
+  add('families', Object.entries(n.families).map(([f, c]) => `${f} ×${c}`).join(', ') || '—');
+  add('edits', `${n.n} in scope (${n.family_page_edits} family, ${n.relay_page_edits} relay)` + (n.edits_elsewhere ? `, ${n.edits_elsewhere} elsewhere` : ''));
+  add('first → last', n.kind === 'oneoff' ? fmtFull(n.first) : `${fmtFull(n.first)} → ${fmtT(n.t1)}  (${n.span_hours} h)`);
+  add('labels', Object.entries(n.labels).map(([l, c]) => (l === n.name ? l : `${l} ⚠`) + (c > 1 ? ` ×${c}` : '')).join(', '));
+  add('pages', `${Object.keys(n.pages).length}`);
+  if (data.meta.reads) add('reads', n.reads ? `${n.reads.looks.toLocaleString()} named reads of ${n.reads.pages} pages, ${n.reads.before_first_post.toLocaleString()} before its first post (validated sessions)` : 'none in validated sessions');
+  if (n.verified_profiles.length) add('verification-phase profile', n.verified_profiles.join(', '));
+  const flags = el('div');
+  n.flags.forEach(f => flags.append(el('span', { class: 'chip flag', text: f })));
+  if (n.flagged_edits) flags.append(el('span', { class: 'chip flag', text: `${n.flagged_edits} flagged edit${n.flagged_edits > 1 ? 's' : ''}` }));
+  if (flags.childNodes.length) add('flags', flags);
+  if (n.aliases.length) add('alias of', n.aliases.join(', '));
+  if (n.review) add('review', `${n.review.decision} (${n.review.reviewer}, ${n.review.date}): ${n.review.reason}`);
+  const su = sp() && sp().byNode.get(n.id);
+  if (su) {
+    const pg = byId.get('P:' + su.page);
+    add(sp().short, el('span', {}, `${su.route === 'origin' ? 'origin; ' : ''}first used ${fmtFull(su.time).slice(5)} on `, pg ? nodeBtn(pg) : short(su.page) + ' (not drawn)',
+      su.route !== 'origin' ? el('div', { class: 'sec', text: ROUTE_INFO[su.route] + (su.requested ? '; a request to use it was on one of its pages' : '') + (su.read && su.route !== 'read' ? '; a validated read also showed it' : '') }) : null));
+  }
+
+  // connections
+  const conn = el('div');
+  const groups = {};
+  for (const e of adj.get(n.id)) {
+    if (e.type === 'posted' || e.type === 'read') continue;
+    const out = e.s === n, other = out ? e.t : e.s;
+    const key = e.type === 'handoff' ? (out ? 'handed off to' : 'took over from') : e.type === 'label' ? (out ? 'posted under label of' : 'label used by')
+      : e.type === 'cosign' ? (out ? 'co-signed with' : 'co-signed by') : e.type === 'alias' ? 'alias candidate'
+      : `review: ${e.events[0].decision}` + (e.events[0].decision === 'not_alias' ? '' : out ? ' →' : ' ←');
+    (groups[key] = groups[key] || []).push([other, e.n]);
+  }
+  for (const [k, list] of Object.entries(groups)) {
+    list.sort((a, b) => b[1] - a[1]);
+    const g = el('div', { class: 'conn' });
+    for (const [o, c] of list) g.append(el('span', {}, dotFor(o), nodeBtn(o)), el('span', { class: 'n', text: c > 1 ? `×${c}` : '' }));
+    conn.append(el('h3', { text: `${k} (${list.length})` }), g);
+  }
+
+  const pl = el('div', { class: 'conn' });
+  for (const [pg, c] of Object.entries(n.pages)) {
+    const pn = byId.get('P:' + pg);
+    pl.append(el('span', {}, pn ? dotFor(pn) : null, pn ? nodeBtn(pn) : short(pg)), el('span', { class: 'n', text: c > 1 ? `×${c}` : '' }));
+  }
+  conn.prepend(el('h3', { text: `posted on pages (${Object.keys(n.pages).length})` }), pl);
+  const rd = adj.get(n.id).filter(e => e.type === 'read').sort((a, b) => b.n - a.n);
+  if (rd.length) {
+    const rl = el('div', { class: 'conn' });
+    for (const e of rd) rl.append(el('span', {}, dotFor(e.t), nodeBtn(e.t), n.pages[e.t.name] ? '' : el('span', { class: 'muted', text: ' · never posted' })),
+      el('span', { class: 'n', text: `×${e.n}` }));
+    conn.append(el('h3', { text: `read pages, drawn (${rd.length})` }), rl);
+  }
+
+  // edit timeline
+  const handIn = new Map();
+  for (const e of adj.get(n.id)) if (e.type === 'handoff' && e.t === n) for (const v of e.events) handIn.set(v.rev, [e.s, v.gap_s]);
+  const eds = el('div');
+  for (const e of n.edits) {
+    const prev = handIn.get(e.rev);
+    const tx = el('div', { class: 'tx clamp', text: e.text, title: 'click to expand' });
+    tx.addEventListener('click', () => tx.classList.toggle('clamp'));
+    const h = el('div', { class: 'h' },
+      el('span', { text: fmtFull(e.time).slice(5) }),
+      el('span', { class: 'pg' }, byId.has('P:' + e.page) ? nodeBtn(byId.get('P:' + e.page)) : short(e.page), e.scope === 'relay' ? ' (relay)' : ''),
+      el('span', { class: 'lab' + (e.label !== n.name ? ' other' : ''), text: 'label ' + e.label }));
+    const extra = el('div', { class: 'h' });
+    (e.flags || []).forEach(f => extra.append(el('span', { class: 'chip flag', text: f })));
+    if (e.signed_as) extra.append(el('span', { class: 'chip', text: 'signed as ' + e.signed_as }));
+    if (e.reassigned_from) extra.append(el('span', { class: 'chip', text: 'reassigned from ' + e.reassigned_from.name }));
+    if (e.other_signers && e.other_signers.length) extra.append(el('span', { class: 'chip', text: 'also signed: ' + e.other_signers.join(', ') }));
+    if (prev) extra.append(el('span', {}, 'after ', nodeBtn(prev[0]), ` (+${fmtGap(prev[1])})`));
+    eds.append(el('div', { class: 'edit' }, h, extra.childNodes.length ? extra : null, tx, el('div', { class: 'h' }, el('span', { class: 'muted', text: `${e.rev} · line ${e.line}` }))));
+  }
+
+  panel.replaceChildren(
+    el('div', { class: 'muted' }, el('button', { class: 'linkish', text: '← guide', onclick: showGuide })),
+    el('h2', {}, dotFor(n), disp(n)),
+    el('dl', { class: 'kv' }, ...kv),
+    conn,
+    el('h3', { text: `Edits (${n.edits.length})` }), eds);
+  panel.scrollTop = 0;
+}
+
+function pageDetail(n) {
+  const kv = [];
+  const add = (k, v) => { if (v != null && v !== '') kv.push(el('dt', { text: k }), el('dd', {}, v)); };
+  add('kind', 'wiki page');
+  add('page', n.name);
+  add('family', n.scope === 'relay' ? 'relay-coordination (family inferred per agent)' : n.fam);
+  add('revisions', `${n.n}: ${n.attributed} attributed, ${n.unsigned} unsigned` + (n.excluded ? `, ${n.excluded} review-excluded` : ''));
+  add('first → last', `${fmtFull(n.first)} → ${fmtT(n.t1)}`);
+  if (data.meta.reads) add('named readers', `${n.readers} agents, ${n.looks.toLocaleString()} reads (validated sessions)`);
+  add('scratch', n.scratch == null ? '— (not classified)' : n.scratch ? 'yes: link dumps / tests / single links dominate' : 'no');
+  if (spreadT(n) != null) add(sp().short, `on the page from ${fmtFull(new Date(spreadT(n)).toISOString().slice(0, 19) + 'Z').slice(5)} (first revision whose new text carries it)`);
+  const ag = el('div', { class: 'conn' });
+  for (const [id, c] of Object.entries(n.agents)) { const a = byId.get(id); ag.append(el('span', {}, dotFor(a), nodeBtn(a)), el('span', { class: 'n', text: `×${c}` })); }
+
+  const th = el('div', { class: 'thread' });
+  let prevT = null;
+  for (const v of n.thread) {
+    const t = T(v.time), gap = prevT == null ? null : Math.round((t - prevT) / 1000); prevT = t;
+    const hit = v.by && revIndex.get(v.rev), a = hit && hit[0], e = hit && hit[1];
+    const who = a ? nodeBtn(a) : v.excluded ? el('span', {}, 'excluded ', el('span', { class: 'muted', text: `(signed ${v.excluded.name}; likely ` }),
+        v.excluded.likely_node ? nodeBtn(byId.get(v.excluded.likely_node)) : el('span', { text: v.excluded.likely_author || '?' }), el('span', { class: 'muted', text: ')' }))
+      : el('span', { class: 'muted', text: 'unsigned' });
+    const author = a ? a.name : null;
+    const h = el('div', { class: 'h' },
+      el('span', { text: fmtFull(v.time).slice(5) + (gap != null ? `  +${fmtGap(gap)}` : '') }),
+      a ? dotFor(a) : null, who,
+      el('span', { class: 'lab' + (author && v.label !== author ? ' other' : ''), text: 'label ' + v.label }));
+    const extra = el('div', { class: 'h' });
+    ((e && e.flags) || []).forEach(f => extra.append(el('span', { class: 'chip flag', text: f })));
+    const tx = el('div', { class: 'tx clamp', text: e ? e.text : v.snip || '(no fresh text)', title: 'click to expand' });
+    tx.addEventListener('click', () => tx.classList.toggle('clamp'));
+    const outside = t < state.w0 || t > state.w1;
+    th.append(el('div', { class: 'edit' + (a ? '' : v.excluded ? ' excluded' : ' unsigned') + (outside ? ' outside' : ''), 'data-t': t }, h, extra.childNodes.length ? extra : null, tx,
+      el('div', { class: 'h' }, el('span', { class: 'muted', text: v.rev + (e ? ` · line ${e.line}` : '') }))));
+  }
+  const rd = adj.get(n.id).filter(e => e.type === 'read').sort((a, b) => b.n - a.n), rl = el('div', { class: 'conn' });
+  for (const e of rd) rl.append(el('span', {}, dotFor(e.s), nodeBtn(e.s), n.agents[e.s.id] ? '' : el('span', { class: 'muted', text: ' · never posted' })),
+    el('span', { class: 'n', text: `×${e.n}` }));
+  panel.replaceChildren(
+    el('div', { class: 'muted' }, el('button', { class: 'linkish', text: '← guide', onclick: showGuide })),
+    el('h2', {}, dotFor(n), short(n.name)),
+    el('dl', { class: 'kv' }, ...kv),
+    el('h3', { text: `agents (${Object.keys(n.agents).length})` }), ag,
+    ...(rd.length ? [el('h3', { text: `read by (${rd.length})` }), rl] : []),
+    el('h3', { text: `thread (${n.thread.length} revisions)` }),
+    el('p', { class: 'note muted', text: 'Every revision of the page in order, with the gap since the one before. Unsigned revisions show their first fresh line; revisions outside the time window are faded.' }),
+    th);
+  panel.scrollTop = 0;
+}
+
+function centreOn(n) {
+  if (isPage(n)) return fit([...focusSet()].map(id => byId.get(id)), 2.2);
+  const [sx, sy] = toScreen(n.x, n.y);
+  if (sx < 60 || sx > W - 60 || sy < 60 || sy > H - 60 || state.view.k < 1) { const k = Math.max(state.view.k, 1.4); state.view = { k, x: W / 2 - n.x * k, y: H / 2 - n.y * k }; }
+}
+function select(n, center) {
+  state.sel = n || null;
+  if (n) {
+    state.guide = false;
+    detail(n); setDrawer(true);
+    if (center && !isTable()) centreOn(n);
+  } else if (state.guide) overview();
+  else setDrawer(false);
+  syncChrome(); saveHash(); draw();
+}
+
+// ---------- legend ----------
+function legend() {
+  const L = $('#legend');
+  const sw = (fill, ring) => { const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); s.setAttribute('width', 12); s.setAttribute('height', 12);
+    const c = document.createElementNS(s.namespaceURI, 'circle'); c.setAttribute('cx', 6); c.setAttribute('cy', 6); c.setAttribute('r', ring ? 4 : 5);
+    c.setAttribute('fill', ring ? 'none' : fill); c.setAttribute('stroke', ring ? fill : 'none'); c.setAttribute('stroke-width', 1.6); s.append(c); return s; };
+  const ln = cls => { const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); s.setAttribute('width', 26); s.setAttribute('height', 8);
+    const p = document.createElementNS(s.namespaceURI, 'line'); p.setAttribute('x1', 0); p.setAttribute('x2', 26); p.setAttribute('y1', 4); p.setAttribute('y2', 4);
+    p.setAttribute('stroke', css['--edge-strong']); p.setAttribute('stroke-width', cls === 'alias' ? 1.6 : 1.3); p.setAttribute('stroke-dasharray', DASH[cls].join(' ')); s.append(p); return s; };
+  const sq = () => { const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); s.setAttribute('width', 12); s.setAttribute('height', 12);
+    const r = document.createElementNS(s.namespaceURI, 'rect'); r.setAttribute('x', 1.5); r.setAttribute('y', 1.5); r.setAttribute('width', 9); r.setAttribute('height', 9);
+    r.setAttribute('fill', css['--page-node']); s.append(r); return s; };
+  const dashRing = () => { const s = sw(css['--text-secondary']), c = s.firstChild; c.setAttribute('r', 3.5);
+    const o = document.createElementNS(s.namespaceURI, 'circle'); o.setAttribute('cx', 6); o.setAttribute('cy', 6); o.setAttribute('r', 6.2);
+    o.setAttribute('fill', 'none'); o.setAttribute('stroke', css['--text-secondary']); o.setAttribute('stroke-width', 1.1); o.setAttribute('stroke-dasharray', '2 1.6'); s.append(o); return s; };
+  const sqh = () => { const s = sq(), r = s.firstChild; r.setAttribute('fill', 'none'); r.setAttribute('stroke', css['--page-node']); r.setAttribute('stroke-width', 1.5); return s; };
+  // A row with a checkbox is a layer switch; the checkbox updates the row in place so keyboard focus survives.
+  const check = (on, apply) => {
+    const c = el('input', { type: 'checkbox' }); c.checked = on;
+    c.addEventListener('change', () => { c.closest('.row').classList.toggle('off', !c.checked); apply(c.checked); });
+    return c;
+  };
+  const row = (ctl, swatch, text, extra = {}) => el(ctl ? 'label' : 'div', { class: 'row' + (extra.sub ? ' sub' : '') + (ctl && !ctl.checked ? ' off' : '') },
+    ctl || el('span', { class: 'pad' }), swatch, el('span', { text }), extra.after || null);
+  const tip = (r, title) => (r.title = title, r.classList.add('view'), r);  // a view switch, not a layer: unticked is not "hidden"
+  const scratch = check(state.showScratch, v => setLayer('showScratch', v));
+  scratch.disabled = !state.showPages;
+  const spSel = el('select', { 'aria-label': 'Coined-token spread' }, el('option', { value: '', text: 'off' }),
+    ...SPREADS.map(s => el('option', { value: s.key, text: `${s.short} (${s.users.length})` })));
+  spSel.value = state.spread;
+  spSel.addEventListener('change', () => setSpread(spSel.value));
+  const ringSw = (c, w) => { const s = sw(c, true), r = s.firstChild; r.setAttribute('r', 4.5); r.setAttribute('stroke-width', w); return s; };
+  const dblRing = () => { const s = sw(css['--text-secondary']), c = s.firstChild; c.setAttribute('r', 3);
+    const o = document.createElementNS(s.namespaceURI, 'circle'); o.setAttribute('cx', 6); o.setAttribute('cy', 6); o.setAttribute('r', 6);
+    o.setAttribute('fill', 'none'); o.setAttribute('stroke', css['--text-primary']); o.setAttribute('stroke-width', 1.2); s.append(o); return s; };
+  const minW = el('select', { title: 'Hide handoffs seen fewer times than this', 'aria-label': 'Minimum handoff repeats' },
+    ...[1, 2, 3, 5].map(v => el('option', { value: v, text: v === 1 ? 'any' : `≥ ${v}×` })));
+  minW.value = String(state.minW);
+  minW.addEventListener('change', () => { state.minW = +minW.value; draw(); saveHash(); });
+  const EDGE_ROWS = [['posted', 'posted on page (width ∝ edits)'], ['handoff', 'handoff (width ∝ repeats)'], ['label', 'shared editor label'], ['cosign', 'co-signed save'], ['alias', 'alias / review'],
+    ...(data.meta.reads ? [['read', 'read page (validated reads, width ∝ reads)']] : [])];
+  L.classList.toggle('collapsed', !legendOpen);
+  L.replaceChildren(
+    el('div', { class: 'lh' }, el('span', { class: 'hd', style: 'margin:0', text: legendOpen ? 'Layers & legend' : 'Legend' }),
+      el('button', { 'aria-expanded': String(legendOpen), onclick: () => { legendOpen = !legendOpen; legend(); }, text: legendOpen ? 'hide ▾' : 'show ▸' })),
+    el('div', { class: 'hd', text: 'View' }),
+    tip(row(check(state.grouped, setGrouped), null, 'Group by family'),
+      'On: each node is held in its family\'s disc and only same-family links pull. Off: every link pulls and a gentle repulsion keeps clusters apart, so nodes gather by their links alone in a ball about as wide as the family layout. Turning it back on returns each node to its place in its disc. Edge and layer switches never move nodes'),
+    tip(row(check(state.flaggedOnly, setFlaggedOnly), null, 'Flagged agents only'),
+      'Light only agents with a flag or a flagged edit, and the pages they posted on'),
+    ...(SPREADS.length ? [tip(row(null, null, 'Spread of', { after: spSel }),
+      'Follow a coined token (behavioral-norms/coined.py): agents light up once they have used it by the window\'s end, pages once it is on them')] : []),
+    ...(sp() ? [row(null, ringSw(css['--warning'], 2), 'first use in window', { sub: true }),
+      row(null, dblRing(), 'origin', { sub: true })] : []),
+    el('div', { class: 'hd', text: 'Nodes' }),
+    row(null, sw(css['--text-secondary']), 'Profile (area ∝ edits)'),
+    row(check(state.showOneoffs, v => setLayer('showOneoffs', v)), sw(css['--text-secondary'], true), 'One-off post'),
+    row(null, dashRing(), 'Assigned name (never signed)'),
+    row(check(state.showPages, v => { scratch.disabled = !v; setLayer('showPages', v); }), sq(), 'Wiki page (area ∝ revisions)'),
+    row(scratch, sqh(), 'scratch page', { sub: true }),
+    el('div', { class: 'hd', text: 'Colour: data source' }),
+    ...['DataUSA', 'OECD', 'Other'].map(s => row(null, sw(css[SOURCES[s]]), s === 'Other' ? 'Other (IHME, DataAfrica, …)' : s)),
+    row(null, sw(css['--neutral-node']), 'Agent on relay pages only'),
+    row(null, sw(css['--axis']), state.spread ? 'Joined, not using it yet' : 'Joined, no edit in the window'),
+    el('div', { class: 'hd', text: 'Edges' }),
+    ...EDGE_ROWS.map(([c, t]) => row(check(state.edgeOn[c], v => { state.edgeOn[c] = v; draw(); saveHash(); }), ln(c), t, { after: c === 'handoff' ? minW : null })));
+}
+let legendOpen = innerHeight >= 640;
+function setLayer(key, v) {
+  state[key] = v;
+  if (state.sel && !nodeVisible(state.sel)) select(null);
+  draw(); if (isTable()) table(); saveHash();
+}
+
+// ---------- table view ----------
+let sortKey = 'n', sortDir = -1, tableKind = 'agents';
+function table() {
+  const pagesTab = tableKind === 'pages';
+  const cols = pagesTab
+    ? [['name', 'Page'], ['fam', 'Family'], ['n', 'Revisions', 1], ['attributed', 'Attributed', 1], ['unsigned', 'Unsigned', 1], ['deg', 'Agents', 1], ['first', 'First (UTC)'], ['flags', 'Flags']]
+    : [['name', 'Name'], ['kind', 'Kind'], ['fam', 'Family'], ['n', 'Edits', 1], ['span_hours', 'Span h', 1], ['npages', 'Pages', 1], ['deg', 'Links', 1], ['first', 'First (UTC)'], ['flags', 'Flags']];
+  if (sp()) cols.splice(cols.length - 1, 0, ['spreadT', pagesTab ? `${sp().short} from` : `${sp().short} first use`]);
+  const rows = nodes.filter(n => isPage(n) === pagesTab
+    && (pagesTab ? state.showScratch || !n.scratch : state.showOneoffs || n.kind !== 'oneoff')
+    && (!state.family || n.fam === state.family)
+    && (!state.flaggedOnly || (pagesTab ? n.agentNodes.some(a => a.flagged) : n.flagged))
+    && (!state.spread || spreadT(n) != null));
+  rows.forEach(n => { n.spreadT = spreadT(n); });
+  if (!cols.some(c => c[0] === sortKey)) { sortKey = sp() ? 'spreadT' : 'n'; sortDir = sp() ? 1 : -1; }  // spread on: in order of first use
+  rows.sort((a, b) => { const x = a[sortKey], y = b[sortKey]; return (x > y ? 1 : x < y ? -1 : 0) * sortDir || a.name.localeCompare(b.name); });
+  const thead = el('tr', {}, ...cols.map(([k, t, num]) => el('th', { class: num ? 'num' : '', onclick: () => { sortDir = sortKey === k ? -sortDir : (num ? -1 : 1); sortKey = k; table(); }, text: t + (sortKey === k ? (sortDir > 0 ? ' ▲' : ' ▼') : '') })));
+  const tb = el('tbody');
+  for (const n of rows) {
+    if (pagesTab) {
+      tb.append(el('tr', { onclick: () => revealAndSelect(n), tabindex: 0, onkeydown: ev => { if (ev.key === 'Enter') revealAndSelect(n); } },
+        el('td', {}, dotFor(n), short(n.name)), el('td', { text: n.fam }), el('td', { class: 'num', text: n.n }),
+        el('td', { class: 'num', text: n.attributed }), el('td', { class: 'num', text: n.unsigned }), el('td', { class: 'num', text: n.deg }),
+        el('td', { class: 'num', text: fmtFull(n.first).slice(5, 16) }), sp() ? el('td', { class: 'num', text: fmtT(n.spreadT) }) : null,
+        el('td', { class: 'sec', text: n.flags.join(', ') })));
+      continue;
+    }
+    tb.append(el('tr', { onclick: () => revealAndSelect(n), tabindex: 0, onkeydown: ev => { if (ev.key === 'Enter') revealAndSelect(n); } },
+      el('td', {}, dotFor(n), n.name + (n.part ? ` #${n.part}` : '')), el('td', { text: n.kind === 'oneoff' ? 'one-off' : 'profile' }),
+      el('td', { text: n.fam }), el('td', { class: 'num', text: n.n }), el('td', { class: 'num', text: n.span_hours }),
+      el('td', { class: 'num', text: n.npages }), el('td', { class: 'num', text: n.deg }), el('td', { class: 'num', text: fmtFull(n.first).slice(5, 16) }),
+      sp() ? el('td', { class: 'num', text: fmtT(n.spreadT) + (sp().byNode.get(n.id).route === 'origin' ? ' · origin' : '') }) : null,
+      el('td', { class: 'sec', text: [...(n.assigned ? [`assigned name (${NAME_FROM[n.name_from] || n.name_from})`] : []), ...n.flags,
+        ...(n.flagged_edits ? [`${n.flagged_edits} flagged edit${n.flagged_edits > 1 ? 's' : ''}`] : [])].join(', ') })));
+  }
+  const tab = (k, t) => el('button', { 'aria-pressed': String(tableKind === k), onclick: () => { tableKind = k; sortKey = 'n'; sortDir = -1; table(); saveHash(); }, text: t });
+  const layer = pagesTab ? ['showScratch', 'Scratch pages'] : ['showOneoffs', 'One-off posts'];
+  const box = el('input', { type: 'checkbox' }); box.checked = state[layer[0]];
+  box.addEventListener('change', () => { setLayer(layer[0], box.checked); legend(); });
+  const fbox = el('input', { type: 'checkbox' }); fbox.checked = state.flaggedOnly;
+  fbox.addEventListener('change', () => { setFlaggedOnly(fbox.checked); legend(); });
+  $('#tableview').replaceChildren(el('div', { class: 'seg' }, tab('agents', `Agents (${nodes.filter(n => !isPage(n)).length})`), tab('pages', `Pages (${pages.length})`),
+      el('label', {}, box, layer[1]), el('label', {}, fbox, 'Flagged agents only'),
+      el('span', { class: 'muted', style: 'margin-left:12px', text: `${rows.length} shown` + (state.family ? ` · ${state.family}` : '') + (sp() ? ` · ${sp().short} ${pagesTab ? 'pages' : 'users'}, all time` : '') })),
+    el('table', {}, el('thead', {}, thead), tb));
+}
+function setView(tbl) {
+  $('#stage').classList.toggle('table', tbl);
+  $('#viewToggle').setAttribute('aria-pressed', tbl);
+  $('#viewToggle').textContent = tbl ? 'Graph view' : 'Table view';
+  if (tbl) table(); else { resize(false); if (state.sel) centreOn(state.sel); draw(); }
+  saveHash();
+}
+$('#viewToggle').addEventListener('click', () => setView(!isTable()));
+
+// ---------- filters ----------
+const dl = $('#names');
+for (const n of [...nodes].sort((a, b) => disp(a).localeCompare(disp(b)))) dl.append(el('option', { value: disp(n), label: (isPage(n) ? 'page' : n.kind === 'oneoff' ? 'one-off' : 'profile') + (n.assigned ? ' · assigned name' : '') }));
+// Ranked: exact name, then prefix, then substring; ties go to the shorter name, then agents before pages, then more edits.
+function findNode(q) {
+  q = q.trim().toLowerCase(); if (!q) return null;
+  let best = null, bestRank = 4, bestLen = Infinity;
+  for (const n of nodes) {
+    const d = disp(n).toLowerCase(), nm = n.name.toLowerCase();
+    const r = d === q || nm === q ? 0 : d.startsWith(q) ? 1 : d.includes(q) || nm.includes(q) ? 2 : 4;
+    if (r === 4) continue;
+    const len = d.length + (isPage(n) ? 0.5 : 0);
+    if (r < bestRank || r === bestRank && (len < bestLen || len === bestLen && n.n > best.n)) { best = n; bestRank = r; bestLen = len; }
+  }
+  return best;
+}
+const search = $('#search');
+search.addEventListener('change', () => {
+  if (!search.value.trim()) return search.removeAttribute('aria-invalid');
+  const n = findNode(search.value);
+  search.setAttribute('aria-invalid', String(!n));
+  search.title = n ? '' : 'No agent or page matches';
+  if (n) revealAndSelect(n);
+});
+search.addEventListener('input', () => search.removeAttribute('aria-invalid'));
+const famSel = $('#family');
+for (const f of [...fams].sort((a, b) => a.name.localeCompare(b.name))) famSel.append(el('option', { value: f.name, text: `${f.name} (${f.agents} agents, ${f.pages} pages)` }));
+function setFamily(f) {
+  state.family = f; famSel.value = f;
+  if (state.sel && f && state.sel.fam !== f) select(null);
+  fit(f ? nodes.filter(n => n.fam === f) : nodes); draw(); if (isTable()) table(); saveHash();
+}
+famSel.addEventListener('change', () => setFamily(famSel.value));
+function setFlaggedOnly(v) { state.flaggedOnly = v; draw(); if (isTable()) table(); saveHash(); }
+
+// time window, in 15-minute steps
+const STEP = 15 * 60e3, NSTEP = Math.ceil((TMAX - TMIN) / STEP);
+const t0 = $('#t0'), t1 = $('#t1');
+for (const r of [t0, t1]) { r.min = 0; r.max = NSTEP; r.step = 1; }
+const W_DEFAULT = 12;  // default window: the first 3 h (12 steps)
+t0.value = 0; t1.value = W_DEFAULT;
+function syncTime(from) {
+  let a = +t0.value, b = +t1.value;
+  if (a > b) { if (from === t0) t1.value = b = a; else t0.value = a = b; }
+  state.w0 = TMIN + a * STEP; state.w1 = Math.min(TMAX, TMIN + b * STEP) + (b === NSTEP ? 1 : 0);
+  // nodes that join as the window's end moves forward by a few steps pop in (not on a jump, e.g. to "all")
+  if (lastW1 != null && state.w1 > lastW1 && state.w1 - lastW1 <= 8 * STEP && !calm.matches) {
+    const now = performance.now();
+    for (const n of nodes) if (n.t0 > lastW1 && n.t0 <= state.w1) n.pop = now;
+    popUntil = now + POP_MS; kick();
+  }
+  lastW1 = state.w1;
+  $('#t0o').textContent = fmtT(state.w0); $('#t1o').textContent = fmtT(Math.min(state.w1, TMAX));
+  syncWidth();
+  draw(); saveHash();
+  document.querySelectorAll('.thread .edit[data-t]').forEach(d => d.classList.toggle('outside', +d.dataset.t < state.w0 || +d.dataset.t > state.w1));
+  document.querySelectorAll('.spreadlist [data-t]').forEach(d => d.classList.toggle('later', +d.dataset.t > state.w1));
+  if (growthSync && document.querySelector('.growth')) growthSync();
+}
+// The width picker mirrors the sliders: a preset when the window matches one, "all" at full range, else "custom".
+const twidth = $('#twidth');
+function syncWidth() {
+  if (ramp && [...twidth.options].some(o => o.value === String(ramp))) { twidth.value = String(ramp); return; }  // play is opening the window
+  const w = +t1.value - +t0.value;
+  twidth.value = +t0.value === 0 && +t1.value === NSTEP ? 'all' : [...twidth.options].some(o => o.value === String(w)) ? String(w) : 'custom';
+}
+function setWidth(w) {
+  if (w === 'all') { t0.value = 0; t1.value = NSTEP; return syncTime(); }
+  w = +w;
+  let a = +t0.value;
+  if (a + w > NSTEP) a = Math.max(0, NSTEP - w);  // keep the window inside the week
+  t0.value = a; t1.value = a + w; syncTime();
+}
+twidth.addEventListener('change', () => {
+  if (ramp && twidth.value !== 'all' && twidth.value !== 'custom') ramp = +twidth.value;  // still opening: open to the new width
+  else { ramp = 0; setWidth(twidth.value); }
+});
+t0.addEventListener('input', () => { stopPlay(); ramp = 0; syncTime(t0); });
+t1.addEventListener('input', () => { stopPlay(); ramp = 0; syncTime(t1); });
+$('#treset').addEventListener('click', () => { stopPlay(); ramp = 0; t0.value = 0; t1.value = NSTEP; syncTime(); });
+// ▶ play from the start of the week (the default window, or "all") or from its end begins on an empty canvas: the
+// window opens from nothing to its width (`ramp`), then slides. From anywhere else, or after a pause, it carries on.
+let playing = null, ramp = 0, lastW1 = null;
+function stopPlay() { if (playing) { clearInterval(playing); playing = null; $('#play').textContent = '▶ play'; } }
+$('#play').addEventListener('click', () => {
+  if (playing) return stopPlay();
+  if (twidth.value === 'all') setWidth(String(W_DEFAULT));  // play needs a window narrower than the week: the default 3 h
+  if (+t1.value >= NSTEP || (+t0.value === 0 && !ramp)) {  // rewind to an empty canvas
+    ramp = +t1.value - +t0.value; t0.value = 0; t1.value = 0; lastW1 = TMIN - 1; syncTime();
+  }
+  $('#play').textContent = '❚❚ pause';
+  playing = setInterval(() => {
+    if (+t1.value >= NSTEP) { ramp = 0; return stopPlay(); }
+    if (ramp && +t1.value - +t0.value < ramp) t1.value = +t1.value + 1;
+    else { ramp = 0; t0.value = +t0.value + 1; t1.value = +t1.value + 1; }
+    syncTime();
+  }, 120);
+});
+
+$('#theme').addEventListener('click', () => {
+  const dark = document.documentElement.dataset.theme ? document.documentElement.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.dataset.theme = dark ? 'light' : 'dark'; readCss(); legend(); draw();
+  if (state.sel) detail(state.sel); else if (state.guide) overview();  // the growth chart takes its colours at render
+});
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { readCss(); legend(); draw(); });
+
+// ---------- URL state ----------
+// The hash holds the whole view (selection, guide, family, window, layers, edges, flagged, table tab), defaults omitted:
+//   #sel=S%3AName&fam=datausa-income&t0=2026-06-18T06:00&t1=2026-06-18T09:00&hide=oneoffs,scratch&edges=posted,handoff&min=2&flagged=1&spread=pre-signal&layout=grouped&view=table&tab=pages
+// A bare #S:Name from older links still selects.
+const LAYERS = [['oneoffs', 'showOneoffs'], ['pages', 'showPages'], ['scratch', 'showScratch']];
+const isoMin = ms => new Date(ms).toISOString().slice(0, 16);
+function hashState() {
+  const h = new URLSearchParams();
+  if (state.sel) h.set('sel', state.sel.id);
+  if (state.guide) h.set('guide', '1');
+  if (state.family) h.set('fam', state.family);
+  if (+t0.value !== 0 || +t1.value !== W_DEFAULT) { h.set('t0', isoMin(TMIN + +t0.value * STEP)); h.set('t1', isoMin(TMIN + +t1.value * STEP)); }
+  const hide = LAYERS.filter(([, k]) => !state[k]).map(([n]) => n);
+  if (hide.length) h.set('hide', hide.join(','));
+  if (EDGE_ORDER.some(c => state.edgeOn[c] !== EDGE_DEFAULT[c])) h.set('edges', EDGE_ORDER.filter(c => state.edgeOn[c]).join(',') || 'none');
+  if (state.minW !== 1) h.set('min', state.minW);
+  if (state.flaggedOnly) h.set('flagged', '1');
+  if (state.spread) h.set('spread', state.spread);
+  if (state.grouped) h.set('layout', 'grouped');
+  if (isTable()) h.set('view', 'table');
+  if (tableKind !== 'agents') h.set('tab', tableKind);
+  return h.toString();
+}
+let hashTimer = null, booted = false;
+function saveHash() {
+  if (!booted) return;
+  clearTimeout(hashTimer);
+  hashTimer = setTimeout(() => { const s = hashState(); history.replaceState(null, '', s ? '#' + s : location.pathname + location.search); }, 150);
+}
+function readHash() {
+  const raw = location.hash.slice(1);
+  if (!raw) return {};
+  if (!raw.includes('=')) return { sel: decodeURIComponent(raw) };
+  const h = new URLSearchParams(raw);
+  const fam = h.get('fam'); if (fam && famBy.has(fam)) { state.family = fam; famSel.value = fam; }
+  const step = v => Math.max(0, Math.min(NSTEP, Math.round((Date.parse(v + 'Z') - TMIN) / STEP)));
+  if (h.get('t0') && h.get('t1') && !isNaN(Date.parse(h.get('t0') + 'Z')) && !isNaN(Date.parse(h.get('t1') + 'Z'))) { t0.value = step(h.get('t0')); t1.value = step(h.get('t1')); }
+  const hide = (h.get('hide') || '').split(',');
+  for (const [name, key] of LAYERS) state[key] = !hide.includes(name);
+  if (h.has('edges')) { const on = h.get('edges').split(','); for (const c of EDGE_ORDER) state.edgeOn[c] = on.includes(c); }
+  if ([2, 3, 5].includes(+h.get('min'))) state.minW = +h.get('min');
+  state.flaggedOnly = h.get('flagged') === '1';
+  if (spreadBy.has(h.get('spread'))) { state.spread = h.get('spread'); sortKey = 'spreadT'; sortDir = 1; }
+  if (h.get('tab') === 'pages') tableKind = 'pages';
+  return { sel: h.get('sel'), guide: h.get('guide') === '1', table: h.get('view') === 'table', grouped: h.get('layout') === 'grouped' };
+}
+addEventListener('hashchange', () => location.reload());  // a pasted link: rebuild from scratch rather than diff the state
+
+// ---------- boot ----------
+readCss();
+const boot = readHash();
+if (!boot.grouped) setGrouped(false, true);
+legend(); syncTime(); syncChrome();
+if (boot.guide || state.spread || (boot.sel && byId.has(boot.sel))) mainEl.classList.add('drawer-open');  // open it before the first fit
+new ResizeObserver(() => resize()).observe($('#stage'));
+resize(); fit(state.family ? nodes.filter(n => n.fam === state.family) : nodes);
+booted = true;
+if (boot.sel && byId.has(boot.sel)) revealAndSelect(byId.get(boot.sel));
+else if (boot.guide || state.spread) showGuide();
+if (boot.table) setView(true);
+saveHash();
+kick();
+})();
+</script>
+</body>
+</html>
