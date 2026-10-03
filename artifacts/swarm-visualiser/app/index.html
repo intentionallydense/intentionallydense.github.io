@@ -342,7 +342,16 @@ const state = {
 };
 const EDGE_DEFAULT = { ...state.edgeOn };
 const nodeVisible = n => (state.showOneoffs || n.kind !== 'oneoff') && (state.showPages || !isPage(n)) && (state.showScratch || !n.scratch);
-const inWindow = n => n.times.some(t => t >= state.w0 && t <= state.w1);
+// Whether a node or edge has an event inside the window, cached per window: every frame asks for each of them, and the
+// window only moves with the sliders.
+let cw0 = NaN, cw1 = NaN;
+function syncWin() {
+  if (state.w0 === cw0 && state.w1 === cw1) return;
+  cw0 = state.w0; cw1 = state.w1;
+  for (const n of nodes) n.inWin = n.times.some(t => t >= cw0 && t <= cw1);
+  for (const e of edges) e.inWin = e.times.every(t => t == null) || e.times.some(t => t != null && t >= cw0 && t <= cw1);
+}
+const inWindow = n => (syncWin(), n.inWin);
 // "Flagged agents only" lights flagged agents, and a page while any of its flagged agents is lit.
 const flagLit = n => isPage(n) ? n.agentNodes.some(a => a.flagged && nodeVisible(a) && inWindow(a)) : n.flagged;
 // Spread view: cumulative, not windowed. An agent is lit once it has used the token by the window's end, a page once
@@ -365,7 +374,7 @@ const nodeActive = n => nodeVisible(n)
   && (state.spread ? spreadLit(n) : inWindow(n));
 const edgeVisible = e => state.edgeOn[e.cls] && nodeVisible(e.s) && nodeVisible(e.t)
   && (e.type !== 'handoff' || e.n >= state.minW)
-  && (e.times.every(t => t == null) || e.times.some(t => t != null && t >= state.w0 && t <= state.w1));
+  && (syncWin(), e.inWin);
 
 // ---------- simulation ----------
 let alpha = 1;
@@ -434,7 +443,9 @@ function repel(k) {
   for (const n of nodes) qtInsert(root, n, 0);
   for (const n of nodes) qtPush(root, n, k);
 }
+let posVersion = 0;  // bumped whenever nodes move, which invalidates the weak-edge layer (see drawScene)
 function tick() {
+  posVersion++;
   const grouped = state.grouped;
   collide(nodes);
   if (!grouped) repel(charge * alpha);
@@ -485,14 +496,15 @@ function setGrouped(on, settle = false) {
 }
 const ease = t => t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2;
 function glideStep(t) {
-  glide.t = t;
+  glide.t = t; posVersion++;
   const e = ease(t);
   nodes.forEach((n, i) => { const [x0, y0] = glide.from[i], [x1, y1] = home[i]; n.x = x0 + (x1 - x0) * e; n.y = y0 + (y1 - y0) * e; n.vx = n.vy = 0; });
   if (t >= 1) glide = null;
 }
 
 // ---------- canvas ----------
-const canvas = $('#graph'), ctx = canvas.getContext('2d');
+const canvas = $('#graph');
+let ctx = canvas.getContext('2d');  // drawScene points it at the edge layer while it fills that
 let W = 0, H = 0, DPR = 1, css = {};
 function readCss() {
   const cs = getComputedStyle(document.body);
@@ -503,7 +515,7 @@ function resize(keepCentre = true) {
   const r = canvas.getBoundingClientRect(), oW = W, oH = H; DPR = window.devicePixelRatio || 1;
   W = r.width; H = r.height; canvas.width = W * DPR; canvas.height = H * DPR;
   if (keepCentre && oW && W) { state.view.x += (W - oW) / 2; state.view.y += (H - oH) / 2; }
-  draw();
+  drawNow();
 }
 const color = n => n.source ? css[SOURCES[n.source]] : css['--neutral-node'];
 function fit(list, kmax = 4) {
@@ -544,11 +556,21 @@ function edgePath(e, curve) {
   ctx.moveTo(x1, y1); ctx.quadraticCurveTo(cx, cy, x2, y2);
   return [cx, cy];
 }
-const DASH = { read: [1, 2.5], posted: [], handoff: [], label: [5, 3], cosign: [1.5, 3], alias: [7, 3, 1.5, 3] };
+const layer = { c: document.createElement('canvas'), key: null, n: 0 };  // the weak-edge layer (see drawScene)
+layer.ctx = layer.c.getContext('2d');
+const DASH = { read: [], posted: [], handoff: [], label: [1, 2.5], cosign: [1.5, 3], alias: [7, 3, 1.5, 3] };  // dashes are slow to draw: keep them off the thousands of read edges
 const EDGE_ORDER = ['read', 'posted', 'handoff', 'label', 'cosign', 'alias'];
-function draw() {
-  if (!W) return;
+function drawScene() {
   const { k, x, y } = state.view;
+  // the visible world rectangle, for culling what is off screen
+  const [vx0, vy0] = toWorld(0, 0), [vx1, vy1] = toWorld(W, H), m = 20 / k;
+  const offEdge = (e, curve) => {
+    const pad = m + (curve ? curve * (Math.abs(e.t.x - e.s.x) + Math.abs(e.t.y - e.s.y)) : 0);
+    return Math.max(e.s.x, e.t.x) + pad < vx0 || Math.min(e.s.x, e.t.x) - pad > vx1
+      || Math.max(e.s.y, e.t.y) + pad < vy0 || Math.min(e.s.y, e.t.y) - pad > vy1;
+  };
+  const offNode = n => n.x + n.r + m < vx0 || n.x - n.r - m > vx1 || n.y + n.r + m < vy0 || n.y - n.r - m > vy1;
+  let drawn = 0;
   ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
   ctx.fillStyle = css['--surface-1']; ctx.fillRect(0, 0, W, H);
   ctx.setTransform(DPR * k, 0, 0, DPR * k, DPR * x, DPR * y);
@@ -567,18 +589,28 @@ function draw() {
   // edges
   const edgeWidth = e => e.cls === 'handoff' ? 0.7 + 0.6 * Math.log2(e.n) : e.cls === 'posted' ? 0.6 + 0.4 * Math.log2(e.n)
     : e.cls === 'read' ? 0.5 + 0.25 * Math.log2(e.n) : e.cls === 'alias' ? 1.3 : 1;
-  const drawWeak = () => {
+  // Edges of one class with the same opacity and width (to 1/8 px) share paths and strokes: thousands of separate
+  // strokes were most of the cost of a frame.
+  const drawWeak = (foc, strong) => {
     for (const cls of EDGE_ORDER) {
       if (!state.edgeOn[cls]) continue;
-      ctx.setLineDash(DASH[cls].map(v => v / k));
-      ctx.strokeStyle = css['--edge'];
+      const curve = cls === 'posted' || cls === 'read' ? 0 : 0.12, batches = new Map();
       for (const e of edges) {
         if (e.cls !== cls || strong.has(e) || !edgeVisible(e)) continue;
         if (state.spread && !(joined(e.s) && joined(e.t))) continue;
+        if (offEdge(e, curve)) continue;
         const act = active.has(e.s.id) && active.has(e.t.id);
-        ctx.lineWidth = edgeWidth(e) / k;
-        ctx.globalAlpha = (cls === 'posted' ? 0.7 : cls === 'read' ? 0.5 : 1) * (foc ? 0.12 : act ? 1 : 0.2);
-        ctx.beginPath(); edgePath(e, cls === 'posted' || cls === 'read' ? 0 : 0.12); ctx.stroke();
+        const key = (cls === 'posted' ? 0.7 : cls === 'read' ? 0.35 : 1) * (foc ? 0.12 : act ? 1 : 0.2) + '|' + Math.round(edgeWidth(e) * 8) / 8;
+        (batches.get(key) || batches.set(key, []).get(key)).push(e);
+      }
+      ctx.setLineDash(DASH[cls].map(v => v / k));
+      ctx.strokeStyle = css['--edge'];
+      for (const [key, list] of batches) {
+        const [a, w] = key.split('|').map(Number);
+        ctx.globalAlpha = a; ctx.lineWidth = w / k;
+        // in chunks: one huge translucent path rasterises slower than a few hundred-edge ones
+        for (let i = 0; i < list.length; i += 256) { ctx.beginPath(); for (const e of list.slice(i, i + 256)) edgePath(e, curve); ctx.stroke(); }
+        drawn += list.length;
       }
     }
     ctx.setLineDash([]); ctx.globalAlpha = 1;
@@ -602,13 +634,30 @@ function draw() {
     ctx.moveTo(px, py); ctx.lineTo(px - Math.cos(ang - 0.45) * len, py - Math.sin(ang - 0.45) * len);
     ctx.lineTo(px - Math.cos(ang + 0.45) * len, py - Math.sin(ang + 0.45) * len); ctx.closePath(); ctx.fill(); ctx.restore();
   }
-  drawWeak();
+  // Weak edges change with the view, the window and the toggles, not with hover or selection, which only dim them.
+  // Outside the settle animation they are drawn once into an offscreen layer and copied in, faded while something is in
+  // focus, so hovering a heavy view redraws nodes, not thousands of edges.
+  if (looping) drawWeak(foc, strong);
+  else {
+    const { sel, hover, guide, view, ...rest } = state;  // everything but focus feeds the layer
+    const key = [k, x, y, W, H, DPR, posVersion, css['--edge'], JSON.stringify(rest)].join('|');
+    if (key !== layer.key) {
+      if (layer.c.width !== canvas.width || layer.c.height !== canvas.height) { layer.c.width = canvas.width; layer.c.height = canvas.height; }
+      const main = ctx; ctx = layer.ctx;
+      ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, layer.c.width, layer.c.height);
+      ctx.setTransform(DPR * k, 0, 0, DPR * k, DPR * x, DPR * y);
+      const before = drawn; drawWeak(null, new Set()); layer.n = drawn - before; drawn = before;
+      ctx = main; layer.key = key;
+    }
+    ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = foc ? 0.12 : 1; ctx.drawImage(layer.c, 0, 0); ctx.restore();
+    drawn += layer.n;
+  }
   // spread: each adopter -> the page of its first use, bold while that use is inside the window
   if (sp()) {
     ctx.strokeStyle = css['--edge-strong'];
     for (const e of sp().firstEdges) {
       const u = sp().byNode.get(e.s.id);
-      if (u.t > state.w1 || strong.has(e) || !nodeVisible(e.s) || !nodeVisible(e.t)) continue;
+      if (u.t > state.w1 || strong.has(e) || !nodeVisible(e.s) || !nodeVisible(e.t) || offEdge(e, 0)) continue;
       const w = u.t >= state.w0 ? 1.6 : 1;
       ctx.lineWidth = w / k; ctx.globalAlpha = foc ? 0.12 : u.t >= state.w0 ? 0.9 : 0.4;
       ctx.beginPath(); const [cx, cy] = edgePath(e, 0); ctx.stroke();
@@ -670,7 +719,7 @@ function draw() {
   // family's nodes, under the family filter, go darker still.
   const famOk = n => !state.family || n.fam === state.family;
   for (const pass of [0, 1]) for (const n of nodes) {
-    if (!nodeVisible(n) || (foc && foc.has(n.id)) || active.has(n.id) !== (pass === 1)) continue;
+    if (!nodeVisible(n) || (foc && foc.has(n.id)) || active.has(n.id) !== (pass === 1) || offNode(n)) continue;
     if (pass === 1) drawNode(n, foc ? 0.15 : 1);
     else if (joined(n)) drawNode(n, (foc ? 0.1 : isPage(n) ? 0.45 : 0.6) * (famOk(n) ? 1 : 0.3), true);
   }
@@ -706,7 +755,7 @@ function draw() {
   ctx.globalAlpha = 1;
   // node names: focus neighbourhood, or everything when zoomed in
   const labelled = foc ? [center, ...[...foc].map(id => byId.get(id)).filter(n => n !== center).sort((a, b) => b.n - a.n)]
-    : k > 2.2 ? nodes.filter(n => active.has(n.id)).sort((a, b) => b.n - a.n) : [];
+    : k > 2.2 ? nodes.filter(n => active.has(n.id) && !offNode(n)).sort((a, b) => b.n - a.n) : [];
   ctx.font = '11px system-ui, sans-serif'; ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
   for (const n of labelled) {
     if (!nodeVisible(n)) continue;
@@ -719,6 +768,7 @@ function draw() {
     placed.push([x - 1, sy - 7, x + tw + 1, sy + 7]);
     halo(text, x, sy);
   }
+  return drawn;
 }
 function halo(text, x, y) {
   ctx.lineWidth = 3; ctx.strokeStyle = css['--surface-1']; ctx.lineJoin = 'round';
@@ -732,10 +782,45 @@ function frame() {
   if (glide) glideStep(Math.min(1, glide.t + 1 / 40));  // ~0.7 s
   else if (alpha > 0.02) { tick(); tick(); }
   else if (performance.now() < popUntil) {}  // a pop is under way
-  else { looping = false; draw(); return; }
-  draw(); requestAnimationFrame(frame);
+  else { looping = false; drawNow(); return; }
+  drawNow(); requestAnimationFrame(frame);
 }
 function kick() { if (!looping) { looping = true; requestAnimationFrame(frame); } }
+
+// ---------- redraw scheduling ----------
+// draw() asks for one redraw on the next frame, however many events ask before then (the frame loop, while it runs,
+// draws every frame anyway). A pan or zoom on a heavy view (drawView) moves the last full frame as a bitmap, and draws
+// in full once the view has been still for a moment, so dragging never waits on a full redraw.
+const snap = document.createElement('canvas'), snapCtx = snap.getContext('2d');
+let queued = null, heavy = false, snapView = null, viewTimer = null;
+function request(mode) {
+  if (looping) return;
+  if (queued) { if (mode === 'full') queued = 'full'; return; }
+  queued = mode;
+  requestAnimationFrame(() => { const m = queued; queued = null; if (!looping) m === 'full' ? drawNow() : blit(); });
+}
+function draw() { request('full'); }
+function drawNow() {
+  if (!W) return;
+  const t = performance.now(), drawn = drawScene();
+  heavy = performance.now() - t > 8 || drawn > 3000;
+  if (heavy) {  // keep this frame for pans and zooms
+    if (snap.width !== canvas.width || snap.height !== canvas.height) { snap.width = canvas.width; snap.height = canvas.height; }
+    snapCtx.drawImage(canvas, 0, 0); snapView = { ...state.view };
+  }
+}
+function drawView() {
+  if (!heavy || !snapView) return draw();
+  request('blit');
+  clearTimeout(viewTimer); viewTimer = setTimeout(draw, 140);
+}
+function blit() {
+  const v = state.view, s = v.k / snapView.k;
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.fillStyle = css['--surface-1']; ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.setTransform(s, 0, 0, s, DPR * (v.x - s * snapView.x), DPR * (v.y - s * snapView.y));
+  ctx.drawImage(snap, 0, 0);
+}
 const reheat = a => { alpha = Math.max(alpha, a); kick(); };
 
 // ---------- interaction: pan / zoom / hover / select / drag ----------
@@ -762,9 +847,9 @@ canvas.addEventListener('pointermove', ev => {
   if (drag) {
     if (Math.hypot(sx - drag.sx, sy - drag.sy) > 3) drag.moved = true;
     if (!drag.moved) return;
-    if (drag.node) { const [wx, wy] = toWorld(sx, sy); drag.node.x = wx; drag.node.y = wy; drag.node.fixed = true; reheat(0.15); }
+    if (drag.node) { const [wx, wy] = toWorld(sx, sy); drag.node.x = wx; drag.node.y = wy; drag.node.fixed = true; posVersion++; reheat(0.15); }
     else { state.view.x = drag.vx + sx - drag.sx; state.view.y = drag.vy + sy - drag.sy; }
-    hideTip(); draw(); return;
+    hideTip(); drag.node ? draw() : drawView(); return;
   }
   const n = pick(sx, sy);
   if (n !== state.hover) { state.hover = n; draw(); }
@@ -782,7 +867,7 @@ canvas.addEventListener('wheel', ev => {
   const r = canvas.getBoundingClientRect(), sx = ev.clientX - r.left, sy = ev.clientY - r.top;
   const f = Math.exp(-ev.deltaY * (ev.deltaMode ? 0.05 : 0.0015)), v = state.view;
   const k = Math.min(20, Math.max(0.1, v.k * f)), g = k / v.k;
-  state.view = { k, x: sx - (sx - v.x) * g, y: sy - (sy - v.y) * g }; draw();
+  state.view = { k, x: sx - (sx - v.x) * g, y: sy - (sy - v.y) * g }; drawView();
 }, { passive: false });
 canvas.addEventListener('dblclick', () => { fit(nodes.filter(n => nodeActive(n))); draw(); });
 window.addEventListener('keydown', ev => {
@@ -1166,7 +1251,9 @@ function legend() {
     c.setAttribute('fill', ring ? 'none' : fill); c.setAttribute('stroke', ring ? fill : 'none'); c.setAttribute('stroke-width', 1.6); s.append(c); return s; };
   const ln = cls => { const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); s.setAttribute('width', 26); s.setAttribute('height', 8);
     const p = document.createElementNS(s.namespaceURI, 'line'); p.setAttribute('x1', 0); p.setAttribute('x2', 26); p.setAttribute('y1', 4); p.setAttribute('y2', 4);
-    p.setAttribute('stroke', css['--edge-strong']); p.setAttribute('stroke-width', cls === 'alias' ? 1.6 : 1.3); p.setAttribute('stroke-dasharray', DASH[cls].join(' ')); s.append(p); return s; };
+    p.setAttribute('stroke', css['--edge-strong']); p.setAttribute('stroke-width', cls === 'alias' ? 1.6 : cls === 'read' ? 1 : 1.3); p.setAttribute('stroke-dasharray', DASH[cls].join(' '));
+    if (cls === 'read') p.setAttribute('opacity', 0.55);
+    s.append(p); return s; };
   const sq = () => { const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); s.setAttribute('width', 12); s.setAttribute('height', 12);
     const r = document.createElementNS(s.namespaceURI, 'rect'); r.setAttribute('x', 1.5); r.setAttribute('y', 1.5); r.setAttribute('width', 9); r.setAttribute('height', 9);
     r.setAttribute('fill', css['--page-node']); s.append(r); return s; };
