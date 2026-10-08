@@ -1,0 +1,39 @@
+---
+title: swarmwatch
+description: Live detector for LLM-swarm-like bursts in the public urlquery.net feed, re-scored every 15 minutes
+date: 2026-10-07
+layout: project-app
+---
+
+<style>
+    .swarmwatch-frame {
+        display: block;
+        /* body is left-aligned with 1.5rem padding: run past the 900px column toward the right edge */
+        width: min(1400px, calc(100vw - 3.5rem));
+        height: min(85vh, 1000px);
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        background: #f9f9f7;
+    }
+
+    .swarmwatch-links {
+        font-size: 0.9rem;
+        color: #666;
+        margin: 0.75rem 0 1.5rem;
+    }
+</style>
+
+<p>
+    Watches every public scan on urlquery.net for sites that suddenly get many new URLs, measured
+    against each site's own 60-day baseline. Agent swarms show up this way because they enumerate pages,
+    while monitors and phishing resubmits repeat the same URL. The data is live from my server and
+    re-scored every 15 minutes. Example URLs are left out of this public copy.
+</p>
+
+{% assign app = 'https://swarmwatch.intentiondense.net/' %}
+
+<iframe class="swarmwatch-frame" src="{{ app }}" title="swarmwatch" loading="lazy"></iframe>
+
+<p class="swarmwatch-links">
+    <a href="{{ app }}">open full screen</a> · <a href="{{ app }}#replay">replay view</a>
+</p>
