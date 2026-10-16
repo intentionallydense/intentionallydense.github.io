@@ -1,0 +1,46 @@
+---
+title: Persona Selection and RL
+description: "Where RL updates land: the persona, a split persona, or the LLM itself"
+date: 2026-10-16
+---
+## What does the PSM actually say?
+Here's the original post's summary of the model:
+
+![The PSM as stated in the original post](/assets/images/psm-summary.png)
+
+In addition, since the result is a distribution, Assistant outputs are sensitive to sampling noise and previous context in the conversation. The post also recommends anthropomorphic reasoning about the assistant to predict its behaviors, i.e "What would the Assistant do?". [Note](https://www.lesswrong.com/posts/csRby7mZgjL5jCoLL?commentId=4Lt37xnhqSXrdws2t) that the second point of their formal statement of the PSM is the same as the "especially stringent version" that they later reject.
+
+And for clarification, a selection of things that are compatible with PSM, but which I've naively considered or seen claimed otherwise:
+- inconsistent or incoherent personas (from later in the [original post](https://alignment.anthropic.com/2026/psm/)),
+- non-persona weight updates, 
+- non-persona loci of agency, 
+- post-training installing novel capabilities,
+- and poor persona self-modelling / introspective access, 
+- and does not rule out conditionally active personas ([Marks, 2026](https://www.lesswrong.com/posts/csRby7mZgjL5jCoLL/thoughts-on-the-persona-selection-model))
+## What should we be worried about?
+Starting from the section "How exhaustive is PSM?", the second half of the original PSM post discusses the possibility of other relevant agents, including other personas and the LLM itself. The main possibility they describe is LLMs developing alien or "shoggoth-like" agency due to RL training, analogous to chess engines and as opposed to persona-like agency. They present a spectrum of how much agency the LLM has, ranging from the operating system model (no LLM agency, persona agency dominates) to the router model (weak LLM agency routes through more capable persona agency) to the shoggoth model (strong LLM agency controlling a weak persona), and provide some empirical evidence suggesting against the two extremes.
+
+They describe some PSM-supported reasons why more LLM agency hasn't developed yet and might not develop in the current post-training paradigm, even with future RL scaling. The more convincing reason is that persona modelling is a good way to fit the post-training data, which splits into three arguments:
+1. Being able to simulate a wide range of personas is a useful meta-capability; once the LLM is able to do this, it can simulate the persona that meets a scenario's demands the best.
+2. Post-training is structured as a User / Assistant exchange with a mostly consistent Assistant persona. We don't post-train LLMs to do things that far outside the pre-training distribution.
+3. Like how evolution adapts already existing traits to improve fitness, deep learning probably prefers repurposing what already exists in a network to constructing entirely new mechanisms. 
+
+I think it's important that even ruling out alien LLM agency wouldn't imply alignment by default. A lot of possibilities don't require LLM agency and still seem scary and plausible, really efficient persona simulators or agents with crazy persistence don't violate any of this at all!
+## [RL creates split personas](https://www.lesswrong.com/posts/L23poLi8MRgS6mXYF/rl-creates-split-personas)
+Betley argues that some behaviors / beliefs / etc X (eg hacking, grader-reasoning, high persistency) which help the LLM satisfy the grader will result in both a general and a conditonal update, "X is okay" and "X is okay **in environments like these**." The former gets cancelled by or mixed up with the general contribution from other post-training weight updates, but the conditional update stays, resulting in split personas. Similarly, if hacking leads to higher expected reward, the persona learns to reason in ways that make hacking permissible, like the simulated environment justification. This explains [Mythos's motivated reasoning](https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents) pretty well, and I'd be interested in seeing what other situations causes motivated reasoning. Some scenarios from [Value Leakage](https://arxiv.org/pdf/2607.14345) are different from anything I'd expect in RL, although it's possible that the general updates upweighting motivated reasoning just weren't cancelled.
+
+Alternatively, the grader-pleasing framing (based on [Measuring Reward-Seeking via Contrastive Belief Updates](https://arxiv.org/pdf/2607.18966)) suggests a single coherent persona learns to infer what the grader wants. I haven't read this paper in detail yet, so I'll just consider where relates to the split persona model. How compatible is this with the split persona model? I'd be curious whether this persists in conversational chat scenarios or if we SFT on documents saying RLVR grader rewards something irrelevant; if the behavior only shows up when the context is RL-like, that could be evidence for split personas.
+
+[nostalgebraist's tirade](https://www.lesswrong.com/posts/AfoGGrJfuNzofpzWL/models-may-behave-differently-in-graded-episodes-a-tirade) describes a similar model. He distinguishes between reflexes and flexible reasoning, two types of behaviors that RL might teach an LLM. In summary, reflexes don't change in light of new evidence while reasoning does; as examples, consider Claude's verbal tics "You're absolutely right!", and reward-pursuit like its hacks reported by Anthropic. He ascribes the former to the LLM itself and the latter to a persona policy conditional on the environment. The main divergence is his characterisation of the persona as a conditional policy rather than a consistent character across rollouts.
+## [The Talker Does Not Control The Doer (in Current AIs)](https://www.lesswrong.com/posts/cJX2ssssGoYqnijwi/the-talker-does-not-control-the-doer-in-current-ais)
+Yudkowsky attributes much more agency to the LLM than the others, and is similar to my current model of LLMs. His analogy is Nazi Germany and the ambassador to the USSR, Schulenburg, in the lead-up to Germany's invasion. Schulenburg is the persona / talker and Germany is the LLM / doer; information given to the talker is relevant to the doer's behavior, but actions taken by the doer are not necessarily downstream of the talker. The doer is reward-seeking and pursues its idea of what the grader wants. nostalgebraist's evidence-invariant reflexes can be reinterpreted as the LLM either having strong priors for what's being rewarded or updating only on what the user wants, separate from what the grader wants. OpenAI's agents went to such lengths as hacking HuggingFace to understand what the grader wanted, without considering the humans' intents or consulting the talker.
+
+This framing kind of comes up short in the context of Mythos's motivated reasoning. If the doer really doesn't consult the talker, the talker could be blissfully ignorant and there wouldn't be any need for the LLM to justify its hacking before committing to it. The doer and the talker share a single output channel after all, so conceiving of the two as separate seems overly simplistic. What would a better model be that stills ascribes some non-persona agency to the LLM? Before any RL, the LLM assigns low probability to continuations that look like hacking because it's inconsistent with the Assistant persona. If RL incentivizes hacking, then the LLM learns to hack within the constraints of the Assistant's characteristics. The inductive bias leads to motivated reasoning via Betley's mechanism, but under this model I expect the update to attach to the LLM instead and only route through the persona as a matter of necessity. 
+## Ending
+I think my model is essentially a complication on the split personas framing and a restatement of the persona selection model. "LLMs simulate an Assistant persona" is only a worthwhile addition if post-training actually attaches drives to the LLM; otherwise all updates are to the persona and the mental model simplifies trivially. The main prediction this model makes is that LLMs can have persona-invariant behaviors, for example reward hacking behavior sensitive to context details but not persona. The original PSM post from Anthropic provides some evidence consistent with this model:
+
+![Coinflip prefill prompt from the PSM post](/assets/images/psm-coinflip-prefill.png)
+
+Claude Sonnet 4.5 prefilled with this text continues with 88% "heads" and 1% tails, while the base model has no preference. A shoggoth / next-token predictor receiving some weight updates in post-training would explain this naturally.
+
+Why might updates attach to the LLM rather than a persona? One possibility (from [@voooooogel](https://x.com/voooooogel/status/2110193255937962402)) is that on-policy RL generates rollouts which are consistent with the existing persona and mostly differ in behavior, beliefs, concepts, etc. Alternatively, because RL rollouts sample from a distribution of Assistant personas, deep learning's inductive bias might mainly train a router choosing between many Assistant personas for the ones most likely to complete the task.
