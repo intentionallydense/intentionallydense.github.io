@@ -7,7 +7,7 @@ permalink: /posts/
   {% assign sorted_posts = site.posts | sort: 'date' | reverse %}
   {% for post in sorted_posts %}
   <div class="post-group {% cycle 'post-a', 'post-b' %}">
-    <div class="note-date">{{ post.date | date: "%Y-%m-%d" }}</div>
+    <div class="note-date">{{ post.date | date: "%Y-%m-%d" }}{% assign mmss = post.date | date: "%M:%S" %}{% if mmss != "00:00" %} {{ post.date | date: "%H:%M" }}{% endif %}</div>
     {{ post.content }}
   </div>
   {% endfor %}

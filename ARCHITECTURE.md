@@ -29,6 +29,7 @@ Served at https://www.intentiondense.net via the `CNAME` file (DNS at Porkbun: `
 - **Writing vs artifacts**: Two top-level sections. Writing is chronological, text-driven (essays, writeups). Artifacts is a curated set of interactive things. Writeups about artifacts go in writing and link to the artifact.
 - **project-app layout**: Wider layout for interactive artifacts. Overrides `article img` constraints so galleries/tools render properly.
 - **mokou_search assets stay in `/mokoudb/`**: Emotes and tags.json remain at their original paths; the artifact page fetches them with absolute paths. Avoids moving hundreds of image files.
+- **Post times**: post dates show HH:MM only when the time isn't exactly on the hour. Older posts use placeholder times (noon from publish.py, round hours to order same-day posts), so on-the-hour times are treated as made up. Camera posts from personal-app carry the real posting time. No `timezone` in `_config.yml`, so times render as written.
 - **Post from issue workflow**: GitHub Action creates posts from labeled issues. Photos pasted into issues are downloaded from GitHub's CDN and committed to `assets/images/`.
 
 ## Data flow

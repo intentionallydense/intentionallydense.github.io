@@ -3,7 +3,7 @@ layout: default
 ---
 <article class="post">
   <header>
-    <div class="meta">{{ page.date | date: "%Y-%m-%d" }}</div>
+    <div class="meta">{{ page.date | date: "%Y-%m-%d" }}{% assign mmss = page.date | date: "%M:%S" %}{% if mmss != "00:00" %} {{ page.date | date: "%H:%M" }}{% endif %}</div>
   </header>
   {{ content }}
 </article>
